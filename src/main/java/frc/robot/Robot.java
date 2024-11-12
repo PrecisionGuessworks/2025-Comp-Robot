@@ -18,6 +18,8 @@ import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.simulation.BatterySim;
+import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import static edu.wpi.first.units.Units.*;
@@ -57,6 +59,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 
 
+
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
@@ -70,9 +73,11 @@ public class Robot extends TimedRobot {
   
   Optional<Alliance> ally = DriverStation.getAlliance();
   Optional<Alliance> newAlly;
+  private Vision vision;
 
   public Robot() {
     m_robotContainer = new RobotContainer();
+    vision = new Vision();
   }
 
   @Override
@@ -87,12 +92,31 @@ public class Robot extends TimedRobot {
      * This example is sufficient to show that vision integration is possible, though exact implementation
      * of how to use vision should be tuned per-robot and to the team's specification.
      */
-    if (kUseLimelight) {
-      var llMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
-      if (llMeasurement != null) {
-        m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose, Utils.fpgaToCurrentTime(llMeasurement.timestampSeconds));
-      }
+    // if (kUseLimelight) {
+    //   var llMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+    //   if (llMeasurement != null) {
+    //     m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose, Utils.fpgaToCurrentTime(llMeasurement.timestampSeconds));
+    //   }
+    // }
+    try{
+      var visionEst = vision.getEstimatedGlobalPose();
+    visionEst.ifPresent(
+            est -> {
+                // Change our trust in the measurement based on the tags we can see
+                var estStdDevs = vision.getEstimationStdDevs();
+
+                m_robotContainer.drivetrain.addVisionMeasurement(
+                        est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+            });
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+    
+
+
+
+
+
   }
 
   @Override
@@ -249,5 +273,17 @@ public class Robot extends TimedRobot {
   public void testExit() {}
 
   @Override
-  public void simulationPeriodic() {}
+  public void simulationPeriodic() {
+// Update drivetrain simulation
+
+SwerveDriveState state = m_robotContainer.drivetrain.getState();
+Pose2d pose = state.Pose;
+// Update camera simulation
+vision.simulationPeriodic(pose);
+
+var debugField = vision.getSimDebugField();
+debugField.getObject("EstimatedRobot").setPose(pose);
+
+
+  }
 }
