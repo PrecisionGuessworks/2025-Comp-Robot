@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import static edu.wpi.first.units.Units.*;
 
 import java.util.function.Supplier;
+import static frc.robot.Constants.Drive.*;
 
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.Utils;
@@ -204,9 +205,9 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
                 ),
                 new PPHolonomicDriveController(
                     // PID constants for translation
-                    new PIDConstants(10, 0, 0),
+                    new PIDConstants(PTrans, ITrans, DTrans),
                     // PID constants for rotation
-                    new PIDConstants(7, 0, 0)
+                    new PIDConstants(PRot, IRot, DRot)
                 ),
                 config,
                 // Assume the path needs to be flipped for Red vs Blue, this is normally the case

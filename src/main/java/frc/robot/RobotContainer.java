@@ -5,6 +5,7 @@
 package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
+import static frc.robot.Constants.Drive.*;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveModule.SteerRequestType;
@@ -13,6 +14,7 @@ import com.ctre.phoenix6.swerve.utility.PhoenixPIDController;
 import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+//import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,8 +27,8 @@ import frc.robot.subsystems.CommandSwerveDrivetrain;
 
 
 public class RobotContainer {
-    private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
-    private double MaxAngularRate = RotationsPerSecond.of(0.8).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+    private double MaxSpeed = MaxSpeedPercentage*(TunerConstants.kSpeedAt12Volts.in(MetersPerSecond)); // kSpeedAt12Volts desired top speed
+    private double MaxAngularRate = RotationsPerSecond.of(MaxAngularRatePercentage).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
     private final CommandXboxController joystick = new CommandXboxController(0);
 
@@ -36,12 +38,14 @@ public class RobotContainer {
 
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
-            .withDeadband(MaxSpeed * 0.15).withRotationalDeadband(MaxAngularRate * 0.15) // Add a 10% deadband
+            .withDeadband(MaxSpeed * DriveDeadband).withRotationalDeadband(MaxAngularRate * RotationDeadband) // Add a deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
+
     private final SwerveRequest.FieldCentricFacingAngle angle = new SwerveRequest.FieldCentricFacingAngle()
-            .withDeadband(MaxSpeed * 0.15).withRotationalDeadband(MaxAngularRate * 0.01) // Add a 10% deadband
+            .withDeadband(MaxSpeed * DriveDeadband).withRotationalDeadband(MaxAngularRate * SnapRotationDeadband) // Add a deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors 
           //  .withSteerRequestType(SteerRequestType.MotionMagicExpo); // Use motion magic control for steer motors
+          
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
     private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
     private final SwerveRequest.RobotCentric forwardStraight = new SwerveRequest.RobotCentric()
@@ -50,12 +54,12 @@ public class RobotContainer {
     /* Path follower */
     private final SendableChooser<Command> autoChooser;
     
-    static PhoenixPIDController headingController = new PhoenixPIDController(3, 0, 0);
+
 
     public RobotContainer() {
         autoChooser = AutoBuilder.buildAutoChooser("Tests");
         SmartDashboard.putData("Auto", autoChooser);
-
+        angle.HeadingController.setPID( PRot,  IRot , DRot);
         configureBindings();
     }
 
@@ -81,17 +85,23 @@ public class RobotContainer {
         // joystick.pov(180).whileTrue(drivetrain.applyRequest(() ->
         //     forwardStraight.withVelocityX(-0.5).withVelocityY(0))
         // );
-        joystick.x().whileTrue(drivetrain.applyRequest(() ->
-        angle.withVelocityX(-joystick.getLeftY() * MaxSpeed)
-        .withVelocityY(-joystick.getLeftX() * MaxSpeed)
-        .withTargetDirection(new Rotation2d(Math.toRadians(90)))
-        ));
+        // joystick.x().whileTrue(drivetrain.applyRequest(() ->
+        // angle.withVelocityX(-joystick.getLeftY() * MaxSpeed)
+        // .withVelocityY(-joystick.getLeftX() * MaxSpeed)
+        // .withTargetDirection(new Rotation2d(Math.toRadians(90)))
+        // ));
 
         joystick.pov(0).whileTrue(drivetrain.applyRequest(() ->
             angle.withTargetDirection(new Rotation2d(Math.toRadians(0))))
         );
+        joystick.pov(90).whileTrue(drivetrain.applyRequest(() ->
+            angle.withTargetDirection(new Rotation2d(Math.toRadians(90))))
+        );
         joystick.pov(180).whileTrue(drivetrain.applyRequest(() ->
         angle.withTargetDirection(new Rotation2d(Math.toRadians(180))))
+        );
+        joystick.pov(270).whileTrue(drivetrain.applyRequest(() ->
+            angle.withTargetDirection(new Rotation2d(Math.toRadians(270))))
         );
 
         // Run SysId routines when holding back/start and X/Y.

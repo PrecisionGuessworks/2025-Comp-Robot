@@ -54,4 +54,26 @@ public class Constants {
         public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
     }
 
+    public static class Drive { //Drive Constants that are not in TunerConstants / Gnenerated
+        // PID for Roatition and Translation for Auto and Teleop Snap
+        public static final double PTrans = 10;
+        public static final double ITrans = 0;
+        public static final double DTrans = 0.2;
+
+        public static final double PRot = 7;
+        public static final double IRot = 0;
+        public static final double DRot = 0.2;
+        
+        // 0.0-1.0 of the max speed
+        public static final double MaxSpeedPercentage = 1.0; // Default 1.0
+        // Rotation per second max angular velocity
+        public static final double MaxAngularRatePercentage = 0.8; // Default 0.75 
+
+        // Deadbands for the drive and rotation
+        public static final double DriveDeadband = 0.15; // Drive Deadband
+        public static final double RotationDeadband = 0.15; // Rotation Deadband
+        public static final double SnapRotationDeadband = 0.01; // Snap Rotation Deadband
+
+    }
+
 }
