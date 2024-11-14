@@ -66,6 +66,7 @@ public class Robot extends TimedRobot {
   private final RobotContainer m_robotContainer;
 
   private final boolean kUseLimelight = false;
+  private final boolean kUsePhoton = true;
 
   private String autoName, newAutoName;
 
@@ -92,13 +93,14 @@ public class Robot extends TimedRobot {
      * This example is sufficient to show that vision integration is possible, though exact implementation
      * of how to use vision should be tuned per-robot and to the team's specification.
      */
-    // if (kUseLimelight) {
-    //   var llMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
-    //   if (llMeasurement != null) {
-    //     m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose, Utils.fpgaToCurrentTime(llMeasurement.timestampSeconds));
-    //   }
-    // }
-    try{
+    if (kUseLimelight) {
+      var llMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+      if (llMeasurement != null) {
+        m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose, Utils.fpgaToCurrentTime(llMeasurement.timestampSeconds));
+      }
+    }
+    
+  if(kUsePhoton){
       var visionEst = vision.getEstimatedGlobalPose();
     visionEst.ifPresent(
             est -> {
@@ -108,9 +110,7 @@ public class Robot extends TimedRobot {
                 m_robotContainer.drivetrain.addVisionMeasurement(
                         est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
             });
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+          }
     
 
 
@@ -274,8 +274,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void simulationPeriodic() {
-// Update drivetrain simulation
 
+    if(kUsePhoton){
 SwerveDriveState state = m_robotContainer.drivetrain.getState();
 Pose2d pose = state.Pose;
 // Update camera simulation
@@ -283,7 +283,7 @@ vision.simulationPeriodic(pose);
 
 var debugField = vision.getSimDebugField();
 debugField.getObject("EstimatedRobot").setPose(pose);
-
+    }
 
   }
 }
