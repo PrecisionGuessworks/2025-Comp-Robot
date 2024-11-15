@@ -40,7 +40,7 @@ import edu.wpi.first.math.util.Units;
 public class Constants {
     public static class Vision {
         public static final String kCameraName = "YOUR CAMERA NAME";
-        // Cam mounted facing forward, half a meter forward of center, half a meter up from center.
+        // Cam mounted facing forward, half a meter forward of center, half a meter up from center, up 15 degs.
         public static final Transform3d kRobotToCam =
                 new Transform3d(new Translation3d(0.5, 0.0, 0.2), new Rotation3d(0, Math.toRadians(-15), 0));
 
@@ -58,11 +58,11 @@ public class Constants {
         // PID for Roatition and Translation for Auto and Teleop Snap
         public static final double PTrans = 10;
         public static final double ITrans = 0;
-        public static final double DTrans = 0.2;
+        public static final double DTrans = 0.1;
 
         public static final double PRot = 7;
         public static final double IRot = 0;
-        public static final double DRot = 0.2;
+        public static final double DRot = 0.1;
         
         // 0.0-1.0 of the max speed
         public static final double MaxSpeedPercentage = 1.0; // Default 1.0
