@@ -55,14 +55,15 @@ public class Constants {
     }
 
     public static class Drive { //Drive Constants that are not in TunerConstants / Gnenerated
-        // PID for Roatition and Translation for Auto and Teleop Snap
-        public static final double PTrans = 10;
-        public static final double ITrans = 0;
-        public static final double DTrans = 0.1;
 
-        public static final double PRot = 7;
-        public static final double IRot = 0;
-        public static final double DRot = 0.1;
+        // PID for Rotation and Translation for Auto and Teleop Snap
+        public static final double PTranslation = 5;
+        public static final double ITranslation = 0;
+        public static final double DTranslation = 0.1;
+
+        public static final double PRotation = 3;
+        public static final double IRotation = 0;
+        public static final double DRotation = 0.1;
         
         // 0.0-1.0 of the max speed
         public static final double MaxSpeedPercentage = 1.0; // Default 1.0

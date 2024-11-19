@@ -56,6 +56,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.subsystems.CommandSwerveDrivetrain;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 
 
@@ -79,6 +80,9 @@ public class Robot extends TimedRobot {
   public Robot() {
     m_robotContainer = new RobotContainer();
     vision = new Vision();
+
+    
+    
   }
 
   @Override
@@ -113,7 +117,7 @@ public class Robot extends TimedRobot {
           }
     
 
-
+          
 
 
 
@@ -122,6 +126,27 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     autoName = "";
+
+    Command resetGryo = new Command()
+    {
+        public boolean runsWhenDisabled()
+        {
+            return true;
+        }
+
+        public void initialize()
+        {
+            m_robotContainer.drivetrain.getPigeon2().reset();
+        }
+        public boolean isFinished()
+        {
+            return true;
+        }
+    };
+ 
+    SmartDashboard.putData("Reset Gyro", resetGryo);
+    
+    
   }
 
   @Override
@@ -129,7 +154,7 @@ public class Robot extends TimedRobot {
     ally = DriverStation.getAlliance();
     newAutoName = m_robotContainer.getAutonomousCommand().getName();
     if (autoName != newAutoName | ally != newAlly) {
-        newAlly = ally;
+      newAlly = ally;
         autoName = newAutoName;
         if (AutoBuilder.getAllAutoNames().contains(autoName)) {
             System.out.println("Displaying " + autoName);
@@ -137,26 +162,26 @@ public class Robot extends TimedRobot {
                 List<PathPlannerPath> pathPlannerPaths = PathPlannerAuto.getPathGroupFromAutoFile(autoName);
                 List<Pose2d> poses = new ArrayList<>();
                 for (PathPlannerPath path : pathPlannerPaths) {
-                        if (ally.isPresent()) {
-                          if (ally.get() == Alliance.Red) {
-                            poses.addAll(path.getAllPathPoints().stream()
-                            .map(point -> new Pose2d(16.541 - point.position.getX(), point.position.getY(), new Rotation2d()))
-                          .collect(Collectors.toList()));
-                          }
-                          if (ally.get() == Alliance.Blue) {
-                            poses.addAll(path.getAllPathPoints().stream()
-                            .map(point -> new Pose2d(point.position.getX(), point.position.getY(), new Rotation2d()))
-                          .collect(Collectors.toList()));
-                          }
-                        }
-                        else {
-                            System.out.println("No alliance found");
-                            poses.addAll(path.getAllPathPoints().stream()
-                            .map(point -> new Pose2d(point.position.getX(), point.position.getY(), new Rotation2d()))
-                          .collect(Collectors.toList()));
-                        }
+                  if (ally.isPresent()) {
+                    if (ally.get() == Alliance.Red) {
+                      poses.addAll(path.getAllPathPoints().stream()
+                      .map(point -> new Pose2d(16.541 - point.position.getX(), point.position.getY(), new Rotation2d()))
+                    .collect(Collectors.toList()));
+                    }
+                    if (ally.get() == Alliance.Blue) {
+                      poses.addAll(path.getAllPathPoints().stream()
+                      .map(point -> new Pose2d(point.position.getX(), point.position.getY(), new Rotation2d()))
+                    .collect(Collectors.toList()));
+                    }
+                  }
+                  else {
+                      System.out.println("No alliance found");
+                      poses.addAll(path.getAllPathPoints().stream()
+                      .map(point -> new Pose2d(point.position.getX(), point.position.getY(), new Rotation2d()))
+                    .collect(Collectors.toList()));
+                  }
                 }
-              
+                
                 m_field.getObject("path").setPoses(poses);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -169,9 +194,7 @@ public class Robot extends TimedRobot {
             }
         }
     }
-    SwerveDriveState state = m_robotContainer.drivetrain.getState();
-    Pose2d pose = state.Pose;
-    m_field.setRobotPose(pose);
+    m_field.setRobotPose(m_robotContainer.drivetrain.getStateCopy().Pose);
     SmartDashboard.putData(m_field);
     
 }
@@ -233,9 +256,7 @@ public class Robot extends TimedRobot {
             }
         }
     }
-    SwerveDriveState state = m_robotContainer.drivetrain.getState();
-    Pose2d pose = state.Pose;
-    m_field.setRobotPose(pose);
+    m_field.setRobotPose(m_robotContainer.drivetrain.getStateCopy().Pose);
     SmartDashboard.putData(m_field);
   }
 
@@ -276,13 +297,11 @@ public class Robot extends TimedRobot {
   public void simulationPeriodic() {
 
     if(kUsePhoton){
-SwerveDriveState state = m_robotContainer.drivetrain.getState();
-Pose2d pose = state.Pose;
 // Update camera simulation
-vision.simulationPeriodic(pose);
+vision.simulationPeriodic(m_robotContainer.drivetrain.getState().Pose);
 
 var debugField = vision.getSimDebugField();
-debugField.getObject("EstimatedRobot").setPose(pose);
+debugField.getObject("EstimatedRobot").setPose(m_robotContainer.drivetrain.getState().Pose);
     }
 
   }
