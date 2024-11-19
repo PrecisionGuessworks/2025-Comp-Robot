@@ -56,7 +56,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-import frc.robot.subsystems.CommandSwerveDrivetrain;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 
 
@@ -67,7 +66,6 @@ public class Robot extends TimedRobot {
   private final RobotContainer m_robotContainer;
 
   private final boolean kUseLimelight = false;
-  private final boolean kUsePhoton = true;
 
   private String autoName, newAutoName;
 
@@ -80,9 +78,6 @@ public class Robot extends TimedRobot {
   public Robot() {
     m_robotContainer = new RobotContainer();
     vision = new Vision();
-
-    
-    
   }
 
   @Override
@@ -97,14 +92,13 @@ public class Robot extends TimedRobot {
      * This example is sufficient to show that vision integration is possible, though exact implementation
      * of how to use vision should be tuned per-robot and to the team's specification.
      */
-    if (kUseLimelight) {
-      var llMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
-      if (llMeasurement != null) {
-        m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose, Utils.fpgaToCurrentTime(llMeasurement.timestampSeconds));
-      }
-    }
-    
-  if(kUsePhoton){
+    // if (kUseLimelight) {
+    //   var llMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+    //   if (llMeasurement != null) {
+    //     m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose, Utils.fpgaToCurrentTime(llMeasurement.timestampSeconds));
+    //   }
+    // }
+    try{
       var visionEst = vision.getEstimatedGlobalPose();
     visionEst.ifPresent(
             est -> {
@@ -114,10 +108,12 @@ public class Robot extends TimedRobot {
                 m_robotContainer.drivetrain.addVisionMeasurement(
                         est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
             });
-          }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     
 
-          
+
 
 
 
@@ -154,7 +150,7 @@ public class Robot extends TimedRobot {
     ally = DriverStation.getAlliance();
     newAutoName = m_robotContainer.getAutonomousCommand().getName();
     if (autoName != newAutoName | ally != newAlly) {
-      newAlly = ally;
+        newAlly = ally;
         autoName = newAutoName;
         if (AutoBuilder.getAllAutoNames().contains(autoName)) {
             System.out.println("Displaying " + autoName);
@@ -162,26 +158,26 @@ public class Robot extends TimedRobot {
                 List<PathPlannerPath> pathPlannerPaths = PathPlannerAuto.getPathGroupFromAutoFile(autoName);
                 List<Pose2d> poses = new ArrayList<>();
                 for (PathPlannerPath path : pathPlannerPaths) {
-                  if (ally.isPresent()) {
-                    if (ally.get() == Alliance.Red) {
-                      poses.addAll(path.getAllPathPoints().stream()
-                      .map(point -> new Pose2d(16.541 - point.position.getX(), point.position.getY(), new Rotation2d()))
-                    .collect(Collectors.toList()));
-                    }
-                    if (ally.get() == Alliance.Blue) {
-                      poses.addAll(path.getAllPathPoints().stream()
-                      .map(point -> new Pose2d(point.position.getX(), point.position.getY(), new Rotation2d()))
-                    .collect(Collectors.toList()));
-                    }
-                  }
-                  else {
-                      System.out.println("No alliance found");
-                      poses.addAll(path.getAllPathPoints().stream()
-                      .map(point -> new Pose2d(point.position.getX(), point.position.getY(), new Rotation2d()))
-                    .collect(Collectors.toList()));
-                  }
+                        if (ally.isPresent()) {
+                          if (ally.get() == Alliance.Red) {
+                            poses.addAll(path.getAllPathPoints().stream()
+                            .map(point -> new Pose2d(16.541 - point.position.getX(), point.position.getY(), new Rotation2d()))
+                          .collect(Collectors.toList()));
+                          }
+                          if (ally.get() == Alliance.Blue) {
+                            poses.addAll(path.getAllPathPoints().stream()
+                            .map(point -> new Pose2d(point.position.getX(), point.position.getY(), new Rotation2d()))
+                          .collect(Collectors.toList()));
+                          }
+                        }
+                        else {
+                            System.out.println("No alliance found");
+                            poses.addAll(path.getAllPathPoints().stream()
+                            .map(point -> new Pose2d(point.position.getX(), point.position.getY(), new Rotation2d()))
+                          .collect(Collectors.toList()));
+                        }
                 }
-                
+              
                 m_field.getObject("path").setPoses(poses);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -194,7 +190,9 @@ public class Robot extends TimedRobot {
             }
         }
     }
-    m_field.setRobotPose(m_robotContainer.drivetrain.getStateCopy().Pose);
+    SwerveDriveState state = m_robotContainer.drivetrain.getState();
+    Pose2d pose = state.Pose;
+    m_field.setRobotPose(pose);
     SmartDashboard.putData(m_field);
     
 }
@@ -256,7 +254,9 @@ public class Robot extends TimedRobot {
             }
         }
     }
-    m_field.setRobotPose(m_robotContainer.drivetrain.getStateCopy().Pose);
+    SwerveDriveState state = m_robotContainer.drivetrain.getState();
+    Pose2d pose = state.Pose;
+    m_field.setRobotPose(pose);
     SmartDashboard.putData(m_field);
   }
 
@@ -295,14 +295,16 @@ public class Robot extends TimedRobot {
 
   @Override
   public void simulationPeriodic() {
+// Update drivetrain simulation
 
-    if(kUsePhoton){
+SwerveDriveState state = m_robotContainer.drivetrain.getState();
+Pose2d pose = state.Pose;
 // Update camera simulation
-vision.simulationPeriodic(m_robotContainer.drivetrain.getState().Pose);
+vision.simulationPeriodic(pose);
 
 var debugField = vision.getSimDebugField();
-debugField.getObject("EstimatedRobot").setPose(m_robotContainer.drivetrain.getState().Pose);
-    }
+debugField.getObject("EstimatedRobot").setPose(pose);
+
 
   }
 }
