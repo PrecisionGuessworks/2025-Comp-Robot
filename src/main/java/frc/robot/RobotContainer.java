@@ -104,7 +104,6 @@ public class RobotContainer {
         );
 
 
-        .withVelocityY(-joystick.getLeftX() * MaxSpeed)
 
         joystick.pov(0).whileTrue(drivetrain.applyRequest(() ->
             angle.withVelocityX(-joystick.getLeftY() * MaxSpeed)
