@@ -123,24 +123,24 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
     autoName = "";
 
-    // Command resetGryo = new Command()
-    // {
-    //     public boolean runsWhenDisabled()
-    //     {
-    //         return true;
-    //     }
+    Command resetGryo = new Command()
+    {
+        public boolean runsWhenDisabled()
+        {
+            return true;
+        }
 
-    //     public void initialize()
-    //     {
-    //         m_robotContainer.drivetrain.getPigeon2().reset();
-    //     }
-    //     public boolean isFinished()
-    //     {
-    //         return true;
-    //     }
-    // };
+        public void initialize()
+        {
+            m_robotContainer.drivetrain.getPigeon2().reset();
+        }
+        public boolean isFinished()
+        {
+            return true;
+        }
+    };
  
-    // SmartDashboard.putData("Reset Gyro", resetGryo);
+    SmartDashboard.putData("Reset Gyro", resetGryo);
   }
 
   @Override
