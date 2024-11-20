@@ -6,11 +6,15 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
+import com.ctre.phoenix6.swerve.SwerveDrivetrain.SwerveDriveState;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
+import org.photonvision.PhotonUtils;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistribution;
@@ -96,6 +100,13 @@ public class RobotContainer {
             point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
         ));
 
+        joystick.rightBumper().whileTrue(drivetrain.applyRequest(() ->
+            angle.withVelocityX(-joystick.getLeftY() * MaxSpeed)
+            .withVelocityY(-joystick.getLeftX() * MaxSpeed)
+            .withTargetDirection(targetangle()))
+        );
+
+
 
         joystick.pov(0).whileTrue(drivetrain.applyRequest(() ->
             angle.withVelocityX(-joystick.getLeftY() * MaxSpeed)
@@ -133,5 +144,16 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         /* First put the drivetrain into auto run mode, then run the auto */
         return autoChooser.getSelected();
+    }
+
+    public Rotation2d targetangle() {
+        /* First put the drivetrain into auto run mode, then run the auto */
+        SwerveDriveState state = drivetrain.getState();
+        Pose2d pose = state.Pose;
+        pose = new Pose2d(pose.getTranslation(), new Rotation2d(0));
+        Pose2d targetpose = new Pose2d(16.7,5.5,new Rotation2d(0));
+        System.out.println(PhotonUtils.getYawToPose(pose,targetpose));
+        return PhotonUtils.getYawToPose(pose,targetpose);
+        
     }
 }

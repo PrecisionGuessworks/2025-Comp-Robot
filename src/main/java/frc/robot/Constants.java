@@ -73,7 +73,7 @@ public class Constants {
         // Deadbands for the drive and rotation
         public static final double DriveDeadband = 0.15; // Drive Deadband
         public static final double RotationDeadband = 0.15; // Rotation Deadband
-        public static final double SnapRotationDeadband = 0.01; // Snap Rotation Deadband
+        public static final double SnapRotationDeadband = 0.001; // Snap Rotation Deadband
 
     }
 
