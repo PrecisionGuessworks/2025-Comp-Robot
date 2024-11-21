@@ -63,12 +63,12 @@ public class Constants {
 
         public static final double PRotation = 3;
         public static final double IRotation = 0;
-        public static final double DRotation = 0.1;
+        public static final double DRotation = 0.03;
         
         // 0.0-1.0 of the max speed
         public static final double MaxSpeedPercentage = 1.0; // Default 1.0
         // Rotation per second max angular velocity
-        public static final double MaxAngularRatePercentage = 0.8; // Default 0.75 
+        public static final double MaxAngularRatePercentage = 1; // Default 0.75 
 
         // Deadbands for the drive and rotation
         public static final double DriveDeadband = 0.15; // Drive Deadband
