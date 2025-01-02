@@ -14,6 +14,7 @@ import org.json.simple.parser.ParseException;
 import org.photonvision.PhotonUtils;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.FileVersionException;
@@ -35,15 +36,17 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.quixlib.viz.Link2d;
 import frc.quixlib.viz.Viz2d;
+import frc.robot.commands.IntakePiece;
 import frc.robot.commands.Moveup;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ElevatorSubsystem;
-
-
+import frc.robot.subsystems.IntakeSubsystem;
 import static frc.robot.Constants.Drive.*;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RobotContainer {
     private double MaxSpeed = MaxSpeedPercentage*(TunerConstants.kSpeedAt12Volts.in(MetersPerSecond)); // kSpeedAt12Volts desired top speed
@@ -75,12 +78,12 @@ public class RobotContainer {
     private final SendableChooser<Command> autoChooser;
 
 
-
+Map<String, Command> robotCommands  = new HashMap<String, Command>();
 
 
 
 private final Viz2d robotViz =
-      new Viz2d("Robot Viz", Units.inchesToMeters(54.0), Units.inchesToMeters(50.0), 100.0);
+      new Viz2d("Robot Viz", Units.inchesToMeters(60.0), Units.inchesToMeters(70.0), 100.0);
 
 private final Link2d chassisViz =
       robotViz.addLink(
@@ -113,16 +116,17 @@ private final Link2d chassisViz =
               Constants.Viz.elevatorCarriageLength,
               5,
               Color.kLightGreen));
-
+// Intake viz
+private final Link2d intakeArmViz =
+robotViz.addLink(
+    new Link2d(robotViz, "Intake Arm", Constants.Viz.intakeArmLength, 10.0, Color.kBlue));
+private final Link2d intakeRollerViz =
+intakeArmViz.addLink(
+    new Link2d(robotViz, "Intake Roller", Units.inchesToMeters(1.0), 10.0, Color.kLightBlue));
 
 
 private final ElevatorSubsystem elevator = new ElevatorSubsystem(elevatorCarriageViz);
- 
-
-
-
-
-
+private final IntakeSubsystem intake = new IntakeSubsystem(intakeArmViz, intakeRollerViz);
 
 
 
@@ -133,10 +137,20 @@ private final ElevatorSubsystem elevator = new ElevatorSubsystem(elevatorCarriag
 
 
     public RobotContainer() {
+
+        robotCommands.put("IntakePiece", new IntakePiece(intake, elevator).withTimeout(2.5));
+    
+        NamedCommands.registerCommands(robotCommands);
+
+
+
+
         autoChooser = AutoBuilder.buildAutoChooser("Tests");
         SmartDashboard.putData("Auto", autoChooser);
         angle.HeadingController.setPID( PRotation,  IRotation , DRotation);
         configureBindings();
+
+    
 
 
         SmartDashboard.putData(
@@ -183,7 +197,7 @@ private final ElevatorSubsystem elevator = new ElevatorSubsystem(elevatorCarriag
         joystick.y().whileTrue(pathfindingCommand());
         joystick.x().whileTrue(pathfindingtofollowCommand());
         joystick.b().whileTrue(new Moveup(elevator));
-     
+        joystick.rightTrigger().whileTrue(new IntakePiece(intake, elevator));
 
         joystick.pov(0).whileTrue(drivetrain.applyRequest(() ->
             angle.withVelocityX(-joystick.getLeftY() * MaxSpeed)

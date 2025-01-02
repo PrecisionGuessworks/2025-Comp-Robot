@@ -103,6 +103,8 @@ public class Constants {
 
   public static final class Elevator {
     public static final CANDeviceID motorID = new CANDeviceID(10, kCanivoreName);
+    public static final double StatorLimit = 80.0;
+    public static final double SupplyLimit = 40.0;
     public static final double sprocketPitchDiameter = Units.inchesToMeters(1.273); // 16T #25
     public static final MechanismRatio motorRatio =
         new MechanismRatio(
@@ -110,17 +112,17 @@ public class Constants {
     public static final boolean motorInvert = false;
     public static final int motorPositionSlot = 0;
     public static final PIDConfig motorPIDConfig = new PIDConfig(3, 0, 0.1, 0, 0.12, 0, 0.4);
-    public static final double maxVelocity = 2.0; // m/s
+    public static final double maxVelocity = 1.0; // m/s
     public static final double maxAcceleration = 30.0; // m/s^2
     public static final double maxJerk = 0.0; // m/s^3 (0 disables jerk limit)
 
     // TODO: use real numbers
     public static final double minHeight = 0.0; // m
     public static final double powerCutoffHeight = Units.inchesToMeters(0.5); // m
-    public static final double maxHeight = Units.inchesToMeters(16.0); // m
+    public static final double maxHeight = Units.inchesToMeters(36.0); // m
     public static final double stowHeight = Units.inchesToMeters(1); // m
     public static final double stowTolerance = Units.inchesToMeters(0.25); // m
-    public static final double scoreAmpHeight = Units.inchesToMeters(16.0); // m
+    public static final double scoreAmpHeight = Units.inchesToMeters(34.0); // m
     public static final double scoreAmpTolerance = Units.inchesToMeters(0.25); // m
     public static final double climbRetractHeight = Units.inchesToMeters(0.0); // m
     public static final double climbExtendHeight = Units.inchesToMeters(0.25); // m
@@ -135,6 +137,42 @@ public class Constants {
         new ElevatorFeedforward(0.0, 0.0, 0.0); // new ElevatorFeedforward(0.35, 0.15, 15.8);
   }
 
+  public static final class Intake {
+    public static final int beamBreakPort = 1;
+
+    public static final CANDeviceID rollerMotorID = new CANDeviceID(9, kCanivoreName);
+    public static final MechanismRatio rollerMotorRatio =
+        new MechanismRatio(1, (36.0 / 12.0) * (36.0 / 28.0));
+    public static final boolean rollerMotorInvert = false;
+    public static final SimpleMotorFeedforward rollerFeedforward =
+        new SimpleMotorFeedforward(0.3, 0.12, 0);
+    public static final PIDConfig rollerPIDConfig = new PIDConfig(0.1, 0, 0);
+    public static final int rollerVelocitySlot = 0;
+
+    public static final CANDeviceID deployMotorID = new CANDeviceID(8, kCanivoreName);
+    public static final MechanismRatio deployMotorRatio =
+        new MechanismRatio(1, (42.0 / 10.0) * (22.0 / 22.0) * (42.0 / 16.0) * (36.0 / 16.0));
+    public static final boolean deployMotorInvert = true;
+    public static final PIDConfig deployPIDConfig = new PIDConfig(2.0, 0, 0.3, 0, 0.12, 0.007, 0);
+    public static final int deployPositionSlot = 0;
+    public static final double deployMaxVelocity = 12.0; // rad/s
+    public static final double deployMaxAcceleration = 140.0; // rad/s^2
+    public static final double deployMaxJerk = 800.0; // rad/s^3
+
+    public static final double bootAbsPositionOffset = Units.degreesToRadians(1.8);
+    public static final double minAngle = Units.degreesToRadians(-50.0); // rads
+    public static final double maxAngle = Units.degreesToRadians(110.0); // rads
+    public static final double startingAngle = maxAngle + bootAbsPositionOffset;
+    public static final double intakeDeployAngle = Math.toRadians(-50); // rad
+    public static final double intakeStowAngle = Math.toRadians(105); // rad
+    public static final double intakeRollerVelocity = 100; // rad/s
+
+    // For simulation.
+    public static final double simArmMOI = 0.2; // kgMetersSquared
+    public static final double simArmCGLength = Units.inchesToMeters(7.0); // m
+    public static final double simRollerMOI = 0.01; // kgMetersSquared
+  }
+
 
 
   
@@ -142,7 +180,9 @@ public class Constants {
 
   public static final class Viz {
     public static final double xOffset = Units.inchesToMeters(12.0);
-    
+    public static final double intakePivotX = xOffset + Units.inchesToMeters(27.25);
+    public static final double intakePivotY = Units.inchesToMeters(11.25);
+    public static final double intakeArmLength = Units.inchesToMeters(14.0);
     public static final double elevatorBaseX = xOffset + Units.inchesToMeters(12.0);
     public static final double elevatorBaseY = Units.inchesToMeters(3.0);
     public static final Rotation2d elevatorAngle = Rotation2d.fromDegrees(90.0);
