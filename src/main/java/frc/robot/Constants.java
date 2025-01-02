@@ -24,20 +24,38 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.configs.MotionMagicConfigs;
+import com.pathplanner.lib.config.PIDConstants;
+
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.controller.ArmFeedforward;
+import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
+import frc.quixlib.devices.CANDeviceID;
+import frc.quixlib.motorcontrol.MechanismRatio;
+import frc.quixlib.motorcontrol.PIDConfig;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 
 public class Constants {
+
+    public static final String kCanivoreName = "canivore";
+    public static final double g = 9.81; // m/s/s
+    public static final double defaultPeriodSecs = 0.02; // s
+
+
+
     public static class Vision {
         public static final String kCameraName = "YOUR CAMERA NAME";
         // Cam mounted facing forward, half a meter forward of center, half a meter up from center, up 15 degs.
@@ -76,5 +94,66 @@ public class Constants {
         public static final double SnapRotationDeadband = 0.001; // Snap Rotation Deadband
 
     }
+
+    public static final class Example {
+    public static final CANDeviceID motorID = new CANDeviceID(99, kCanivoreName);
+    public static final MechanismRatio motorRatio = new MechanismRatio(1, 1);
+    public static final boolean motorInvert = false;
+  }
+
+  public static final class Elevator {
+    public static final CANDeviceID motorID = new CANDeviceID(10, kCanivoreName);
+    public static final double sprocketPitchDiameter = Units.inchesToMeters(1.273); // 16T #25
+    public static final MechanismRatio motorRatio =
+        new MechanismRatio(
+            1, (28.0 / 10.0) * (1.0 / 4.0) * (42.0 / 18.0), Math.PI * sprocketPitchDiameter);
+    public static final boolean motorInvert = false;
+    public static final int motorPositionSlot = 0;
+    public static final PIDConfig motorPIDConfig = new PIDConfig(3, 0, 0.1, 0, 0.12, 0, 0.4);
+    public static final double maxVelocity = 2.0; // m/s
+    public static final double maxAcceleration = 30.0; // m/s^2
+    public static final double maxJerk = 0.0; // m/s^3 (0 disables jerk limit)
+
+    // TODO: use real numbers
+    public static final double minHeight = 0.0; // m
+    public static final double powerCutoffHeight = Units.inchesToMeters(0.5); // m
+    public static final double maxHeight = Units.inchesToMeters(16.0); // m
+    public static final double stowHeight = Units.inchesToMeters(1); // m
+    public static final double stowTolerance = Units.inchesToMeters(0.25); // m
+    public static final double scoreAmpHeight = Units.inchesToMeters(16.0); // m
+    public static final double scoreAmpTolerance = Units.inchesToMeters(0.25); // m
+    public static final double climbRetractHeight = Units.inchesToMeters(0.0); // m
+    public static final double climbExtendHeight = Units.inchesToMeters(0.25); // m
+
+    // For simulation.
+    public static final double simCarriageMass = 8.0; // kg
+
+    // TODO: find real values
+    public static final Constraints elevatorTrapConstraints =
+        new Constraints(1, 3); // m/s and m/s^2
+    public static final ElevatorFeedforward elevatorFeedforward =
+        new ElevatorFeedforward(0.0, 0.0, 0.0); // new ElevatorFeedforward(0.35, 0.15, 15.8);
+  }
+
+
+
+  
+
+
+  public static final class Viz {
+    public static final double xOffset = Units.inchesToMeters(12.0);
+    
+    public static final double elevatorBaseX = xOffset + Units.inchesToMeters(12.0);
+    public static final double elevatorBaseY = Units.inchesToMeters(3.0);
+    public static final Rotation2d elevatorAngle = Rotation2d.fromDegrees(90.0);
+    public static final double elevatorBaseLength = Units.inchesToMeters(24.0);
+    public static final double elevatorCarriageLength = Units.inchesToMeters(24.0);
+
+
+    public static final double angularVelocityScalar = 0.01;
+  }
+
+
+
 
 }

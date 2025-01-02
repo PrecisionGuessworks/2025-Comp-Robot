@@ -21,19 +21,25 @@ import com.pathplanner.lib.util.FileVersionException;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-
+import frc.quixlib.viz.Link2d;
+import frc.quixlib.viz.Viz2d;
+import frc.robot.commands.Moveup;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.ElevatorSubsystem;
+
 
 import static frc.robot.Constants.Drive.*;
 
@@ -67,6 +73,64 @@ public class RobotContainer {
 
     /* Path follower */
     private final SendableChooser<Command> autoChooser;
+
+
+
+
+
+
+private final Viz2d robotViz =
+      new Viz2d("Robot Viz", Units.inchesToMeters(54.0), Units.inchesToMeters(50.0), 100.0);
+
+private final Link2d chassisViz =
+      robotViz.addLink(
+          new Link2d(
+              robotViz,
+              "Chassis",
+              Units.inchesToMeters(29.0),
+              30.0,
+              new Color("#FAB604"),
+              new Transform2d(Constants.Viz.xOffset, Units.inchesToMeters(3.0), new Rotation2d())));
+
+  // Elevator viz
+  private final Link2d elevatorFrameViz =
+      robotViz.addLink(
+          new Link2d(
+              robotViz,
+              "Elevator Base",
+              Constants.Viz.elevatorBaseLength,
+              10.0,
+              Color.kGreen,
+              new Transform2d(
+                  Constants.Viz.elevatorBaseX,
+                  Constants.Viz.elevatorBaseY,
+                  Constants.Viz.elevatorAngle)));
+  private final Link2d elevatorCarriageViz =
+      elevatorFrameViz.addLink(
+          new Link2d(
+              robotViz,
+              "Elevator Carriage",
+              Constants.Viz.elevatorCarriageLength,
+              5,
+              Color.kLightGreen));
+
+
+
+private final ElevatorSubsystem elevator = new ElevatorSubsystem(elevatorCarriageViz);
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public RobotContainer() {
         autoChooser = AutoBuilder.buildAutoChooser("Tests");
@@ -106,9 +170,9 @@ public class RobotContainer {
         );
 
         joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
-        joystick.b().whileTrue(drivetrain.applyRequest(() ->
-            point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
-        ));
+        // joystick.b().whileTrue(drivetrain.applyRequest(() ->
+        //     point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
+        // ));
 
         joystick.rightBumper().whileTrue(drivetrain.applyRequest(() ->
             angle.withVelocityX(-joystick.getLeftY() * MaxSpeed)
@@ -118,6 +182,7 @@ public class RobotContainer {
 
         joystick.y().whileTrue(pathfindingCommand());
         joystick.x().whileTrue(pathfindingtofollowCommand());
+        joystick.b().whileTrue(new Moveup(elevator));
      
 
         joystick.pov(0).whileTrue(drivetrain.applyRequest(() ->
