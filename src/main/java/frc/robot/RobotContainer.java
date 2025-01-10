@@ -42,6 +42,7 @@ import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.EleArmSubsystem;
 import static frc.robot.Constants.Drive.*;
 
 import java.io.IOException;
@@ -123,11 +124,34 @@ robotViz.addLink(
 private final Link2d intakeRollerViz =
 intakeArmViz.addLink(
     new Link2d(robotViz, "Intake Roller", Units.inchesToMeters(1.0), 10.0, Color.kLightBlue));
-
+    private final Link2d EleArmArmViz =
+    elevatorCarriageViz.addLink(
+        new Link2d(robotViz, "EleArm Arm", Constants.Viz.EleArmArmLength, 10, Color.kRed));
+private final Link2d EleArmTopWheelViz =
+    EleArmArmViz.addLink(
+        new Link2d(robotViz, "EleArm Top Wheel", Units.inchesToMeters(2.0), 10, Color.kCoral));
+private final Link2d EleArmBottomWheelViz =
+    EleArmArmViz.addLink(
+        new Link2d(
+            robotViz, "EleArm Bottom Wheel", Units.inchesToMeters(2.0), 10, Color.kCoral));
+private final Link2d EleArmFeedRollerViz =
+    EleArmArmViz.addLink(
+        new Link2d(
+            robotViz, "EleArm Feed Roller", Units.inchesToMeters(1.0), 10, Color.kCoral));
+private final Link2d EleArmRedirectRollerViz =
+    EleArmArmViz.addLink(
+        new Link2d(
+            robotViz, "EleArm Redirect Roller", Units.inchesToMeters(1.0), 10, Color.kCoral));
 
 private final ElevatorSubsystem elevator = new ElevatorSubsystem(elevatorCarriageViz);
 private final IntakeSubsystem intake = new IntakeSubsystem(intakeArmViz, intakeRollerViz);
-
+private final EleArmSubsystem EleArm =
+      new EleArmSubsystem(
+          EleArmArmViz,
+          EleArmTopWheelViz,
+          EleArmBottomWheelViz,
+          EleArmFeedRollerViz,
+          EleArmRedirectRollerViz);
 
 
 
@@ -251,7 +275,7 @@ private final IntakeSubsystem intake = new IntakeSubsystem(intakeArmViz, intakeR
     private Command pathfindingCommand() {
         // Since we are using a holonomic drivetrain, the rotation component of this pose
         // represents the goal holonomic rotation
-        Pose2d targetPose = new Pose2d(10, 5, Rotation2d.fromDegrees(180));
+        Pose2d targetPose = new Pose2d(3.764, 2.954  , Rotation2d.fromDegrees(60));
 
         // Create the constraints to use while pathfinding
         PathConstraints constraints = new PathConstraints(

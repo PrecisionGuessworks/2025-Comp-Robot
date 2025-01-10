@@ -139,6 +139,11 @@ public class QuixTalonFX implements QuixMotorControllerWithEncoder, AutoCloseabl
       return this;
     }
 
+    public QuixTalonFXConfiguration setCANcoderConfig(final int RemoteSensorID) { // remote option, offset, senor ratio to mech and rotor
+      
+      return this;
+    }
+
     public TalonFXConfiguration toTalonFXConfiguration(
         final Function<Double, Double> toNativeSensorPosition,
         final Function<Double, Double> toNativeSensorVelocity) {
