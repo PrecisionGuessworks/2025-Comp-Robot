@@ -38,11 +38,12 @@ import frc.quixlib.viz.Link2d;
 import frc.quixlib.viz.Viz2d;
 import frc.robot.commands.IntakePiece;
 import frc.robot.commands.Moveup;
+import frc.robot.commands.Movearm;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.EleArmSubsystem;
+import frc.robot.subsystems.ArmSubsystem;
 import static frc.robot.Constants.Drive.*;
 
 import java.io.IOException;
@@ -84,7 +85,7 @@ Map<String, Command> robotCommands  = new HashMap<String, Command>();
 
 
 private final Viz2d robotViz =
-      new Viz2d("Robot Viz", Units.inchesToMeters(60.0), Units.inchesToMeters(70.0), 1.0);
+      new Viz2d("Robot Viz", Units.inchesToMeters(60.0), Units.inchesToMeters(60.0), 1.0);
 
 private final Link2d chassisViz =
       robotViz.addLink(
@@ -124,34 +125,28 @@ robotViz.addLink(
 private final Link2d intakeRollerViz =
 intakeArmViz.addLink(
     new Link2d(robotViz, "Intake Roller", Units.inchesToMeters(1.0), 10.0, Color.kLightBlue));
-    private final Link2d EleArmArmViz =
+
+
+private final Link2d ArmArmViz =
     elevatorCarriageViz.addLink(
-        new Link2d(robotViz, "EleArm Arm", Constants.Viz.EleArmArmLength, 10, Color.kRed));
-private final Link2d EleArmTopWheelViz =
-    EleArmArmViz.addLink(
-        new Link2d(robotViz, "EleArm Top Wheel", Units.inchesToMeters(2.0), 10, Color.kCoral));
-private final Link2d EleArmBottomWheelViz =
-    EleArmArmViz.addLink(
-        new Link2d(
-            robotViz, "EleArm Bottom Wheel", Units.inchesToMeters(2.0), 10, Color.kCoral));
-private final Link2d EleArmFeedRollerViz =
-    EleArmArmViz.addLink(
-        new Link2d(
-            robotViz, "EleArm Feed Roller", Units.inchesToMeters(1.0), 10, Color.kCoral));
-private final Link2d EleArmRedirectRollerViz =
-    EleArmArmViz.addLink(
-        new Link2d(
-            robotViz, "EleArm Redirect Roller", Units.inchesToMeters(1.0), 10, Color.kCoral));
+        new Link2d(robotViz, "Arm Arm", Constants.Viz.ArmArmLength, 10, Color.kRed));
+private final Link2d ArmWristViz =
+    elevatorCarriageViz.addLink(
+        new Link2d(robotViz, "Arm Wrist", Constants.Viz.ArmWristLength, 10, Color.kOrange));
+private final Link2d ArmWheelViz =
+    ArmArmViz.addLink(
+        new Link2d(robotViz, "Arm Wheel", Units.inchesToMeters(2.0), 10, Color.kCoral));
+
+    
 
 private final ElevatorSubsystem elevator = new ElevatorSubsystem(elevatorCarriageViz);
 private final IntakeSubsystem intake = new IntakeSubsystem(intakeArmViz, intakeRollerViz);
-private final EleArmSubsystem EleArm =
-      new EleArmSubsystem(
-          EleArmArmViz,
-          EleArmTopWheelViz,
-          EleArmBottomWheelViz,
-          EleArmFeedRollerViz,
-          EleArmRedirectRollerViz);
+private final ArmSubsystem arm =
+      new ArmSubsystem(
+          ArmArmViz,
+          ArmWristViz,
+          ArmWheelViz
+          );
 
 
 
@@ -220,7 +215,7 @@ private final EleArmSubsystem EleArm =
 
         joystick.y().whileTrue(pathfindingCommand());
         joystick.x().whileTrue(pathfindingtofollowCommand());
-        joystick.b().whileTrue(new Moveup(elevator));
+        joystick.b().whileTrue(new Movearm(intake, elevator, arm));
         joystick.rightTrigger().whileTrue(new IntakePiece(intake, elevator));
 
         joystick.pov(0).whileTrue(drivetrain.applyRequest(() ->

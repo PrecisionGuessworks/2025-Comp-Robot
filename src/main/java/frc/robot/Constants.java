@@ -173,29 +173,23 @@ public class Constants {
     public static final double simRollerMOI = 0.01; // kgMetersSquared
   }
 
-  public static final class EleArm {
+  public static final class Arm {
     public static final int beamBreakPort = 0;
 
     public static final CANDeviceID armMotorID = new CANDeviceID(12, kCanivoreName);
     public static final MechanismRatio armMotorRatio =
-        new MechanismRatio(1, (28.0 / 10.0) * (60.0 / 14.0) * (60.0 / 16.0));
+        new MechanismRatio(1, (18.0 / 10.0) * (60.0 / 14.0) * (60.0 / 16.0));
     public static final boolean armMotorInvert = true;
 
-    public static final CANDeviceID redirectMotorID = new CANDeviceID(13, kCanivoreName);
-    public static final MechanismRatio redirectMotorRatio = new MechanismRatio(12, 18);
-    public static final boolean redirectMotorInvert = true;
+    public static final CANDeviceID wristMotorID = new CANDeviceID(12, kCanivoreName);
+    public static final MechanismRatio wristMotorRatio =
+        new MechanismRatio(1, (18.0 / 10.0) * (60.0 / 14.0) * (60.0 / 16.0));
+    public static final boolean wristMotorInvert = true;
 
-    public static final CANDeviceID feedMotorID = new CANDeviceID(14, kCanivoreName);
-    public static final MechanismRatio feedMotorRatio = new MechanismRatio(16, 24);
-    public static final boolean feedMotorInvert = true;
+    public static final CANDeviceID rollerMotorID = new CANDeviceID(13, kCanivoreName);
+    public static final MechanismRatio rollerMotorRatio = new MechanismRatio(12, 18);
+    public static final boolean rollerMotorInvert = true;
 
-    public static final CANDeviceID lowerMotorID = new CANDeviceID(15, kCanivoreName);
-    public static final MechanismRatio lowerMotorRatio = new MechanismRatio(1, 1);
-    public static final boolean lowerMotorInvert = false;
-
-    public static final CANDeviceID upperMotorID = new CANDeviceID(16, kCanivoreName);
-    public static final MechanismRatio upperMotorRatio = new MechanismRatio(1, 1);
-    public static final boolean upperMotorInvert = false;
 
     public static final ArmFeedforward armFeedForward = new ArmFeedforward(0.0, 0.3, 0.6);
     public static final Constraints armTrapConstraints =
@@ -219,10 +213,10 @@ public class Constants {
     public static final int feedPositionPIDSlot = 1;
     public static final PIDConfig feedPositionPIDConfig = new PIDConfig(30.0, 0.0, 0.0);
 
-    public static final SimpleMotorFeedforward EleArmFeedforward =
+    public static final SimpleMotorFeedforward ArmFeedforward =
         new SimpleMotorFeedforward(0.0, 0.019);
-    public static final int EleArmVelocityPIDSlot = 0;
-    public static final PIDConfig EleArmVelocityPIDConfig = new PIDConfig(0.2, 0.0, 0.0);
+    public static final int ArmVelocityPIDSlot = 0;
+    public static final PIDConfig ArmVelocityPIDConfig = new PIDConfig(0.2, 0.0, 0.0);
 
     // TODO: Use real values
     public static final double bootAbsPositionOffset = Units.degreesToRadians(-1.6);
@@ -260,9 +254,9 @@ public class Constants {
     public static final double scoreTrapReverseVelocity = 50; // rad/s
 
     public static final double shotVelocity = 20.0; // m/s
-    public static final Transform2d robotToEleArm =
+    public static final Transform2d robotToArm =
         new Transform2d(Units.inchesToMeters(12.0), 0.0, new Rotation2d());
-    public static final double EleArmHeight = Units.inchesToMeters(21);
+    public static final double ArmHeight = Units.inchesToMeters(21);
 
     public static final double rollerBeamBreakOffset = 1.5 * Math.PI; // rads
 
@@ -271,6 +265,10 @@ public class Constants {
     public static final double simArmCGLength = Units.inchesToMeters(4.0); // m
     public static final double simWheelMOI = 0.01; // kgMetersSquared
     public static final double simRollerMOI = 0.003; // kgMetersSquared
+
+    public static final double wristArmMOI = 0.3; // kgMetersSquared
+    public static final double simwristCGLength = Units.inchesToMeters(4.0); // m
+    
   }
 
 
@@ -287,15 +285,12 @@ public class Constants {
     public static final Rotation2d elevatorAngle = Rotation2d.fromDegrees(90.0);
     public static final double elevatorBaseLength = Units.inchesToMeters(24.0);
     public static final double elevatorCarriageLength = Units.inchesToMeters(24.0);
-    public static final double EleArmArmPivotX = Units.inchesToMeters(17.0);
-    public static final double EleArmArmLength = Units.inchesToMeters(15.0);
-    public static final double EleArmWheelX = Units.inchesToMeters(-3.0);
-    public static final double EleArmTopWheelY = Units.inchesToMeters(4.625);
-    public static final double EleArmBottomWheelY = Units.inchesToMeters(-0.625);
-    public static final double EleArmFeedRollerX = Units.inchesToMeters(12.0);
-    public static final double EleArmFeedRollerY = Units.inchesToMeters(1.875);
-    public static final double EleArmRedirectRollerX = Units.inchesToMeters(12.0);
-    public static final double EleArmRedirectRollerY = Units.inchesToMeters(5.125);
+    public static final double ArmArmPivotX = Units.inchesToMeters(17.0);
+    public static final double ArmArmLength = Units.inchesToMeters(12.0);
+    public static final double ArmWristLength = Units.inchesToMeters(6.0);
+    public static final double ArmRollerX = Units.inchesToMeters(12.0);
+    public static final double ArmRollerY = Units.inchesToMeters(0);
+    
 
     public static final double angularVelocityScalar = 0.01;
   }
