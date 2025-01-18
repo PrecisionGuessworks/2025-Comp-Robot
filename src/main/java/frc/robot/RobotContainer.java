@@ -84,7 +84,7 @@ Map<String, Command> robotCommands  = new HashMap<String, Command>();
 
 
 private final Viz2d robotViz =
-      new Viz2d("Robot Viz", Units.inchesToMeters(60.0), Units.inchesToMeters(70.0), 100.0);
+      new Viz2d("Robot Viz", Units.inchesToMeters(60.0), Units.inchesToMeters(70.0), 1.0);
 
 private final Link2d chassisViz =
       robotViz.addLink(
