@@ -267,8 +267,8 @@ public class Constants {
     public static final double elevatorBaseY = Units.inchesToMeters(3.0);
     public static final Rotation2d elevatorAngle = Rotation2d.fromDegrees(90.0);
     public static final double elevatorBaseLength = Units.inchesToMeters(24.0);
-    public static final double elevatorCarriageLength = Units.inchesToMeters(24.0);
-    public static final double ArmArmPivotX = Units.inchesToMeters(8.0);
+    public static final double elevatorCarriageLength = Units.inchesToMeters(6.0);
+    public static final double ArmArmPivotX = Units.inchesToMeters(4.0);
     public static final double ArmArmLength = Units.inchesToMeters(12.0);
     public static final double ArmWristLength = Units.inchesToMeters(6.0);
     public static final double ArmRollerX = Units.inchesToMeters(8.0);

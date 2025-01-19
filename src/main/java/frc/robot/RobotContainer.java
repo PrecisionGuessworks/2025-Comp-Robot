@@ -104,7 +104,7 @@ private final Link2d chassisViz =
               robotViz,
               "Elevator Base",
               Constants.Viz.elevatorBaseLength,
-              10.0,
+              4.0,
               Color.kGreen,
               new Transform2d(
                   Constants.Viz.elevatorBaseX,
@@ -128,7 +128,7 @@ intakeArmViz.addLink(
 
 
 private final Link2d ArmArmViz =
-    elevatorCarriageViz.addLink(
+elevatorCarriageViz.addLink(
         new Link2d(robotViz, "Arm Arm", Constants.Viz.ArmArmLength, 10, Color.kRed));
 private final Link2d ArmWristViz =
 ArmArmViz.addLink(

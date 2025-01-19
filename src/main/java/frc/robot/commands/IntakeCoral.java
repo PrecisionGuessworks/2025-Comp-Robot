@@ -31,7 +31,7 @@ public class IntakeCoral extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // m_elevator.setHeight(Constants.Elevator.stowHeight);
+   m_elevator.setHeight(Constants.Elevator.stowHeight);
     m_arm.setArmAngle(Constants.Arm.armIntakeAngle);
    // m_arm.setWristAngle(Constants.Arm.wristIntakeAngle);
     
@@ -40,8 +40,8 @@ public class IntakeCoral extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    m_arm.setRollerPower(Constants.Arm.intakeVelocity);
+    System.out.println(m_arm.getAngle());
+    m_arm.setRollerVelocity(Constants.Arm.intakeVelocity);
     
   }
 
