@@ -222,19 +222,19 @@ public class ArmSubsystem extends SubsystemBase {
 
 
     // Track the position where the beam break is broken.
-    if (m_beamBreak.get()) {
-      if (!m_beamBreakLastState) {
-        m_beamBreakFeedPosition = m_armRollerMotor.getSensorPosition();
-       // m_beamBreakRedirectPosition = m_armRollerMotor.getSensorPosition();
-      }
-      m_beamBreakLastState = true;
-    } else {
-      m_beamBreakFeedPosition = null;
-      m_beamBreakRedirectPosition = null;
-      m_beamBreakLastState = false;
-    }
+    // if (m_beamBreak.get()) {
+    //   if (!m_beamBreakLastState) {
+    //     m_beamBreakFeedPosition = m_armRollerMotor.getSensorPosition();
+    //    // m_beamBreakRedirectPosition = m_armRollerMotor.getSensorPosition();
+    //   }
+    //   m_beamBreakLastState = true;
+    // } else {
+    //   m_beamBreakFeedPosition = null;
+    //   m_beamBreakRedirectPosition = null;
+    //   m_beamBreakLastState = false;
+    // }
 
-    SmartDashboard.putBoolean("Arm: Beam Break", m_beamBreak.get());
+    //SmartDashboard.putBoolean("Arm: Beam Break", m_beamBreak.get());
 
     m_armState = m_armProfile.calculate(m_armTimer.get());
     m_armAngleMotor.setPositionSetpoint(
@@ -242,56 +242,57 @@ public class ArmSubsystem extends SubsystemBase {
         m_armState.position,
         // Arm angle is defined as positive when the Arm is pointed up, but the CG is on the
         // other side with some offset, so we need to negate the angle and voltage for FF.
-        -Constants.Arm.armFeedForward.calculate(
-            -m_armState.position + Constants.Arm.armCgOffset, -m_armState.velocity));
+        Constants.Arm.armFeedForward.calculate(
+            m_armState.position + Constants.Arm.armCgOffset, m_armState.velocity));
 
             m_WristState = m_WristProfile.calculate(m_WristTimer.get());
+
             m_armWristMotor.setPositionSetpoint(
               Constants.Arm.wristPositionPIDSlot,
               m_WristState.position,
               // Wrist angle is defined as positive when the Wrist is pointed up, but the CG is on the
               // other side with some offset, so we need to negate the angle and voltage for FF.
-              -Constants.Arm.wristFeedForward.calculate(
-                -m_WristState.position + Constants.Arm.wristCgOffset, -m_WristState.velocity));
+              Constants.Arm.wristFeedForward.calculate(
+                m_WristState.position + Constants.Arm.wristCgOffset, m_WristState.velocity));
 
-    SmartDashboard.putNumber(
-        "Arm: Current Arm Angle (deg)",
-        Units.radiansToDegrees(m_armAngleMotor.getSensorPosition()));
-    SmartDashboard.putNumber(
-        "Arm: Target Arm Angle (deg)", Units.radiansToDegrees(m_armState.position));
-    SmartDashboard.putNumber(
-        "Arm: Arm Angle Error (deg)",
-        Units.radiansToDegrees(m_armState.position - m_armAngleMotor.getSensorPosition()));
+    // SmartDashboard.putNumber(
+    //     "Arm: Current Arm Angle (deg)",
+    //     Units.radiansToDegrees(m_armAngleMotor.getSensorPosition()));
+    // SmartDashboard.putNumber(
+    //     "Arm: Target Arm Angle (deg)", Units.radiansToDegrees(m_armState.position));
+    // SmartDashboard.putNumber(
+    //     "Arm: Arm Angle Error (deg)",
+    //     Units.radiansToDegrees(m_armState.position - m_armAngleMotor.getSensorPosition()));
 
-    SmartDashboard.putNumber(
-        "Arm: Current Roller Velocity (rad per sec)",
-        m_armRollerMotor.getSensorVelocity());
+    // SmartDashboard.putNumber(
+    //     "Arm: Current Roller Velocity (rad per sec)",
+    //     m_armRollerMotor.getSensorVelocity());
     
 
-    SmartDashboard.putNumber(
-        "Wrist: Current Roller Current (A)", m_armRollerMotor.getStatorCurrent());
+    // SmartDashboard.putNumber(
+    //     "Wrist: Current Roller Current (A)", m_armRollerMotor.getStatorCurrent());
 
 
 
-        SmartDashboard.putNumber(
-        "Wrist: Current Wrist Angle (deg)",
-        Units.radiansToDegrees(m_armWristMotor.getSensorPosition()));
-    SmartDashboard.putNumber(
-        "Wrist: Target Wrist Angle (deg)", Units.radiansToDegrees(m_WristState.position));
-    SmartDashboard.putNumber(
-        "Wrist: Wrist Angle Error (deg)",
-        Units.radiansToDegrees(m_WristState.position - m_armWristMotor.getSensorPosition()));
+    //     SmartDashboard.putNumber(
+    //     "Wrist: Current Wrist Angle (deg)",
+    //     Units.radiansToDegrees(m_armWristMotor.getSensorPosition()));
+    // SmartDashboard.putNumber(
+    //     "Wrist: Target Wrist Angle (deg)", Units.radiansToDegrees(m_WristState.position));
+    // SmartDashboard.putNumber(
+    //     "Wrist: Wrist Angle Error (deg)",
+    //     Units.radiansToDegrees(m_WristState.position - m_armWristMotor.getSensorPosition()));
 
-    SmartDashboard.putNumber(
-        "Wrist: Current Roller Velocity (rad per sec)",
-        m_armRollerMotor.getSensorVelocity());
+    // SmartDashboard.putNumber(
+    //     "Wrist: Current Roller Velocity (rad per sec)",
+    //     m_armRollerMotor.getSensorVelocity());
     
 
-    SmartDashboard.putNumber(
-        "Wrist: Current Roller Current (A)", m_armWristMotor.getStatorCurrent());
-    m_armRollerMotor.logMotorState();
-    m_armWristMotor.logMotorState();
-    m_armAngleMotor.logMotorState();
+    // SmartDashboard.putNumber(
+    //     "Wrist: Current Roller Current (A)", m_armWristMotor.getStatorCurrent());
+    // m_armRollerMotor.logMotorState();
+    // m_armWristMotor.logMotorState();
+    // m_armAngleMotor.logMotorState();
   }
 
   // --- BEGIN STUFF FOR SIMULATION ---
@@ -340,9 +341,9 @@ public class ArmSubsystem extends SubsystemBase {
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
-    m_armSim.setInput(-m_armAngleMotor.getPercentOutput() * RobotController.getBatteryVoltage());
+    m_armSim.setInput(m_armAngleMotor.getPercentOutput() * RobotController.getBatteryVoltage());
     m_armSim.update(TimedRobot.kDefaultPeriod);
-    m_wristSim.setInput(-m_armWristMotor.getPercentOutput() * RobotController.getBatteryVoltage());
+    m_wristSim.setInput(m_armWristMotor.getPercentOutput() * RobotController.getBatteryVoltage());
     m_wristSim.update(TimedRobot.kDefaultPeriod);
     // Arm is simulated backwards because gravity acting on a horizontal arm needs to be at
     // zero degrees

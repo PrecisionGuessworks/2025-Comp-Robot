@@ -214,7 +214,7 @@ public class Constants {
     public static final double armBootAbsPositionOffset = Units.degreesToRadians(0);
     public static final double armMinAngle = Units.degreesToRadians(-10.0); // rads (trap position)
     public static final double armMaxAngle = Units.degreesToRadians(140.0); // rads (stow position)
-    public static final double armStartingAngle = Units.degreesToRadians(0);
+    public static final double armStartingAngle = Units.degreesToRadians(90);
     public static final double armCgOffset = Units.degreesToRadians(0); // TODO: NEED TO CALC IN SUBSYSTEM
 
     public static final double wristBootAbsPositionOffset = Units.degreesToRadians(0);
@@ -247,7 +247,6 @@ public class Constants {
     // For simulation.
     public static final double simArmMOI = 0.3; // kgMetersSquared
     public static final double simArmCGLength = Units.inchesToMeters(4.0); // m
-    public static final double simWheelMOI = 0.01; // kgMetersSquared
     public static final double simRollerMOI = 0.003; // kgMetersSquared
 
     public static final double wristArmMOI = 0.3; // kgMetersSquared

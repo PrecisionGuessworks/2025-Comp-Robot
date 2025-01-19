@@ -41,7 +41,7 @@ public class IntakeCoral extends Command {
   @Override
   public void execute() {
     
-    m_arm.setRollerPower(500);
+    m_arm.setRollerPower(Constants.Arm.intakeVelocity);
     
   }
 
