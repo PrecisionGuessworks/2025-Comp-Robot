@@ -128,7 +128,7 @@ public class Constants {
     public static final double climbExtendHeight = Units.inchesToMeters(0.25); // m
 
     // For simulation.
-    public static final double simCarriageMass = 8.0; // kg
+    public static final double simCarriageMass = 7.0; // kg
 
     // TODO: find real values
     public static final Constraints elevatorTrapConstraints =
@@ -181,82 +181,66 @@ public class Constants {
         new MechanismRatio(1, (18.0 / 10.0) * (60.0 / 14.0) * (60.0 / 16.0));
     public static final boolean armMotorInvert = true;
 
-    public static final CANDeviceID wristMotorID = new CANDeviceID(12, kCanivoreName);
+    public static final CANDeviceID wristMotorID = new CANDeviceID(13, kCanivoreName);
     public static final MechanismRatio wristMotorRatio =
         new MechanismRatio(1, (18.0 / 10.0) * (60.0 / 14.0) * (60.0 / 16.0));
     public static final boolean wristMotorInvert = true;
 
-    public static final CANDeviceID rollerMotorID = new CANDeviceID(13, kCanivoreName);
+    public static final CANDeviceID rollerMotorID = new CANDeviceID(14, kCanivoreName);
     public static final MechanismRatio rollerMotorRatio = new MechanismRatio(12, 18);
     public static final boolean rollerMotorInvert = true;
 
 
     public static final ArmFeedforward armFeedForward = new ArmFeedforward(0.0, 0.3, 0.6);
-    public static final Constraints armTrapConstraints =
-        new Constraints(12.5, 80.0); // rad/s and rad/s^2
-    public static final Constraints armSlowTrapConstraints =
+    public static final Constraints ArmConstraints =
         new Constraints(6.0, 80.0); // rad/s and rad/s^2
     public static final int armPositionPIDSlot = 0;
     public static final PIDConfig armPositionPIDConfig = new PIDConfig(3.0, 0.0, 0.01);
 
-    public static final SimpleMotorFeedforward redirectRollerFeedforward =
-        new SimpleMotorFeedforward(0.1, 0.03);
-    public static final int redirectVelocityPIDSlot = 0;
-    public static final PIDConfig redirectVelocityPIDConfig = new PIDConfig(0.1, 0.0, 0.0);
-    public static final int redirectPositionPIDSlot = 1;
-    public static final PIDConfig redirectPositionPIDConfig = new PIDConfig(30.0, 0.0, 0.0);
+    public static final ArmFeedforward wristFeedForward = new ArmFeedforward(0.0, 0.3, 0.6);
+    public static final Constraints WristConstraints =
+        new Constraints(6.0, 80.0); // rad/s and rad/s^2
+    public static final int wristPositionPIDSlot = 0;
+    public static final PIDConfig wristPositionPIDConfig = new PIDConfig(3.0, 0.0, 0.01);
 
-    public static final SimpleMotorFeedforward feedRollerFeedforward =
+    public static final SimpleMotorFeedforward rollerFeedforward =
         new SimpleMotorFeedforward(0.1, 0.028);
-    public static final int feedVelocityPIDSlot = 0;
-    public static final PIDConfig feedVelocityPIDConfig = new PIDConfig(0.1, 0.0, 0.0);
-    public static final int feedPositionPIDSlot = 1;
-    public static final PIDConfig feedPositionPIDConfig = new PIDConfig(30.0, 0.0, 0.0);
-
-    public static final SimpleMotorFeedforward ArmFeedforward =
-        new SimpleMotorFeedforward(0.0, 0.019);
-    public static final int ArmVelocityPIDSlot = 0;
-    public static final PIDConfig ArmVelocityPIDConfig = new PIDConfig(0.2, 0.0, 0.0);
+    public static final int rollerVelocityPIDSlot = 0;
+    public static final PIDConfig rollerVelocityPIDConfig = new PIDConfig(0.1, 0.0, 0.0);
+    public static final int rollerPositionPIDSlot = 1;
+    public static final PIDConfig rollerPositionPIDConfig = new PIDConfig(30.0, 0.0, 0.0);
 
     // TODO: Use real values
-    public static final double bootAbsPositionOffset = Units.degreesToRadians(-1.6);
-    public static final double minAngle = Units.degreesToRadians(-128.0); // rads (trap position)
-    public static final double maxAngle = Units.degreesToRadians(55.0); // rads (stow position)
-    public static final double startingAngle = maxAngle + bootAbsPositionOffset;
-    public static final double cgOffset = Units.degreesToRadians(30.0);
+    public static final double armBootAbsPositionOffset = Units.degreesToRadians(0);
+    public static final double armMinAngle = Units.degreesToRadians(-10.0); // rads (trap position)
+    public static final double armMaxAngle = Units.degreesToRadians(140.0); // rads (stow position)
+    public static final double armStartingAngle = Units.degreesToRadians(0);
+    public static final double armCgOffset = Units.degreesToRadians(0); // TODO: NEED TO CALC IN SUBSYSTEM
 
-    public static final double climbAngle = Units.degreesToRadians(-45.0); // rads (trap position)
-    public static final double trapAngle = Units.degreesToRadians(-128.0); // rads (trap position)
+    public static final double wristBootAbsPositionOffset = Units.degreesToRadians(0);
+    public static final double wristMinAngle = Units.degreesToRadians(-16.0); // rads (trap position)
+    public static final double wristMaxAngle = Units.degreesToRadians(180.0); // rads (stow position)
+    public static final double wristStartingAngle = Units.degreesToRadians(0);
+    public static final double wristCgOffset = Units.degreesToRadians(0);
 
-    public static final double intakeAngle = Units.degreesToRadians(45);
-    public static final double intakeAngleTolerance = Units.degreesToRadians(5);
+    public static final double AngleTolerance = Units.degreesToRadians(2);
 
-    public static final double subwooferLaunchAngle = Units.degreesToRadians(55);
-    public static final double podiumLaunchAngle = Units.degreesToRadians(30);
-    public static final double feedLaunchAngle = Units.degreesToRadians(45);
-    public static final double launchAngleTolerance = Units.degreesToRadians(2);
-    public static final double launchVelocity = 550.0; // rads/s
-    public static final double launchFeedShotVelocity = 310.0; // rads/s
-    public static final double launchVelocityTolerance = 50.0; // rads/s
-    public static final double autoLaunchStartVelocity = 300.0; // rads/s
+    public static final double intakeVelocity = 350.0; // rads/s
+    public static final double outtakeVelocity = 310.0; // rads/s
 
-    public static final double scoreAmpArmAngle = Units.degreesToRadians(-105.0); // rads
-    public static final double scoreAmpArmAngleTolerance = Units.degreesToRadians(2); // rads
 
-    public static final double intakeFromSourceAngle = Units.degreesToRadians(55); // rads
-    public static final double intakeFromSourceLaunchVelocity = -100; // rads/s
-    public static final double intakeFromSourceFeedPower = -0.25;
+    public static final double armIntakeAngle = Units.degreesToRadians(120);
+    public static final double wristIntakeAngle = Units.degreesToRadians(90);
+    public static final double armGroundIntakeAngle = Units.degreesToRadians(-5);
+    public static final double wristGroundIntakeAngle = Units.degreesToRadians(25);
+    public static final double armStowAngle = Units.degreesToRadians(90);
+    public static final double wristStowAngle = Units.degreesToRadians(90);
+    public static final double armScoreAngle = Units.degreesToRadians(90);
+    public static final double wristScoreAngle = Units.degreesToRadians(-15);
 
-    public static final double intakeFeedVelocity = 70; // rad/s
-    public static final double scoreAmpFeedVelocity = 300; // rad/s
-    public static final double scoreSpeakerFeedVelocity = 300; // rad/s
-    public static final double scoreTrapFeedVelocity = 300; // rad/s
-    public static final double scoreTrapReverseVelocity = 50; // rad/s
-
-    public static final double shotVelocity = 20.0; // m/s
     public static final Transform2d robotToArm =
         new Transform2d(Units.inchesToMeters(12.0), 0.0, new Rotation2d());
-    public static final double ArmHeight = Units.inchesToMeters(21);
+    public static final double ArmHeight = Units.inchesToMeters(12);
 
     public static final double rollerBeamBreakOffset = 1.5 * Math.PI; // rads
 
@@ -285,10 +269,10 @@ public class Constants {
     public static final Rotation2d elevatorAngle = Rotation2d.fromDegrees(90.0);
     public static final double elevatorBaseLength = Units.inchesToMeters(24.0);
     public static final double elevatorCarriageLength = Units.inchesToMeters(24.0);
-    public static final double ArmArmPivotX = Units.inchesToMeters(17.0);
+    public static final double ArmArmPivotX = Units.inchesToMeters(8.0);
     public static final double ArmArmLength = Units.inchesToMeters(12.0);
     public static final double ArmWristLength = Units.inchesToMeters(6.0);
-    public static final double ArmRollerX = Units.inchesToMeters(12.0);
+    public static final double ArmRollerX = Units.inchesToMeters(8.0);
     public static final double ArmRollerY = Units.inchesToMeters(0);
     
 

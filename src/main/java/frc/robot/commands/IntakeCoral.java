@@ -11,12 +11,12 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 
 
-public class Movearm extends Command {
+public class IntakeCoral extends Command {
   private final IntakeSubsystem m_intake;
   private final ElevatorSubsystem m_elevator;
   private final ArmSubsystem m_arm;
 
-  public Movearm(
+  public IntakeCoral(
       IntakeSubsystem intakeSubsystem,
       ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem) {
@@ -32,23 +32,24 @@ public class Movearm extends Command {
   @Override
   public void initialize() {
     // m_elevator.setHeight(Constants.Elevator.stowHeight);
-    m_arm.setWristAngle(Constants.Intake.intakeDeployAngle);
-    m_arm.setWristAngle(Constants.Intake.intakeDeployAngle);
+    m_arm.setArmAngle(Constants.Arm.armIntakeAngle);
+   // m_arm.setWristAngle(Constants.Arm.wristIntakeAngle);
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     
-    m_arm.setRollerVelocity(Constants.Intake.intakeRollerVelocity);
+    m_arm.setRollerPower(500);
     
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_arm.setArmAngle(Constants.Intake.intakeStowAngle);
-    m_arm.setWristAngle(Constants.Intake.intakeStowAngle);
+    m_arm.setArmAngle(Constants.Arm.armStowAngle);
+   // m_arm.setWristAngle(Constants.Arm.wristScoreAngle);
     m_arm.setRollerVelocity(0);
     // m_launcher.moveFeedAndRedirectToPositionOffset(Constants.Launcher.rollerBeamBreakOffset);
   }

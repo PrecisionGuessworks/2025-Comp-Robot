@@ -38,7 +38,7 @@ import frc.quixlib.viz.Link2d;
 import frc.quixlib.viz.Viz2d;
 import frc.robot.commands.IntakePiece;
 import frc.robot.commands.Moveup;
-import frc.robot.commands.Movearm;
+import frc.robot.commands.IntakeCoral;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -131,10 +131,10 @@ private final Link2d ArmArmViz =
     elevatorCarriageViz.addLink(
         new Link2d(robotViz, "Arm Arm", Constants.Viz.ArmArmLength, 10, Color.kRed));
 private final Link2d ArmWristViz =
-    elevatorCarriageViz.addLink(
+ArmArmViz.addLink(
         new Link2d(robotViz, "Arm Wrist", Constants.Viz.ArmWristLength, 10, Color.kOrange));
 private final Link2d ArmWheelViz =
-    ArmArmViz.addLink(
+ArmWristViz.addLink(
         new Link2d(robotViz, "Arm Wheel", Units.inchesToMeters(2.0), 10, Color.kCoral));
 
     
@@ -215,7 +215,7 @@ private final ArmSubsystem arm =
 
         joystick.y().whileTrue(pathfindingCommand());
         joystick.x().whileTrue(pathfindingtofollowCommand());
-        joystick.b().whileTrue(new Movearm(intake, elevator, arm));
+        joystick.b().whileTrue(new IntakeCoral(intake, elevator, arm));
         joystick.rightTrigger().whileTrue(new IntakePiece(intake, elevator));
 
         joystick.pov(0).whileTrue(drivetrain.applyRequest(() ->
