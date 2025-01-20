@@ -43,7 +43,7 @@ public class ArmSubsystem extends SubsystemBase {
               .setInverted(Constants.Arm.armMotorInvert)
               .setBrakeMode()
               .setSupplyCurrentLimit(40.0)
-              .setStatorCurrentLimit(40.0)
+              .setStatorCurrentLimit(80.0)
               .setMotionMagicConfig(
                   Constants.Arm.ArmConstraints.maxVelocity,
                   Constants.Arm.ArmConstraints.maxAcceleration,
@@ -53,7 +53,26 @@ public class ArmSubsystem extends SubsystemBase {
               .setReverseSoftLimit(Constants.Arm.armMinAngle)
               .setForwardSoftLimit(Constants.Arm.armMaxAngle));
 
-  private double m_targetAngle = Constants.Arm.armStartingAngle;
+private final QuixTalonFX m_wristMotor =
+  new QuixTalonFX(
+      Constants.Arm.wristMotorID,
+      Constants.Arm.wristMotorRatio,
+      QuixTalonFX.makeDefaultConfig()
+          .setInverted(Constants.Arm.wristMotorInvert)
+          .setBrakeMode()
+          .setSupplyCurrentLimit(40.0)
+          .setStatorCurrentLimit(80.0)
+          .setMotionMagicConfig(
+              Constants.Arm.WristConstraints.maxVelocity,
+              Constants.Arm.WristConstraints.maxAcceleration,
+              1)
+          .setPIDConfig(Constants.Arm.wristPositionPIDSlot, Constants.Arm.wristPositionPIDConfig)
+          .setBootPositionOffset(Constants.Arm.wristStartingAngle)
+          .setReverseSoftLimit(Constants.Arm.wristMinAngle)
+          .setForwardSoftLimit(Constants.Arm.wristMaxAngle));
+
+  private double m_armTargetAngle = Constants.Arm.armStartingAngle;
+  private double m_wristTargetAngle = Constants.Arm.wristStartingAngle;
   private Timer m_lastPieceTimer = new Timer();
 
   public ArmSubsystem(Link2d ArmArmViz, Link2d ArmWristViz, Link2d ArmRollerViz) {
@@ -77,12 +96,18 @@ public class ArmSubsystem extends SubsystemBase {
     return m_lastPieceTimer.get() < 1.0;
   }
 
-  public double getAngle() {
+  public double getArmAngle() {
     return m_armMotor.getSensorPosition();
+  }
+  public double getWristAngle() {
+    return m_wristMotor.getSensorPosition();
   }
 
   public void setArmAngle(double targetAngle) {
-    m_targetAngle = targetAngle;
+    m_armTargetAngle = targetAngle;
+  }
+  public void setWristAngle(double targetAngle) {
+    m_wristTargetAngle = targetAngle;
   }
 
   public boolean isAtAngle(double angle, double tolerance) {
@@ -118,7 +143,9 @@ public class ArmSubsystem extends SubsystemBase {
     //SmartDashboard.putBoolean("Arm: Beam Break", m_beamBreak.get());
 
     m_armMotor.setMotionMagicPositionSetpoint(
-        Constants.Arm.armPositionPIDSlot, m_targetAngle);
+        Constants.Arm.armPositionPIDSlot, m_armTargetAngle);
+    m_wristMotor.setMotionMagicPositionSetpoint(
+      Constants.Arm.wristPositionPIDSlot, m_wristTargetAngle);
 
     SmartDashboard.putNumber(
         "Arm: Current Angle (deg)", Units.radiansToDegrees(m_armMotor.getSensorPosition()));
@@ -134,7 +161,23 @@ public class ArmSubsystem extends SubsystemBase {
     SmartDashboard.putNumber(
         "Arm: Current Roller Velocity (rad per sec)", m_rollerMotor.getSensorVelocity());
 
+
+      SmartDashboard.putNumber(
+        "Wrist: Current Angle (deg)", Units.radiansToDegrees(m_wristMotor.getSensorPosition()));
+      SmartDashboard.putNumber(
+        "Wrist: Target Angle (deg)",
+        Units.radiansToDegrees(m_wristMotor.getClosedLoopReference()));
+      SmartDashboard.putNumber(
+        "Wrist: Current Velocity (deg per sec)",
+        Units.radiansToDegrees(m_wristMotor.getSensorVelocity()));
+      SmartDashboard.putNumber(
+        "Wrist: Target Velocity (deg per sec)",
+        Units.radiansToDegrees(m_wristMotor.getClosedLoopReferenceSlope()));
+      SmartDashboard.putNumber(
+        "Wrist: Current Roller Velocity (rad per sec)", m_rollerMotor.getSensorVelocity());
+
     m_rollerMotor.logMotorState();
+    m_wristMotor.logMotorState();
     m_armMotor.logMotorState();
   }
 
@@ -149,6 +192,18 @@ public class ArmSubsystem extends SubsystemBase {
           Constants.Arm.armMaxAngle,
           true, // Simulate gravity
           Constants.Arm.armStartingAngle);
+
+  private static final SingleJointedArmSim m_wrstSim =
+  new SingleJointedArmSim(
+      DCMotor.getKrakenX60Foc(1),
+      Constants.Arm.wristMotorRatio.reduction(),
+      Constants.Arm.wristArmMOI,
+      Constants.Arm.wristCgOffset,
+      Constants.Arm.wristMinAngle,
+      Constants.Arm.wristMaxAngle,
+      false, // Simulate gravity
+      Constants.Arm.wristStartingAngle);
+
   static final DCMotor m_simMotor = DCMotor.getKrakenX60Foc(1);
   private static final FlywheelSim m_rollerSim =
       new FlywheelSim(
@@ -176,6 +231,16 @@ public class ArmSubsystem extends SubsystemBase {
         TimedRobot.kDefaultPeriod,
         Constants.Arm.armMotorRatio);
 
+    m_wrstSim.setInput(m_wristMotor.getPercentOutput() * RobotController.getBatteryVoltage());
+    m_wrstSim.update(TimedRobot.kDefaultPeriod);
+    m_wristMotor.setSimSensorPositionAndVelocity(
+      m_wrstSim.getAngleRads() - Constants.Arm.wristStartingAngle - Constants.Arm.armStartingAngle,
+      // m_wrstSim.getVelocityRadPerSec(), // TODO: Figure out why this causes jitter
+      0.0,
+      TimedRobot.kDefaultPeriod,
+      Constants.Arm.wristMotorRatio);
+    
+
     m_rollerSim.setInput(m_rollerMotor.getPercentOutput() * RobotController.getBatteryVoltage());
     m_rollerSim.update(TimedRobot.kDefaultPeriod);
     m_rollerMotor.setSimSensorVelocity(
@@ -189,6 +254,15 @@ public class ArmSubsystem extends SubsystemBase {
             Constants.Viz.ArmArmPivotX,
             0,
             Rotation2d.fromRadians(m_armSim.getAngleRads() + Units.degreesToRadians(- Constants.Viz.elevatorAngle.getDegrees()))));
+
+    m_ArmWristViz.setRelativeTransform(
+      new Transform2d(
+          Constants.Viz.ArmArmLength,
+          0.0,
+          Rotation2d.fromRadians(
+            //m_ArmWristViz.getRelativeTransform().getRotation().getRadians()
+                  + m_wrstSim.getAngleRads()+ Units.degreesToRadians(- Constants.Viz.elevatorAngle.getDegrees()) - Units.degreesToRadians(90))));
+
     m_ArmRollerViz.setRelativeTransform(
         new Transform2d(
             Constants.Viz.ArmArmLength,
