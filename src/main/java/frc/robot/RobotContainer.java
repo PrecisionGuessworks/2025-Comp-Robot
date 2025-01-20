@@ -38,6 +38,7 @@ import frc.quixlib.viz.Link2d;
 import frc.quixlib.viz.Viz2d;
 import frc.robot.commands.IntakePiece;
 import frc.robot.commands.Moveup;
+import frc.robot.commands.ScoreHeight;
 import frc.robot.commands.IntakeCoral;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -218,26 +219,16 @@ private final ArmSubsystem arm =
         joystick.b().whileTrue(new IntakeCoral(intake, elevator, arm));
         joystick.rightTrigger().whileTrue(new IntakePiece(intake, elevator));
 
-        joystick.pov(0).whileTrue(drivetrain.applyRequest(() ->
-            angle.withVelocityX(-joystick.getLeftY() * MaxSpeed)
-            .withVelocityY(-joystick.getLeftX() * MaxSpeed)
-            .withTargetDirection(new Rotation2d(Math.toRadians(0))))
-        );
-        joystick.pov(90).whileTrue(drivetrain.applyRequest(() ->
-            angle.withVelocityX(-joystick.getLeftY() * MaxSpeed)
-            .withVelocityY(-joystick.getLeftX() * MaxSpeed)
-            .withTargetDirection(new Rotation2d(Math.toRadians(270))))
-        );
-        joystick.pov(180).whileTrue(drivetrain.applyRequest(() ->
-        angle.withVelocityX(-joystick.getLeftY() * MaxSpeed)
-        .withVelocityY(-joystick.getLeftX() * MaxSpeed)
-        .withTargetDirection(new Rotation2d(Math.toRadians(180))))
-        );
-        joystick.pov(270).whileTrue(drivetrain.applyRequest(() ->
-            angle.withVelocityX(-joystick.getLeftY() * MaxSpeed)
-            .withVelocityY(-joystick.getLeftX() * MaxSpeed)
-            .withTargetDirection(new Rotation2d(Math.toRadians(90))))
-        );
+        // joystick.pov(0).whileTrue(drivetrain.applyRequest(() ->
+        //     angle.withVelocityX(-joystick.getLeftY() * MaxSpeed)
+        //     .withVelocityY(-joystick.getLeftX() * MaxSpeed)
+        //     .withTargetDirection(new Rotation2d(Math.toRadians(0))))
+        // );
+        joystick.pov(0).onTrue( new ScoreHeight(4, elevator, arm));
+        joystick.pov(90).onTrue( new ScoreHeight(3, elevator, arm));
+        joystick.pov(180).onTrue( new ScoreHeight(2, elevator, arm));
+        joystick.pov(270).onTrue( new ScoreHeight(1, elevator, arm));
+        
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
         joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
@@ -274,7 +265,7 @@ private final ArmSubsystem arm =
 
         // Create the constraints to use while pathfinding
         PathConstraints constraints = new PathConstraints(
-                4.0, 4.0,
+                2.5, 2.5,
                 Units.degreesToRadians(540), Units.degreesToRadians(720));
 
         // Since AutoBuilder is configured, we can use it to build pathfinding commands

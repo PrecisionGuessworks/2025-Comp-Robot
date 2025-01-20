@@ -42,8 +42,8 @@ public class ArmSubsystem extends SubsystemBase {
           QuixTalonFX.makeDefaultConfig()
               .setInverted(Constants.Arm.armMotorInvert)
               .setBrakeMode()
-              .setSupplyCurrentLimit(40.0)
-              .setStatorCurrentLimit(80.0)
+              .setSupplyCurrentLimit(60.0)
+              .setStatorCurrentLimit(120.0)
               .setMotionMagicConfig(
                   Constants.Arm.ArmConstraints.maxVelocity,
                   Constants.Arm.ArmConstraints.maxAcceleration,
@@ -60,8 +60,8 @@ private final QuixTalonFX m_wristMotor =
       QuixTalonFX.makeDefaultConfig()
           .setInverted(Constants.Arm.wristMotorInvert)
           .setBrakeMode()
-          .setSupplyCurrentLimit(40.0)
-          .setStatorCurrentLimit(80.0)
+          .setSupplyCurrentLimit(60.0)
+          .setStatorCurrentLimit(120.0)
           .setMotionMagicConfig(
               Constants.Arm.WristConstraints.maxVelocity,
               Constants.Arm.WristConstraints.maxAcceleration,
@@ -265,7 +265,7 @@ private final QuixTalonFX m_wristMotor =
 
     m_ArmRollerViz.setRelativeTransform(
         new Transform2d(
-            Constants.Viz.ArmArmLength,
+            Constants.Viz.ArmWristLength,
             0.0,
             Rotation2d.fromRadians(
                 m_ArmRollerViz.getRelativeTransform().getRotation().getRadians()

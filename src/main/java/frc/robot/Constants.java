@@ -183,7 +183,7 @@ public class Constants {
 
     public static final CANDeviceID wristMotorID = new CANDeviceID(13, kCanivoreName);
     public static final MechanismRatio wristMotorRatio =
-        new MechanismRatio(1, (15.0 / 1.0) * (32.0 / 14.0));
+        new MechanismRatio(1, (5.0 / 1.0) * (32.0 / 14.0));
     public static final boolean wristMotorInvert = true;
 
     public static final CANDeviceID rollerMotorID = new CANDeviceID(14, kCanivoreName);
@@ -233,9 +233,9 @@ public class Constants {
     public static final double wristIntakeAngle = Units.degreesToRadians(90);
     public static final double armGroundIntakeAngle = Units.degreesToRadians(-5);
     public static final double wristGroundIntakeAngle = Units.degreesToRadians(25);
-    public static final double armStowAngle = Units.degreesToRadians(90);
+    public static final double armStowAngle = Units.degreesToRadians(89);
     public static final double wristStowAngle = Units.degreesToRadians(90);
-    public static final double armScoreAngle = Units.degreesToRadians(90);
+    public static final double armScoreAngle = Units.degreesToRadians(89);
     public static final double wristScoreAngle = Units.degreesToRadians(-15);
 
     public static final Transform2d robotToArm =

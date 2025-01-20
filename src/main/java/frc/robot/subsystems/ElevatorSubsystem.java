@@ -36,6 +36,11 @@ public class ElevatorSubsystem extends SubsystemBase {
               .setForwardSoftLimit(Constants.Elevator.maxHeight));
 
   private double m_targetHeight = Constants.Elevator.minHeight;
+  private int m_HeightLocation = 1;
+  private boolean Loc1 = false;
+  private boolean Loc2 = false;
+  private boolean Loc3 = false;
+  private boolean Loc4 = false;
 
   public ElevatorSubsystem(Link2d elevatorCarriageViz) {
     // Show scheduler status in SmartDashboard.
@@ -56,6 +61,12 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void setHeight(double targetHeight) {
     m_targetHeight = targetHeight;
   }
+  public void setHeightLocation(int targetHeight) {
+    m_HeightLocation = targetHeight;
+  }
+  public int getHeightLocation() {
+    return m_HeightLocation;
+  }
 
   public boolean isAtHeight(double height, double tolerance) {
     return Math.abs(height - m_motor.getSensorPosition()) <= tolerance;
@@ -71,10 +82,42 @@ public class ElevatorSubsystem extends SubsystemBase {
         Constants.Elevator.maxAcceleration,
         Constants.Elevator.maxJerk);
 
+    if (m_HeightLocation==1){
+      Loc1 = true;
+      Loc2 = false;
+      Loc3 = false;
+      Loc4 = false;
+    } else if (m_HeightLocation==2){
+      Loc1 = false;
+      Loc2 = true;
+      Loc3 = false;
+      Loc4 = false;
+    } else if (m_HeightLocation==3){
+      Loc1 = false;
+      Loc2 = false;
+      Loc3 = true;
+      Loc4 = false;
+    } else if (m_HeightLocation==4){
+      Loc1 = false;
+      Loc2 = false;
+      Loc3 = false;
+      Loc4 = true;
+    }
+
+
     SmartDashboard.putNumber(
         "Elevator: Current Height (in)", Units.metersToInches(m_motor.getSensorPosition()));
     SmartDashboard.putNumber(
         "Elevator: Target Height (in)", Units.metersToInches(m_motor.getClosedLoopReference()));
+
+    SmartDashboard.putBoolean(
+          "L1", Loc1);
+    SmartDashboard.putBoolean(
+          "L2", Loc2);
+    SmartDashboard.putBoolean(  
+          "L3", Loc3);    
+    SmartDashboard.putBoolean(
+          "L4", Loc4);
 
     m_motor.logMotorState();
   }
