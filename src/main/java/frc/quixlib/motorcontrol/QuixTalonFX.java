@@ -14,6 +14,7 @@ import com.ctre.phoenix6.controls.TorqueCurrentFOC;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.sim.TalonFXSimState;
@@ -77,6 +78,13 @@ public class QuixTalonFX implements QuixMotorControllerWithEncoder, AutoCloseabl
     private double motionMagicAcceleration = 0.0; // In MechanismRatio units
     private double motionMagicJerk = 0.0; // In MechanismRatio units
     private double bootPositionOffset = 0.0; // In MechanismRatio units
+    private FeedbackSensorSourceValue feedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
+    private int FeedbackRemoteSensorCANID = 0;
+    private double FeedbackSensorOffset = 0.0;
+    private double FeedbackSensorMechRatio = 1.0;
+    private double FeedbackSensorRotorRatio = 1.0;
+
+
 
     public QuixTalonFXConfiguration setBrakeMode() {
       NEUTRAL_MODE = NeutralModeValue.Brake;
@@ -140,8 +148,12 @@ public class QuixTalonFX implements QuixMotorControllerWithEncoder, AutoCloseabl
       return this;
     }
 
-    public QuixTalonFXConfiguration setCANcoderConfig(final int RemoteSensorID) { // remote option, offset, senor ratio to mech and rotor
-      
+    public QuixTalonFXConfiguration setFeedbackConfig(final FeedbackSensorSourceValue FeedbackSensorSource, final int CANID, final double sensorOffset, final MechanismRatio RotorToSensorRatio, final MechanismRatio SensorToMechRatio) { // remote option, offset, senor ratio to mech and rotor
+    feedbackSensorSource = FeedbackSensorSource;
+    FeedbackRemoteSensorCANID = CANID;
+    FeedbackSensorOffset = sensorOffset;
+    FeedbackSensorMechRatio = SensorToMechRatio.reduction();
+    FeedbackSensorRotorRatio = RotorToSensorRatio.reduction();
       return this;
     }
 
@@ -153,6 +165,19 @@ public class QuixTalonFX implements QuixMotorControllerWithEncoder, AutoCloseabl
       config.MotorOutput.Inverted =
           INVERTED ? InvertedValue.Clockwise_Positive : InvertedValue.CounterClockwise_Positive;
       config.MotorOutput.DutyCycleNeutralDeadband = 0.0;
+
+      //CANcoder config
+     
+      config.Feedback.FeedbackSensorSource = feedbackSensorSource;
+      config.Feedback.FeedbackRemoteSensorID = FeedbackRemoteSensorCANID; // Local feedback
+      //config.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
+      config.Feedback.FeedbackRotorOffset = FeedbackSensorOffset;
+      config.Feedback.RotorToSensorRatio = FeedbackSensorRotorRatio;
+      config.Feedback.SensorToMechanismRatio = FeedbackSensorMechRatio;
+
+      //config.HardwareLimitSwitch.
+
+
 
       if (Robot.isReal()) {
         // TODO: Figure out why stator current limits break simulation.

@@ -25,7 +25,7 @@ public class ElevatorSubsystem extends SubsystemBase {
           QuixTalonFX.makeDefaultConfig()
               .setBrakeMode()
               .setSupplyCurrentLimit(40.0)
-              .setStatorCurrentLimit(40.0)
+              .setStatorCurrentLimit(60.0)
               .setInverted(Constants.Elevator.motorInvert)
               .setPIDConfig(Constants.Elevator.motorPositionSlot, Constants.Elevator.motorPIDConfig)
               .setMotionMagicConfig(
@@ -39,7 +39,17 @@ public class ElevatorSubsystem extends SubsystemBase {
       Constants.Elevator.followerID,
       m_motor,
       Constants.Elevator.followerInvert,
-      QuixTalonFX.makeDefaultConfig());
+      QuixTalonFX.makeDefaultConfig().setBrakeMode()
+      .setSupplyCurrentLimit(40.0)
+      .setStatorCurrentLimit(60.0)
+      .setInverted(Constants.Elevator.motorInvert)
+      .setPIDConfig(Constants.Elevator.motorPositionSlot, Constants.Elevator.motorPIDConfig)
+      .setMotionMagicConfig(
+          Constants.Elevator.maxVelocity,
+          Constants.Elevator.maxAcceleration,
+          Constants.Elevator.maxJerk)
+      .setReverseSoftLimit(Constants.Elevator.minHeight)
+      .setForwardSoftLimit(Constants.Elevator.maxHeight));
 
   private double m_targetHeight = Constants.Elevator.minHeight;
   public int m_HeightLocation = 1;

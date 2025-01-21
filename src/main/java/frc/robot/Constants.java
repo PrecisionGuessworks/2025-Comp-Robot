@@ -120,8 +120,8 @@ public class Constants {
 
     // TODO: use real numbers
     public static final double minHeight = 0.0; // m
-    public static final double powerCutoffHeight = Units.inchesToMeters(0.5); // m
-    public static final double maxHeight = Units.inchesToMeters(36.0); // m
+    //public static final double powerCutoffHeight = Units.inchesToMeters(0.1); // m
+    public static final double maxHeight = Units.inchesToMeters(75.0); // m
     public static final double stowHeight = Units.inchesToMeters(1); // m
     public static final double stowTolerance = Units.inchesToMeters(0.25); // m
     public static final double scoreAmpHeight = Units.inchesToMeters(34.0); // m
@@ -129,10 +129,10 @@ public class Constants {
     public static final double climbRetractHeight = Units.inchesToMeters(0.0); // m
     public static final double climbExtendHeight = Units.inchesToMeters(8); // m
 
-    public static final double L1 = Units.inchesToMeters(8); // m
-    public static final double L2 = Units.inchesToMeters(12); // m
-    public static final double L3 = Units.inchesToMeters(20); // m
-    public static final double L4 = Units.inchesToMeters(30); // m
+    public static final double L1 = Units.inchesToMeters(12); // m
+    public static final double L2 = Units.inchesToMeters(34); // m
+    public static final double L3 = Units.inchesToMeters(44); // m
+    public static final double L4 = Units.inchesToMeters(68); // m
 
     // For simulation.
     public static final double simCarriageMass = 7.0; // kg
@@ -186,6 +186,8 @@ public class Constants {
     public static final CANDeviceID armMotorID = new CANDeviceID(12, kCanivoreName);
     public static final MechanismRatio armMotorRatio =
         new MechanismRatio(1, (15.0 / 1.0) * (80.0 / 38.0));
+    public static final MechanismRatio armSensorRatio =
+        new MechanismRatio(1, (1.0));
     public static final boolean armMotorInvert = true;
 
     public static final CANDeviceID wristMotorID = new CANDeviceID(13, kCanivoreName);

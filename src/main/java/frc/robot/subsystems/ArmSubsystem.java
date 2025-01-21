@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
+
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.system.plant.DCMotor;
@@ -51,7 +53,8 @@ public class ArmSubsystem extends SubsystemBase {
               .setPIDConfig(Constants.Arm.armPositionPIDSlot, Constants.Arm.armPositionPIDConfig)
               .setBootPositionOffset(Constants.Arm.armStartingAngle)
               .setReverseSoftLimit(Constants.Arm.armMinAngle)
-              .setForwardSoftLimit(Constants.Arm.armMaxAngle));
+              .setForwardSoftLimit(Constants.Arm.armMaxAngle)
+              .setFeedbackConfig(FeedbackSensorSourceValue.FusedCANcoder, 29, 0.0,Constants.Arm.armMotorRatio,Constants.Arm.armSensorRatio));
 
 private final QuixTalonFX m_wristMotor =
   new QuixTalonFX(
