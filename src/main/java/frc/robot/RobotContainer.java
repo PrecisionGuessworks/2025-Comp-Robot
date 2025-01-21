@@ -39,6 +39,7 @@ import frc.quixlib.viz.Viz2d;
 import frc.robot.commands.IntakePiece;
 import frc.robot.commands.Moveup;
 import frc.robot.commands.ScoreHeight;
+import frc.robot.commands.CoralMoveScore;
 import frc.robot.commands.IntakeCoral;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -86,7 +87,7 @@ Map<String, Command> robotCommands  = new HashMap<String, Command>();
 
 
 private final Viz2d robotViz =
-      new Viz2d("Robot Viz", Units.inchesToMeters(80.0), Units.inchesToMeters(80.0), 1.0);
+      new Viz2d("Robot Viz", Units.inchesToMeters(80.0), Units.inchesToMeters(40.0), 1.0);
 
 private final Link2d chassisViz =
       robotViz.addLink(
@@ -208,16 +209,14 @@ private final ArmSubsystem arm =
         //     point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
         // ));
 
-        joystick.rightBumper().whileTrue(drivetrain.applyRequest(() ->
-            angle.withVelocityX(-joystick.getLeftY() * MaxSpeed)
-            .withVelocityY(-joystick.getLeftX() * MaxSpeed)
-            .withTargetDirection(targetangle()))
-        );
+        joystick.leftBumper().whileTrue(new CoralMoveScore(intake, elevator, arm));
 
         joystick.y().whileTrue(pathfindingCommand());
         joystick.x().whileTrue(pathfindingtofollowCommand());
         joystick.b().whileTrue(new IntakeCoral(intake, elevator, arm));
         joystick.rightTrigger().whileTrue(new IntakePiece(intake, elevator));
+
+        
 
         // joystick.pov(0).whileTrue(drivetrain.applyRequest(() ->
         //     angle.withVelocityX(-joystick.getLeftY() * MaxSpeed)
@@ -231,13 +230,13 @@ private final ArmSubsystem arm =
         
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
-        joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
-        joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
-        joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
-        joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
+        // joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
+        // joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
+        // joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
+        // joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
         // reset the field-centric heading on left bumper press
-        joystick.leftBumper().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
+        joystick.start().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
         drivetrain.registerTelemetry(logger::telemeterize);
     }

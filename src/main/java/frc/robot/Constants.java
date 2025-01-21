@@ -127,6 +127,11 @@ public class Constants {
     public static final double climbRetractHeight = Units.inchesToMeters(0.0); // m
     public static final double climbExtendHeight = Units.inchesToMeters(8); // m
 
+    public static final double L1 = Units.inchesToMeters(8); // m
+    public static final double L2 = Units.inchesToMeters(12); // m
+    public static final double L3 = Units.inchesToMeters(20); // m
+    public static final double L4 = Units.inchesToMeters(30); // m
+
     // For simulation.
     public static final double simCarriageMass = 7.0; // kg
 
