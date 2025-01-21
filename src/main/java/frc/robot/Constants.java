@@ -102,7 +102,8 @@ public class Constants {
   }
 
   public static final class Elevator {
-    public static final CANDeviceID motorID = new CANDeviceID(10, kCanivoreName);
+    public static final CANDeviceID motorID = new CANDeviceID(20, kCanivoreName);
+    public static final CANDeviceID followerID = new CANDeviceID(21, kCanivoreName);
     public static final double StatorLimit = 80.0;
     public static final double SupplyLimit = 40.0;
     public static final double sprocketPitchDiameter = Units.inchesToMeters(1.273); // 16T #25
@@ -110,6 +111,7 @@ public class Constants {
         new MechanismRatio(
             1, (28.0 / 10.0) * (1.0 / 4.0) * (42.0 / 18.0), Math.PI * sprocketPitchDiameter);
     public static final boolean motorInvert = false;
+    public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
     public static final PIDConfig motorPIDConfig = new PIDConfig(3, 0, 0.1, 0, 0.12, 0, 0.4);
     public static final double maxVelocity = 1.0; // m/s

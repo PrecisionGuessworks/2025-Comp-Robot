@@ -35,8 +35,14 @@ public class ElevatorSubsystem extends SubsystemBase {
               .setReverseSoftLimit(Constants.Elevator.minHeight)
               .setForwardSoftLimit(Constants.Elevator.maxHeight));
 
+  private final QuixTalonFX m_follower = new QuixTalonFX(
+      Constants.Elevator.followerID,
+      m_motor,
+      Constants.Elevator.followerInvert,
+      QuixTalonFX.makeDefaultConfig());
+
   private double m_targetHeight = Constants.Elevator.minHeight;
-  private int m_HeightLocation = 1;
+  public int m_HeightLocation = 1;
   private boolean Loc1 = false;
   private boolean Loc2 = false;
   private boolean Loc3 = false;

@@ -13,6 +13,7 @@ import java.text.ParseException;
 
 import com.ctre.phoenix6.Utils;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.auto.AutoBuilder;
 
@@ -79,6 +80,11 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     vision = new Vision();
   }
+
+  // @Override
+  // public void robotInit(){
+  // PathfindingCommand.warmupCommand().schedule();
+  // }
 
   @Override
   public void robotPeriodic() {
