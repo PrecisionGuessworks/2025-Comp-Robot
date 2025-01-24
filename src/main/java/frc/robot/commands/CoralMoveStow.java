@@ -43,7 +43,7 @@ public class CoralMoveStow extends Command {
   @Override
   public void execute() {
 
-      if (2 <= m_placeTimer.get()){
+      if (0.75 <= m_placeTimer.get()){
         trueendtrigger = true;
       }
 

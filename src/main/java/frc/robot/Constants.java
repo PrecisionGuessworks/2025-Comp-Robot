@@ -184,8 +184,9 @@ public class Constants {
     public static final int beamBreakPort = 0;
 
     public static final CANDeviceID armMotorID = new CANDeviceID(12, kCanivoreName);
+    public static final CANDeviceID armCoderID = new CANDeviceID(15, kCanivoreName);
     public static final MechanismRatio armMotorRatio =
-        new MechanismRatio(1, (15.0 / 1.0) * (80.0 / 38.0));
+        new MechanismRatio(1, (90.0 / 1.0) * (80.0 / 38.0));
     public static final MechanismRatio armSensorRatio =
         new MechanismRatio(1, (1.0));
     public static final boolean armMotorInvert = true;
@@ -268,11 +269,11 @@ public class Constants {
 
 
   public static final class Viz {
-    public static final double xOffset = Units.inchesToMeters(12.0);
+    public static final double xOffset = Units.inchesToMeters(30.0);
     public static final double intakePivotX = xOffset + Units.inchesToMeters(27.25);
     public static final double intakePivotY = Units.inchesToMeters(11.25);
     public static final double intakeArmLength = Units.inchesToMeters(14.0);
-    public static final double elevatorBaseX = xOffset + Units.inchesToMeters(12.0);
+    public static final double elevatorBaseX = xOffset + Units.inchesToMeters(18.0);
     public static final double elevatorBaseY = Units.inchesToMeters(3.0);
     public static final Rotation2d elevatorAngle = Rotation2d.fromDegrees(90.0);
     public static final double elevatorBaseLength = Units.inchesToMeters(35.0);

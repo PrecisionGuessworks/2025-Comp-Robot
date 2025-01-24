@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.quixlib.motorcontrol.QuixTalonFX;
 import frc.quixlib.viz.Link2d;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 
 public class ElevatorSubsystem extends SubsystemBase {
   private final QuixTalonFX m_motor =
@@ -52,7 +54,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       .setForwardSoftLimit(Constants.Elevator.maxHeight));
 
   private double m_targetHeight = Constants.Elevator.minHeight;
-  public int m_HeightLocation = 1;
+  public int m_HeightLocation = 4;
   private boolean Loc1 = false;
   private boolean Loc2 = false;
   private boolean Loc3 = false;
@@ -90,6 +92,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    double armRototion = RobotContainer.arm.getArmAngle();
     // This method will be called once per scheduler run
     m_motor.setDynamicMotionMagicPositionSetpoint(
         Constants.Elevator.motorPositionSlot,
@@ -136,6 +139,7 @@ public class ElevatorSubsystem extends SubsystemBase {
           "L4", Loc4);
 
     m_motor.logMotorState();
+    m_follower.logMotorState();
   }
 
   // --- BEGIN STUFF FOR SIMULATION ---

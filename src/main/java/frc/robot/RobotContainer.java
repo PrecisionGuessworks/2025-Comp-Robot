@@ -33,6 +33,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.quixlib.viz.Link2d;
@@ -40,6 +41,7 @@ import frc.quixlib.viz.Viz2d;
 import frc.robot.commands.IntakePiece;
 import frc.robot.commands.Moveup;
 import frc.robot.commands.CoralMoveScore;
+import frc.robot.commands.CoralMoveStow;
 import frc.robot.commands.IntakeCoral;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -56,12 +58,12 @@ public class RobotContainer {
     private double MaxSpeed = MaxSpeedPercentage*(TunerConstants.kSpeedAt12Volts.in(MetersPerSecond)); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(MaxAngularRatePercentage).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
-    private final CommandXboxController driver = new CommandXboxController(0);
-    private final CommandXboxController operator = new CommandXboxController(1);
+    public final CommandXboxController driver = new CommandXboxController(0);
+    public final CommandXboxController operator = new CommandXboxController(1);
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
-    public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+    public static final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
@@ -87,10 +89,10 @@ Map<String, Command> robotCommands  = new HashMap<String, Command>();
 
 
 
-private final Viz2d robotViz =
-      new Viz2d("Robot Viz", Units.inchesToMeters(80.0), Units.inchesToMeters(40.0), 1.0);
+private static  final Viz2d robotViz =
+      new Viz2d("Robot Viz", Units.inchesToMeters(80.0), Units.inchesToMeters(120.0), 1.0);
 
-private final Link2d chassisViz =
+private static  final Link2d chassisViz =
       robotViz.addLink(
           new Link2d(
               robotViz,
@@ -101,7 +103,7 @@ private final Link2d chassisViz =
               new Transform2d(Constants.Viz.xOffset, Units.inchesToMeters(3.0), new Rotation2d())));
 
   // Elevator viz
-  private final Link2d elevatorFrameViz =
+  private  static final Link2d elevatorFrameViz =
       robotViz.addLink(
           new Link2d(
               robotViz,
@@ -113,38 +115,38 @@ private final Link2d chassisViz =
                   Constants.Viz.elevatorBaseX,
                   Constants.Viz.elevatorBaseY,
                   Constants.Viz.elevatorAngle)));
-  private final Link2d elevatorCarriageViz =
+  private static  final Link2d elevatorCarriageViz =
       elevatorFrameViz.addLink(
           new Link2d(
               robotViz,
               "Elevator Carriage",
               Constants.Viz.elevatorCarriageLength,
-              5,
+              6.0,
               Color.kLightGreen));
 // Intake viz
-private final Link2d intakeArmViz =
+private static final Link2d intakeArmViz =
 robotViz.addLink(
     new Link2d(robotViz, "Intake Arm", Constants.Viz.intakeArmLength, 10.0, Color.kBlue));
-private final Link2d intakeRollerViz =
+private static final Link2d intakeRollerViz =
 intakeArmViz.addLink(
     new Link2d(robotViz, "Intake Roller", Units.inchesToMeters(1.0), 10.0, Color.kLightBlue));
 
 
-private final Link2d ArmArmViz =
+private static final Link2d ArmArmViz =
 elevatorCarriageViz.addLink(
         new Link2d(robotViz, "Arm Arm", Constants.Viz.ArmArmLength, 10, Color.kRed));
-private final Link2d ArmWristViz =
+private static final Link2d ArmWristViz =
 ArmArmViz.addLink(
         new Link2d(robotViz, "Arm Wrist", Constants.Viz.ArmWristLength, 10, Color.kOrange));
-private final Link2d ArmWheelViz =
+private static final Link2d ArmWheelViz =
 ArmWristViz.addLink(
         new Link2d(robotViz, "Arm Wheel", Units.inchesToMeters(2.0), 10, Color.kCoral));
 
     
 
-private final ElevatorSubsystem elevator = new ElevatorSubsystem(elevatorCarriageViz);
-private final IntakeSubsystem intake = new IntakeSubsystem(intakeArmViz, intakeRollerViz);
-private final ArmSubsystem arm =
+        public static final ElevatorSubsystem elevator = new ElevatorSubsystem(elevatorCarriageViz);
+        public static final IntakeSubsystem intake = new IntakeSubsystem(intakeArmViz, intakeRollerViz);
+        public static final ArmSubsystem arm =
       new ArmSubsystem(
           ArmArmViz,
           ArmWristViz,
@@ -161,6 +163,9 @@ private final ArmSubsystem arm =
     public RobotContainer() {
 
         robotCommands.put("IntakePiece", new IntakePiece(intake, elevator).withTimeout(2.5));
+        robotCommands.put("CoralMoveScore", new CoralMoveScore(intake, elevator, arm).withTimeout(4));
+        robotCommands.put("CoralMoveStow", new CoralMoveStow(intake, elevator, arm));
+        robotCommands.put("IntakeCoral", new IntakeCoral(intake, elevator, arm));
     
         NamedCommands.registerCommands(robotCommands);
 
@@ -210,8 +215,8 @@ private final ArmSubsystem arm =
         //     point.withModuleDirection(new Rotation2d(-driver.getLeftY(), -driver.getLeftX()))
         // ));
 
-        driver.leftBumper().onTrue(new CoralMoveScore(intake, elevator, arm));
-        driver.leftBumper().onFalse(new CoralMoveScore(intake, elevator, arm));
+        driver.leftBumper().onTrue(new ParallelCommandGroup(new CoralMoveScore(intake, elevator, arm), pathfindingCommand()));
+        driver.leftBumper().onFalse(new CoralMoveStow(intake, elevator, arm));
 
         driver.y().whileTrue(pathfindingCommand());
         driver.x().whileTrue(pathfindingtofollowCommand());
@@ -230,6 +235,7 @@ private final ArmSubsystem arm =
         //elevator.m_HeightLocation = 4;
         if (driver.pov(0).getAsBoolean() == true){
             elevator.m_HeightLocation = 4;
+            System.out.println("4");
     
         } else if (driver.pov(90).getAsBoolean() == true){
             elevator.m_HeightLocation = 3;
@@ -271,6 +277,13 @@ private final ArmSubsystem arm =
         Pose2d targetpose = new Pose2d(16.7,5.5,new Rotation2d(0));
         System.out.println(PhotonUtils.getYawToPose(pose,targetpose));
         return PhotonUtils.getYawToPose(pose,targetpose);
+        
+    }
+
+    public Pose2d getPose() {
+        /* First put the drivetrain into auto run mode, then run the auto */
+        SwerveDriveState state = drivetrain.getState();
+        return state.Pose;
         
     }
 

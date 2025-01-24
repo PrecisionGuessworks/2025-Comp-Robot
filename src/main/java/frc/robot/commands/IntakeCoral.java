@@ -48,9 +48,10 @@ public class IntakeCoral extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_arm.setArmRollerCurrent(5,5);
   m_arm.setArmAngle(Constants.Arm.armStowAngle);
-   m_arm.setWristAngle(Constants.Arm.wristScoreAngle);
-    m_arm.setRollerVelocity(0);
+   m_arm.setWristAngle(Constants.Arm.wristStowAngle);
+    m_arm.setRollerVelocity(-1);
     m_elevator.setHeight(Constants.Elevator.stowHeight);
     // m_launcher.moveFeedAndRedirectToPositionOffset(Constants.Launcher.rollerBeamBreakOffset);
   }

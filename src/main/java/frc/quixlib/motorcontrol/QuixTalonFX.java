@@ -152,8 +152,8 @@ public class QuixTalonFX implements QuixMotorControllerWithEncoder, AutoCloseabl
     feedbackSensorSource = FeedbackSensorSource;
     FeedbackRemoteSensorCANID = CANID;
     FeedbackSensorOffset = sensorOffset;
-    FeedbackSensorMechRatio = SensorToMechRatio.reduction();
-    FeedbackSensorRotorRatio = RotorToSensorRatio.reduction();
+    FeedbackSensorMechRatio = SensorToMechRatio.inverseReduction();
+    FeedbackSensorRotorRatio = RotorToSensorRatio.inverseReduction();
       return this;
     }
 
@@ -338,7 +338,7 @@ public class QuixTalonFX implements QuixMotorControllerWithEncoder, AutoCloseabl
     // Disable all signals that have not been explicitly defined.
     allSuccess &=
         PhoenixUtil.retryUntilSuccess(
-            () -> m_controller.optimizeBusUtilization(kCANTimeoutS),
+            () -> m_controller.optimizeBusUtilization(0,kCANTimeoutS),
             "TalonFX " + m_canID + ": optimizeBusUtilization");
 
     // Block until we get valid signals.
@@ -412,6 +412,19 @@ public class QuixTalonFX implements QuixMotorControllerWithEncoder, AutoCloseabl
 
   public void setStatorCurrentLimit(final double amps) {
     m_config.STATOR_CURRENT_LIMIT = amps;
+
+    // TODO: Consider a shorter non-blocking timeout
+    m_controller
+        .getConfigurator()
+        .apply(
+            m_config.toTalonFXConfiguration(
+                    this::toNativeSensorPosition, this::toNativeSensorVelocity)
+                .CurrentLimits,
+            kCANTimeoutS);
+  }
+  public void setStatorCurrentLimit(double stator, double supply) {
+    m_config.STATOR_CURRENT_LIMIT = stator;
+    m_config.SUPPLY_CURRENT_LIMIT = supply;
 
     // TODO: Consider a shorter non-blocking timeout
     m_controller

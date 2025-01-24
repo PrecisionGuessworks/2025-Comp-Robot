@@ -101,7 +101,7 @@ public class Robot extends TimedRobot {
     // if (kUseLimelight) {
     //   var llMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
     //   if (llMeasurement != null) {
-    //     m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose, Utils.fpgaToCurrentTime(llMeasurement.timestampSeconds));
+    //     RobotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose, Utils.fpgaToCurrentTime(llMeasurement.timestampSeconds));
     //   }
     // }
     try{
@@ -111,15 +111,25 @@ public class Robot extends TimedRobot {
                 // Change our trust in the measurement based on the tags we can see
                 var estStdDevs = vision.getEstimationStdDevs();
 
-                m_robotContainer.drivetrain.addVisionMeasurement(
+                RobotContainer.drivetrain.addVisionMeasurement(
                         est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
             });
     } catch (Exception e) {
       e.printStackTrace();
     }
-    
 
+    if (m_robotContainer.driver.pov(0).getAsBoolean() == true){
+      RobotContainer.elevator.m_HeightLocation = 4;
+  } else if (m_robotContainer.driver.pov(90).getAsBoolean() == true){
+    RobotContainer.elevator.m_HeightLocation = 3;
 
+  } else if (m_robotContainer.driver.pov(180).getAsBoolean() == true){
+    RobotContainer.elevator.m_HeightLocation = 2;
+
+  } else if (m_robotContainer.driver.pov(270).getAsBoolean() == true){
+    RobotContainer.elevator.m_HeightLocation = 1;
+
+  }
 
 
 
@@ -138,7 +148,7 @@ public class Robot extends TimedRobot {
 
         public void initialize()
         {
-            m_robotContainer.drivetrain.getPigeon2().reset();
+            RobotContainer.drivetrain.getPigeon2().reset();
         }
         public boolean isFinished()
         {
@@ -194,7 +204,7 @@ public class Robot extends TimedRobot {
             }
         }
     }
-    SwerveDriveState state = m_robotContainer.drivetrain.getState();
+    SwerveDriveState state = RobotContainer.drivetrain.getState();
     Pose2d pose = state.Pose;
     m_field.setRobotPose(pose);
     SmartDashboard.putData(m_field);
@@ -258,7 +268,7 @@ public class Robot extends TimedRobot {
             }
         }
     }
-    SwerveDriveState state = m_robotContainer.drivetrain.getState();
+    SwerveDriveState state = RobotContainer.drivetrain.getState();
     Pose2d pose = state.Pose;
     m_field.setRobotPose(pose);
     SmartDashboard.putData(m_field);
@@ -276,7 +286,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    SwerveDriveState state = m_robotContainer.drivetrain.getState();
+    SwerveDriveState state = RobotContainer.drivetrain.getState();
     Pose2d pose = state.Pose;
     m_field.getObject("path").setPoses();
     m_field.setRobotPose(pose);
@@ -301,7 +311,7 @@ public class Robot extends TimedRobot {
   public void simulationPeriodic() {
 // Update drivetrain simulation
 
-SwerveDriveState state = m_robotContainer.drivetrain.getState();
+SwerveDriveState state = RobotContainer.drivetrain.getState();
 Pose2d pose = state.Pose;
 // Update camera simulation
 vision.simulationPeriodic(pose);

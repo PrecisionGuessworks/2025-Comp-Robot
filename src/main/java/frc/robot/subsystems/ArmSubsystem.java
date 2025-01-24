@@ -20,12 +20,16 @@ import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.quixlib.devices.QuixCANCoder;
 import frc.quixlib.motorcontrol.QuixTalonFX;
 import frc.quixlib.viz.Link2d;
 import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
   //public final DigitalInput m_beamBreak = new DigitalInput(Constants.Arm.beamBreakPort);
+
+  private final QuixCANCoder m_armCoder = 
+      new QuixCANCoder(Constants.Arm.armCoderID, Constants.Arm.armMotorRatio);
 
   private final QuixTalonFX m_rollerMotor =
       new QuixTalonFX(
@@ -54,7 +58,8 @@ public class ArmSubsystem extends SubsystemBase {
               .setBootPositionOffset(Constants.Arm.armStartingAngle)
               .setReverseSoftLimit(Constants.Arm.armMinAngle)
               .setForwardSoftLimit(Constants.Arm.armMaxAngle)
-              .setFeedbackConfig(FeedbackSensorSourceValue.FusedCANcoder, 29, 0.0,Constants.Arm.armMotorRatio,Constants.Arm.armSensorRatio));
+              //.setFeedbackConfig(FeedbackSensorSourceValue.FusedCANcoder, 15, 0.0,Constants.Arm.armMotorRatio,Constants.Arm.armSensorRatio)
+              );
 
 private final QuixTalonFX m_wristMotor =
   new QuixTalonFX(
@@ -106,11 +111,20 @@ private final QuixTalonFX m_wristMotor =
     return m_wristMotor.getSensorPosition();
   }
 
+  public double getArmCoder(){
+    return m_armCoder.getAbsPosition();
+  }
+
   public void setArmAngle(double targetAngle) {
     m_armTargetAngle = targetAngle;
   }
   public void setWristAngle(double targetAngle) {
     m_wristTargetAngle = targetAngle;
+  }
+
+
+  public void setArmRollerCurrent(double StatorCurrentLimit, double SupplyCurrentLimit) {
+    m_rollerMotor.setStatorCurrentLimit(StatorCurrentLimit,SupplyCurrentLimit);
   }
 
   public boolean isAtAngle(double angle, double tolerance) {
@@ -182,6 +196,7 @@ private final QuixTalonFX m_wristMotor =
     m_rollerMotor.logMotorState();
     m_wristMotor.logMotorState();
     m_armMotor.logMotorState();
+    m_armCoder.logSensorState();
   }
 
   // --- BEGIN STUFF FOR SIMULATION ---

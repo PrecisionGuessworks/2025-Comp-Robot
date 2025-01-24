@@ -30,6 +30,10 @@ public class MechanismRatio {
     return m_driven / m_driving;
   }
 
+  public double inverseReduction() {
+    return m_driving / m_driven;
+  }
+
   /** Returns the distance per rotation of the driven gear. */
   public double distancePerRotation() {
     return m_distancePerRotation;

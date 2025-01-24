@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.219565217391305,
-        "y": 5.316304347826088
+        "x": 8.715248054474708,
+        "y": 5.505994649805448
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.3486413043518235,
-        "y": 6.042663043481778
+        "x": 6.8443241414352265,
+        "y": 6.232353345461139
       },
       "isLocked": false,
       "linkedName": null
@@ -52,7 +52,7 @@
         "y": 5.213586956525257
       },
       "prevControl": {
-        "x": 1.7755434782661306,
+        "x": 1.775543478266131,
         "y": 7.715489130430839
       },
       "nextControl": null,
@@ -70,12 +70,62 @@
       "rotationDegrees": -103.05524722379658
     }
   ],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.0,
+      "maxWaypointRelativePos": 1.193936477382108,
+      "constraints": {
+        "maxVelocity": 1.5,
+        "maxAcceleration": 2.0,
+        "maxAngularVelocity": 540,
+        "maxAngularAcceleration": 720,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Coral",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "CoralMoveScore"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "CoralMoveStow"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "IntakeCoral",
+      "waypointRelativePos": 2.7704523580366196,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "IntakeCoral"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
-    "maxVelocity": 3,
-    "maxAcceleration": 3,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540,
     "maxAngularAcceleration": 720,
     "nominalVoltage": 12.0,

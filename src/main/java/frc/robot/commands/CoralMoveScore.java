@@ -4,22 +4,31 @@
 
 package frc.robot.commands;
 
+import org.photonvision.PhotonUtils;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.Telemetry;
 
 
 public class CoralMoveScore extends Command {
   private final IntakeSubsystem m_intake;
   private final ElevatorSubsystem m_elevator;
   private final ArmSubsystem m_arm;
-  public int pastscoreheight = 0;
+  //private Pose2d m_pose;
+  public int pastscoreheight = 4;
   public CoralMoveScore(
       IntakeSubsystem intakeSubsystem,
       ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem) {
+    
+    //m_pose = currentPose;
     m_intake = intakeSubsystem;
     m_elevator = elevatorSubsystem;
     m_arm = armSubsystem;
@@ -40,20 +49,31 @@ public class CoralMoveScore extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(pastscoreheight != m_elevator.getHeightLocation()){
-      if(m_elevator.getHeightLocation() == 1){
-        pastscoreheight = 1;
-        m_elevator.setHeight(Constants.Elevator.L1);
-      } else if(m_elevator.getHeightLocation() == 2){
-        pastscoreheight = 2;
-        m_elevator.setHeight(Constants.Elevator.L2);
-      } else if(m_elevator.getHeightLocation() == 3){
-        pastscoreheight = 3;
-        m_elevator.setHeight(Constants.Elevator.L3);
-      } else if(m_elevator.getHeightLocation() == 4){
-        pastscoreheight = 4;
-        m_elevator.setHeight(Constants.Elevator.L4);
+    
+    Pose2d m_pose = RobotContainer.drivetrain.getState().Pose;
+    Pose2d targetpose = new Pose2d(4.5,4,new Rotation2d(0));
+    //    && m_arm.getWristAngle() < 91 && m_arm.getArmAngle() < 91
+    // 4 >= PhotonUtils.getDistanceToPose(m_pose,targetpose)
+    if (2 >= PhotonUtils.getDistanceToPose(m_pose,targetpose)){
+      System.out.println("CoralMoveScore");
+      if(pastscoreheight != m_elevator.getHeightLocation()){
+        System.out.println("part");
+        if(m_elevator.getHeightLocation() == 1){
+          pastscoreheight = 1;
+          m_elevator.setHeight(Constants.Elevator.L1);
+        } else if(m_elevator.getHeightLocation() == 2){
+          pastscoreheight = 2;
+          m_elevator.setHeight(Constants.Elevator.L2);
+        } else if(m_elevator.getHeightLocation() == 3){
+          pastscoreheight = 3;
+          m_elevator.setHeight(Constants.Elevator.L3);
+        } else if(m_elevator.getHeightLocation() == 4){
+          pastscoreheight = 4;
+          m_elevator.setHeight(Constants.Elevator.L4);
+        }
       }
+    } else {
+      m_elevator.setHeight(Constants.Elevator.stowHeight);
     }
   }
 
@@ -62,6 +82,7 @@ public class CoralMoveScore extends Command {
   public void end(boolean interrupted) {
   //m_arm.setArmAngle(Constants.Arm.armStowAngle);
   // m_arm.setWristAngle(Constants.Arm.wristStowAngle);
+    m_arm.setArmRollerCurrent(30, 30);
     m_arm.setRollerVelocity(100);
    // m_elevator.setHeight(Constants.Elevator.stowHeight);
   }
