@@ -105,10 +105,10 @@ private final QuixTalonFX m_wristMotor =
   }
 
   public double getArmAngle() {
-    return m_armMotor.getSensorPosition();
+    return Units.radiansToDegrees(m_armMotor.getSensorPosition())* Constants.Arm.armMotorRatio.inverseReduction() + Units.radiansToDegrees(Constants.Arm.armStartingAngle);
   }
   public double getWristAngle() {
-    return m_wristMotor.getSensorPosition();
+    return Units.radiansToDegrees(m_wristMotor.getSensorPosition())* Constants.Arm.wristMotorRatio.inverseReduction() + Units.radiansToDegrees(Constants.Arm.wristStartingAngle);
   }
 
   public double getArmCoder(){

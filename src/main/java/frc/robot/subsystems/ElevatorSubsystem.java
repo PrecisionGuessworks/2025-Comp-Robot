@@ -53,6 +53,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       .setReverseSoftLimit(Constants.Elevator.minHeight)
       .setForwardSoftLimit(Constants.Elevator.maxHeight));
 
+  private double m_setTargetHeight = Constants.Elevator.minHeight;
   private double m_targetHeight = Constants.Elevator.minHeight;
   public int m_HeightLocation = 4;
   private boolean Loc1 = false;
@@ -77,7 +78,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void setHeight(double targetHeight) {
-    m_targetHeight = targetHeight;
+    m_setTargetHeight = targetHeight;
   }
   public void setHeightLocation(int targetHeight) {
     m_HeightLocation = targetHeight;
@@ -89,10 +90,18 @@ public class ElevatorSubsystem extends SubsystemBase {
   public boolean isAtHeight(double height, double tolerance) {
     return Math.abs(height - m_motor.getSensorPosition()) <= tolerance;
   }
+  private double armAngle = 0;
+  private double wristAngle = 0;
 
   @Override
   public void periodic() {
-    double armRototion = RobotContainer.arm.getArmAngle();
+    armAngle = RobotContainer.arm.getArmAngle();
+    wristAngle = RobotContainer.arm.getWristAngle();
+    if (armAngle < 91 && wristAngle < 91){
+      m_targetHeight = m_setTargetHeight;
+    } else {
+      m_targetHeight = Constants.Elevator.stowHeight;
+    }
     // This method will be called once per scheduler run
     m_motor.setDynamicMotionMagicPositionSetpoint(
         Constants.Elevator.motorPositionSlot,

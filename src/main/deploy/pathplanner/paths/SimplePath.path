@@ -88,8 +88,19 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "Coral",
+      "name": "IntakeCoral",
       "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "IntakeCoral"
+        }
+      }
+    },
+    {
+      "name": "Coral",
+      "waypointRelativePos": 0.2641963426371505,
       "endWaypointRelativePos": null,
       "command": {
         "type": "sequential",
