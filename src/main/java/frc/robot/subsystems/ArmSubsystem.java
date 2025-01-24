@@ -24,6 +24,7 @@ import frc.quixlib.devices.QuixCANCoder;
 import frc.quixlib.motorcontrol.QuixTalonFX;
 import frc.quixlib.viz.Link2d;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class ArmSubsystem extends SubsystemBase {
   //public final DigitalInput m_beamBreak = new DigitalInput(Constants.Arm.beamBreakPort);
@@ -81,6 +82,8 @@ private final QuixTalonFX m_wristMotor =
 
   private double m_armTargetAngle = Constants.Arm.armStartingAngle;
   private double m_wristTargetAngle = Constants.Arm.wristStartingAngle;
+  private double setm_armTargetAngle = Constants.Arm.armStartingAngle;
+  private double setm_wristTargetAngle = Constants.Arm.wristStartingAngle;
   private Timer m_lastPieceTimer = new Timer();
 
   public ArmSubsystem(Link2d ArmArmViz, Link2d ArmWristViz, Link2d ArmRollerViz) {
@@ -116,10 +119,10 @@ private final QuixTalonFX m_wristMotor =
   }
 
   public void setArmAngle(double targetAngle) {
-    m_armTargetAngle = targetAngle;
+    setm_armTargetAngle = targetAngle;
   }
   public void setWristAngle(double targetAngle) {
-    m_wristTargetAngle = targetAngle;
+    setm_wristTargetAngle = targetAngle;
   }
 
 
@@ -150,6 +153,8 @@ private final QuixTalonFX m_wristMotor =
   //   m_armMotor.setBrakeMode(false);
   // }
 
+  //private double elevatorLocation = 0; 
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -158,6 +163,16 @@ private final QuixTalonFX m_wristMotor =
     // }
 
     //SmartDashboard.putBoolean("Arm: Beam Break", m_beamBreak.get());
+    //elevatorLocation = RobotContainer.elevator.getHeightLocation();
+    if (RobotContainer.elevator.isAtHeight(Constants.Elevator.climbExtendHeight, 3)||
+    (Units.radiansToDegrees(setm_armTargetAngle)<91 && Units.radiansToDegrees(setm_wristTargetAngle)<91)
+    ){
+      m_armTargetAngle = setm_armTargetAngle;
+      m_wristTargetAngle = setm_wristTargetAngle;
+    } else {
+      m_armTargetAngle = Constants.Arm.armStowAngle;
+      m_wristTargetAngle = Constants.Arm.wristStowAngle;
+    }
 
     m_armMotor.setMotionMagicPositionSetpoint(
         Constants.Arm.armPositionPIDSlot, m_armTargetAngle);

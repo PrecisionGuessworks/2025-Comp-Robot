@@ -127,7 +127,7 @@ public class Constants {
     public static final double scoreAmpHeight = Units.inchesToMeters(34.0); // m
     public static final double scoreAmpTolerance = Units.inchesToMeters(0.25); // m
     public static final double climbRetractHeight = Units.inchesToMeters(0.0); // m
-    public static final double climbExtendHeight = Units.inchesToMeters(8); // m
+    public static final double climbExtendHeight = Units.inchesToMeters(2); // m
 
     public static final double L1 = Units.inchesToMeters(12); // m
     public static final double L2 = Units.inchesToMeters(34); // m
