@@ -55,7 +55,7 @@ public class CoralMoveScore extends Command {
     //    && m_arm.getWristAngle() < 91 && m_arm.getArmAngle() < 91
     // 4 >= PhotonUtils.getDistanceToPose(m_pose,targetpose)
     if (2.5 >= PhotonUtils.getDistanceToPose(m_pose,targetpose)){
-      System.out.println("CoralMoveScore");
+      //System.out.println("CoralMoveScore");
       if(pastscoreheight != m_elevator.getHeightLocation()){
         System.out.println("part");
         if(m_elevator.getHeightLocation() == 1){

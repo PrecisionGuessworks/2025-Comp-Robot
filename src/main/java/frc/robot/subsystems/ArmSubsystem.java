@@ -4,7 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
+import com.ctre.phoenix6.signals.SensorDirectionValue;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
@@ -30,8 +32,8 @@ public class ArmSubsystem extends SubsystemBase {
   //public final DigitalInput m_beamBreak = new DigitalInput(Constants.Arm.beamBreakPort);
 
   private final QuixCANCoder m_armCoder = 
-      new QuixCANCoder(Constants.Arm.armCoderID, Constants.Arm.armMotorRatio);
-
+      new QuixCANCoder(Constants.Arm.armCoderID, Constants.Arm.armMotorRatio, SensorDirectionValue.CounterClockwise_Positive);
+      
   private final QuixTalonFX m_rollerMotor =
       new QuixTalonFX(
           Constants.Arm.rollerMotorID,
@@ -215,6 +217,7 @@ private final QuixTalonFX m_wristMotor =
   }
 
   // --- BEGIN STUFF FOR SIMULATION ---
+  
   private static final SingleJointedArmSim m_armSim =
       new SingleJointedArmSim(
           DCMotor.getKrakenX60Foc(1),

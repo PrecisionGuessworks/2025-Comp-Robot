@@ -18,6 +18,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.pathfinding.Pathfinding;
 import com.pathplanner.lib.util.FileVersionException;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -33,7 +34,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.quixlib.viz.Link2d;
@@ -261,6 +264,12 @@ ArmWristViz.addLink(
         // reset the field-centric heading on left bumper press
         driver.start().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
+
+
+
+
+
+
         drivetrain.registerTelemetry(logger::telemeterize);
     }
 
@@ -280,32 +289,50 @@ ArmWristViz.addLink(
         
     }
 
-    public Pose2d getPose() {
-        /* First put the drivetrain into auto run mode, then run the auto */
-        SwerveDriveState state = drivetrain.getState();
-        return state.Pose;
-        
-    }
+    Pose2d targetPose = new Pose2d(6, 6, Rotation2d.fromDegrees(0));
+    
+    double X;
+    double Y;
+    double intercpet = Math.tan(60)*4.5;
+     // Create the constraints to use while pathfinding
+    PathConstraints constraints = new PathConstraints(
+            2.5, 2.5,
+            Units.degreesToRadians(540), Units.degreesToRadians(720));
 
     private Command pathfindingCommand() {
-        // Since we are using a holonomic drivetrain, the rotation component of this pose
-        // represents the goal holonomic rotation
-        Pose2d targetPose = new Pose2d(3.764, 2.954  , Rotation2d.fromDegrees(60));
-
-        // Create the constraints to use while pathfinding
-        PathConstraints constraints = new PathConstraints(
-                2.5, 2.5,
-                Units.degreesToRadians(540), Units.degreesToRadians(720));
-
         // Since AutoBuilder is configured, we can use it to build pathfinding commands
-        return AutoBuilder.pathfindToPose(
-                targetPose,
-                constraints,
-                0.0 // Goal end velocity in meters/sec
-        );
+        Map<String, Command> commandMap = new HashMap<>();
+        commandMap.put("C", AutoBuilder.pathfindToPose(
+            new Pose2d(3.7, 3.1, Rotation2d.fromDegrees(60)),
+            constraints,
+            0.0
+        ));
+        commandMap.put("D", AutoBuilder.pathfindToPose(
+            new Pose2d(5, 5, Rotation2d.fromDegrees(60)),
+            constraints,
+            0.0
+        ));
+        commandMap.put("E", AutoBuilder.pathfindToPose(
+            new Pose2d(6, 6, Rotation2d.fromDegrees(0)),
+            constraints,
+            0.0
+        ));
+
+        return Commands.select(commandMap, () -> {
+            Pose2d currentPose = drivetrain.getState().Pose;
+            X = currentPose.getTranslation().getX();
+            Y = currentPose.getTranslation().getY();
+            
+            if (X < 4) {
+                return "C";
+            } else if (X < 8) {
+                return "D";
+            } else {
+                return "E";
+            }
+        });
     }
-
-
+    
     private Command pathfindingtofollowCommand() {
         // Since we are using a holonomic drivetrain, the rotation component of this pose
         // represents the goal holonomic rotation

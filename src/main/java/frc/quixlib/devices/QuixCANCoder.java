@@ -22,6 +22,7 @@ public class QuixCANCoder implements QuixAbsoluteEncoder {
   private final CANcoder m_cancoder;
   private final CANcoderSimState m_simState;
   private final MechanismRatio m_ratio;
+  private final SensorDirectionValue m_direction;
 
   private final QuixStatusSignal m_positionSignal;
   private final QuixStatusSignal m_absolutePositionSignal;
@@ -32,11 +33,12 @@ public class QuixCANCoder implements QuixAbsoluteEncoder {
   private final DoublePublisher m_velocityPublisher;
 
 
-  public QuixCANCoder(final CANDeviceID canID, final MechanismRatio ratio) {
+  public QuixCANCoder(final CANDeviceID canID, final MechanismRatio ratio, final SensorDirectionValue direction) {
     m_canID = canID;
     m_cancoder = new CANcoder(canID.deviceNumber, canID.CANbusName);
     m_simState = m_cancoder.getSimState();
     m_ratio = ratio;
+    m_direction = direction;
 
     m_positionSignal =
         new QuixStatusSignal<>(m_cancoder.getPosition(), this::fromNativeSensorPosition);
@@ -79,8 +81,10 @@ public class QuixCANCoder implements QuixAbsoluteEncoder {
 
     // Set configuration.
     CANcoderConfiguration config = new CANcoderConfiguration();
-    config.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
+    config.MagnetSensor.SensorDirection = m_direction;
     config.MagnetSensor.MagnetOffset = 0.0;
+    config.MagnetSensor.AbsoluteSensorDiscontinuityPoint = 0.5;
+
 
     allSuccess &=
         PhoenixUtil.retryUntilSuccess(

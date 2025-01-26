@@ -40,7 +40,7 @@ public class IntakeCoral extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println(m_elevator.getHeight());
+    System.out.println(m_arm.getArmAngle());
     m_arm.setRollerVelocity(Constants.Arm.intakeVelocity);
     
   }
