@@ -218,10 +218,12 @@ ArmWristViz.addLink(
         //     point.withModuleDirection(new Rotation2d(-driver.getLeftY(), -driver.getLeftX()))
         // ));
 
-        driver.leftBumper().onTrue(new ParallelCommandGroup(new CoralMoveScore(intake, elevator, arm), pathfindingCommand()));
+        driver.leftBumper().onTrue(new ParallelCommandGroup(new CoralMoveScore(intake, elevator, arm), pathfindingCommand(true)));
         driver.leftBumper().onFalse(new CoralMoveStow(intake, elevator, arm));
+        driver.rightBumper().onTrue(new ParallelCommandGroup(new CoralMoveScore(intake, elevator, arm), pathfindingCommand(false)));
+        driver.rightBumper().onFalse(new CoralMoveStow(intake, elevator, arm));
 
-        driver.y().whileTrue(pathfindingCommand());
+        //driver.y().whileTrue(pathfindingCommand(false));
         driver.x().whileTrue(pathfindingtofollowCommand());
         driver.b().whileTrue(new IntakeCoral(intake, elevator, arm));
         driver.rightTrigger().whileTrue(new IntakePiece(intake, elevator));
@@ -289,46 +291,130 @@ ArmWristViz.addLink(
         
     }
 
-    Pose2d targetPose = new Pose2d(6, 6, Rotation2d.fromDegrees(0));
-    
     double X;
     double Y;
-    double intercpet = Math.tan(60)*4.5;
+    double intercpet = Math.tan(Units.degreesToRadians(30))*4.5;
+    double slope = Math.tan(Units.degreesToRadians(30));
      // Create the constraints to use while pathfinding
     PathConstraints constraints = new PathConstraints(
             2.5, 2.5,
             Units.degreesToRadians(540), Units.degreesToRadians(720));
 
-    private Command pathfindingCommand() {
+    private Command pathfindingCommand(boolean left) {
         // Since AutoBuilder is configured, we can use it to build pathfinding commands
         Map<String, Command> commandMap = new HashMap<>();
-        commandMap.put("C", AutoBuilder.pathfindToPose(
-            new Pose2d(3.7, 3.1, Rotation2d.fromDegrees(60)),
-            constraints,
-            0.0
-        ));
-        commandMap.put("D", AutoBuilder.pathfindToPose(
-            new Pose2d(5, 5, Rotation2d.fromDegrees(60)),
-            constraints,
-            0.0
-        ));
-        commandMap.put("E", AutoBuilder.pathfindToPose(
+        commandMap.put("error", AutoBuilder.pathfindToPose(
             new Pose2d(6, 6, Rotation2d.fromDegrees(0)),
             constraints,
             0.0
         ));
-
+        commandMap.put("A", AutoBuilder.pathfindToPose(
+            new Pose2d(3.2, 4.3, Rotation2d.fromDegrees(0)),
+            constraints,
+            0.0
+        ));
+        commandMap.put("B", AutoBuilder.pathfindToPose(
+            new Pose2d(3.2, 3.8, Rotation2d.fromDegrees(0)),
+            constraints,
+            0.0
+        ));
+        commandMap.put("C", AutoBuilder.pathfindToPose(
+            new Pose2d(3.7, 3.0, Rotation2d.fromDegrees(60)),
+            constraints,
+            0.0
+        ));
+        commandMap.put("D", AutoBuilder.pathfindToPose(
+            new Pose2d(4.1, 2.8, Rotation2d.fromDegrees(60)),
+            constraints,
+            0.0
+        ));
+        commandMap.put("E", AutoBuilder.pathfindToPose(
+            new Pose2d(4.9, 2.8, Rotation2d.fromDegrees(120)),
+            constraints,
+            0.0
+        ));
+        commandMap.put("F", AutoBuilder.pathfindToPose(
+            new Pose2d(5.4, 3.1, Rotation2d.fromDegrees(120)),
+            constraints,
+            0.0
+        ));
+        commandMap.put("G", AutoBuilder.pathfindToPose(
+            new Pose2d(5.8, 3.7, Rotation2d.fromDegrees(180)),
+            constraints,
+            0.0
+        ));
+        commandMap.put("H", AutoBuilder.pathfindToPose(
+            new Pose2d(5.8, 4.3, Rotation2d.fromDegrees(180)),
+            constraints,
+            0.0
+        ));
+        commandMap.put("I", AutoBuilder.pathfindToPose(
+            new Pose2d(5.4, 5, Rotation2d.fromDegrees(240)),
+            constraints,
+            0.0
+        ));
+        commandMap.put("J", AutoBuilder.pathfindToPose(
+            new Pose2d(5, 5.3, Rotation2d.fromDegrees(240)),
+            constraints,
+            0.0
+        ));
+        commandMap.put("K", AutoBuilder.pathfindToPose(
+            new Pose2d(4.1, 5.3, Rotation2d.fromDegrees(300)),
+            constraints,
+            0.0
+        ));
+        commandMap.put("L", AutoBuilder.pathfindToPose(
+            new Pose2d(3.7, 5, Rotation2d.fromDegrees(300)),
+            constraints,
+            0.0
+        ));
+        
+//fix equal error
         return Commands.select(commandMap, () -> {
             Pose2d currentPose = drivetrain.getState().Pose;
             X = currentPose.getTranslation().getX();
             Y = currentPose.getTranslation().getY();
-            
-            if (X < 4) {
-                return "C";
-            } else if (X < 8) {
-                return "D";
+            System.out.println(X);
+            System.out.println(Y);
+            if (Y < -X*slope + intercpet+4 && Y > X*slope - intercpet+4 && left && X < 4.5) {
+            System.out.println("A");
+            return "A";
+            } else if (Y < -X*slope + intercpet+4 && Y > X*slope - intercpet+4 && !left && X < 4.5) {
+            System.out.println("B");
+            return "B";
+            } else if (Y < X*slope - intercpet+4 && X < 4.5 && left) {
+            System.out.println("C");
+            return "C";
+            } else if (Y < X*slope - intercpet+4 && X < 4.5 && !left) {
+            System.out.println("D");
+            return "D";
+            } else if (Y < -X*slope + intercpet+4 && X > 4.5 && left) {
+            System.out.println("E");
+            return "E";
+            } else if (Y < -X*slope + intercpet+4 && X > 4.5 && !left) {
+            System.out.println("F");
+            return "F";
+            } else if (Y > -X*slope + intercpet+4 && Y < X*slope - intercpet+4 && left && X > 4.5) {
+            System.out.println("G");
+            return "G";
+            } else if (Y > -X*slope + intercpet+4 && Y < X*slope - intercpet+4 && !left && X > 4.5) {
+            System.out.println("H");
+            return "H";
+            } else if (Y > X*slope - intercpet+4 && X > 4.5 && left) {
+            System.out.println("I");
+            return "I";
+            } else if (Y > X*slope - intercpet+4 &&  X > 4.5 && !left) {
+            System.out.println("J");
+            return "J";
+            } else if (Y > -X*slope + intercpet+4 && X < 4.5 && left) {
+            System.out.println("K");
+            return "K";
+            } else if (Y > -X*slope + intercpet+4 && X < 4.5 && !left) {
+            System.out.println("L");
+            return "L";
             } else {
-                return "E";
+            System.out.println("error");
+            return "error";
             }
         });
     }
