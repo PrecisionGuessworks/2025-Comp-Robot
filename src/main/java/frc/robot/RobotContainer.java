@@ -196,7 +196,8 @@ ArmWristViz.addLink(
           SmartDashboard.putData("Command Scheduler", CommandScheduler.getInstance());
         SmartDashboard.putData("Power Distribution Panel", powerDistribution);
 
-        PathfindingCommand.warmupCommand().schedule();
+        PathfindingCommand.warmupCommand().ignoringDisable(true).schedule();;
+        
     }
 
     
@@ -369,47 +370,47 @@ ArmWristViz.addLink(
             0.0
         ));
         
-//fix equal error
+
         return Commands.select(commandMap, () -> {
             Pose2d currentPose = drivetrain.getState().Pose;
             X = currentPose.getTranslation().getX();
             Y = currentPose.getTranslation().getY();
             System.out.println(X);
             System.out.println(Y);
-            if (Y < -X*slope + intercpet+4 && Y > X*slope - intercpet+4 && left && X < 4.5) {
+            if (Y <= -X*slope + intercpet+4 && Y >= X*slope - intercpet+4 && left && X <= 4.5) {
             System.out.println("A");
             return "A";
-            } else if (Y < -X*slope + intercpet+4 && Y > X*slope - intercpet+4 && !left && X < 4.5) {
+            } else if (Y <= -X*slope + intercpet+4 && Y >= X*slope - intercpet+4 && !left && X <= 4.5) {
             System.out.println("B");
             return "B";
-            } else if (Y < X*slope - intercpet+4 && X < 4.5 && left) {
+            } else if (Y <= X*slope - intercpet+4 && X <= 4.5 && left) {
             System.out.println("C");
             return "C";
-            } else if (Y < X*slope - intercpet+4 && X < 4.5 && !left) {
+            } else if (Y <= X*slope - intercpet+4 && X <= 4.5 && !left) {
             System.out.println("D");
             return "D";
-            } else if (Y < -X*slope + intercpet+4 && X > 4.5 && left) {
+            } else if (Y <= -X*slope + intercpet+4 && X >= 4.5 && left) {
             System.out.println("E");
             return "E";
-            } else if (Y < -X*slope + intercpet+4 && X > 4.5 && !left) {
+            } else if (Y <= -X*slope + intercpet+4 && X >= 4.5 && !left) {
             System.out.println("F");
             return "F";
-            } else if (Y > -X*slope + intercpet+4 && Y < X*slope - intercpet+4 && left && X > 4.5) {
+            } else if (Y >= -X*slope + intercpet+4 && Y <= X*slope - intercpet+4 && left && X >= 4.5) {
             System.out.println("G");
             return "G";
-            } else if (Y > -X*slope + intercpet+4 && Y < X*slope - intercpet+4 && !left && X > 4.5) {
+            } else if (Y >= -X*slope + intercpet+4 && Y <= X*slope - intercpet+4 && !left && X >= 4.5) {
             System.out.println("H");
             return "H";
-            } else if (Y > X*slope - intercpet+4 && X > 4.5 && left) {
+            } else if (Y >= X*slope - intercpet+4 && X >= 4.5 && left) {
             System.out.println("I");
             return "I";
-            } else if (Y > X*slope - intercpet+4 &&  X > 4.5 && !left) {
+            } else if (Y >= X*slope - intercpet+4 &&  X >= 4.5 && !left) {
             System.out.println("J");
             return "J";
-            } else if (Y > -X*slope + intercpet+4 && X < 4.5 && left) {
+            } else if (Y >= -X*slope + intercpet+4 && X <= 4.5 && left) {
             System.out.println("K");
             return "K";
-            } else if (Y > -X*slope + intercpet+4 && X < 4.5 && !left) {
+            } else if (Y >= -X*slope + intercpet+4 && X <= 4.5 && !left) {
             System.out.println("L");
             return "L";
             } else {
