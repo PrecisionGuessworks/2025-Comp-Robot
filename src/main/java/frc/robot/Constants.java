@@ -279,6 +279,40 @@ public class Constants {
   }
 
 
+  public static final class Climber {
+    public static final CANDeviceID motorID = new CANDeviceID(40, kSuperStructureCanivoreName);
+    public static final CANDeviceID followerID = new CANDeviceID(41, kSuperStructureCanivoreName);
+    public static final double StatorLimit = 80.0;
+    public static final double SupplyLimit = 40.0;
+    public static final double sprocketPitchDiameter = Units.inchesToMeters(0.7); 
+    public static final MechanismRatio motorRatio =
+        new MechanismRatio(
+            1, (68.0 / 10.0) * (10.0 / 4.0) * (42.0 / 18.0), Math.PI * sprocketPitchDiameter);
+    public static final boolean motorInvert = false;
+    public static final boolean followerInvert = true;
+    public static final int motorPositionSlot = 0;
+    public static final PIDConfig motorPIDConfig = new PIDConfig(3, 0, 0.1, 0, 0.12, 0, 0.4);
+    public static final double maxVelocity = 1.0; // m/s
+    public static final double maxAcceleration = 30.0; // m/s^2
+    public static final double maxJerk = 0.0; // m/s^3 (0 disables jerk limit)
+
+    // TODO: use real numbers
+    public static final double minHeight = 0.0; // m
+    //public static final double powerCutoffHeight = Units.inchesToMeters(0.1); // m
+    public static final double maxHeight = Units.inchesToMeters(75.0); // m
+    public static final double stowHeight = Units.inchesToMeters(1); // m
+    public static final double upperStowHeight = Units.inchesToMeters(8); // m
+    public static final double stowTolerance = Units.inchesToMeters(0.25); // m
+
+    // For simulation.
+    public static final double simCarriageMass = 65.0; // kg
+
+    // TODO: find real values
+    public static final ElevatorFeedforward elevatorFeedforward =
+        new ElevatorFeedforward(0.0, 0.0, 0.0); // new ElevatorFeedforward(0.35, 0.15, 15.8);
+  }
+
+
   public static final class Pose {
 
     public static final PathConstraints constraints = new PathConstraints(
@@ -327,19 +361,28 @@ public class Constants {
 
   public static final class Viz {
     public static final double xOffset = Units.inchesToMeters(30.0);
+
     public static final double intakePivotX = xOffset + Units.inchesToMeters(27.25);
     public static final double intakePivotY = Units.inchesToMeters(11.25);
     public static final double intakeArmLength = Units.inchesToMeters(14.0);
+
     public static final double elevatorBaseX = xOffset + Units.inchesToMeters(18.0);
     public static final double elevatorBaseY = Units.inchesToMeters(3.0);
     public static final Rotation2d elevatorAngle = Rotation2d.fromDegrees(90.0);
     public static final double elevatorBaseLength = Units.inchesToMeters(35.0);
     public static final double elevatorCarriageLength = Units.inchesToMeters(6.0);
+
     public static final double ArmArmPivotX = Units.inchesToMeters(4.0);
     public static final double ArmArmLength = Units.inchesToMeters(12.0);
     public static final double ArmWristLength = Units.inchesToMeters(6.0);
     public static final double ArmRollerX = Units.inchesToMeters(8.0);
     public static final double ArmRollerY = Units.inchesToMeters(0);
+
+    public static final double climberBaseX = xOffset + Units.inchesToMeters(10.0);
+    public static final double climberBaseY = Units.inchesToMeters(3.0);
+    public static final Rotation2d climberAngle = Rotation2d.fromDegrees(130.0);
+    public static final double climberBaseLength = Units.inchesToMeters(15.0);
+    public static final double climberCarriageLength = Units.inchesToMeters(6.0);
     
 
     public static final double angularVelocityScalar = 0.01;

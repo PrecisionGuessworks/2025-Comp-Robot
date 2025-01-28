@@ -45,6 +45,8 @@ import frc.quixlib.viz.Link2d;
 import frc.quixlib.viz.Viz2d;
 import frc.robot.commands.IntakePiece;
 import frc.robot.commands.Moveup;
+import frc.robot.Constants.Climber;
+import frc.robot.commands.ClimbPrep;
 import frc.robot.commands.CoralMoveScore;
 import frc.robot.commands.CoralMoveStow;
 import frc.robot.commands.IntakeCoral;
@@ -53,6 +55,8 @@ import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ClimberSubsystem;
+
 import static frc.robot.Constants.Drive.*;
 
 import java.io.IOException;
@@ -148,15 +152,33 @@ ArmWristViz.addLink(
         new Link2d(robotViz, "Arm Wheel", Units.inchesToMeters(2.0), 10, Color.kCoral));
 
     
+// Climber viz
+private static final Link2d climberFrameViz =
+robotViz.addLink(
+    new Link2d(
+        robotViz,
+        "Climber Base",
+        Constants.Viz.climberBaseLength,
+        4.0,
+        Color.kGreen,
+        new Transform2d(
+            Constants.Viz.climberBaseX,
+            Constants.Viz.climberBaseY,
+            Constants.Viz.climberAngle)));
+private static final Link2d climberCarriageViz =
+climberFrameViz.addLink(
+    new Link2d(
+        robotViz,
+        "Climber Carriage",
+        Constants.Viz.climberCarriageLength,
+        6.0,
+        Color.kLightGreen));
+
 
         public static final ElevatorSubsystem elevator = new ElevatorSubsystem(elevatorCarriageViz);
         public static final IntakeSubsystem intake = new IntakeSubsystem(intakeArmViz, intakeRollerViz);
-        public static final ArmSubsystem arm =
-      new ArmSubsystem(
-          ArmArmViz,
-          ArmWristViz,
-          ArmWheelViz
-          );
+        public static final ArmSubsystem arm = new ArmSubsystem(ArmArmViz,ArmWristViz,ArmWheelViz);
+        public static final ClimberSubsystem climber = new ClimberSubsystem(climberCarriageViz);
 
 
 
@@ -226,7 +248,7 @@ ArmWristViz.addLink(
         driver.rightBumper().onTrue(new ParallelCommandGroup(new CoralMoveScore(intake, elevator, arm), pathfindingCommand(false)));
         driver.rightBumper().onFalse(new CoralMoveStow(intake, elevator, arm));
 
-        //driver.y().whileTrue(pathfindingCommand(false));
+        driver.y().whileTrue(new ClimbPrep(climber));
         driver.x().whileTrue(pathfindingtofollowCommand());
         driver.b().whileTrue(new IntakeCoral(intake, elevator, arm));
         driver.rightTrigger().whileTrue(new IntakePiece(intake, elevator));
