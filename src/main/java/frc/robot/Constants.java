@@ -51,8 +51,20 @@ import frc.quixlib.motorcontrol.PIDConfig;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 
 public class Constants {
+    // CANID's:
+    //
+    // Drivetrain 1-19
+    // Elevator / Arm 20-29 
+    // Intake 30-39
+    // Climber 40-49
 
-    public static final String kCanivoreName = "canivore";
+
+
+    // "rio" for rio bus
+    public static final String kDriveTrainCanivoreName = "driveTrain";
+    public static final String kSuperStructureCanivoreName = "superStructure";
+
+
     public static final double g = 9.81; // m/s/s
     public static final double defaultPeriodSecs = 0.02; // s
 
@@ -62,7 +74,7 @@ public class Constants {
         public static final String kCameraName = "YOUR CAMERA NAME";
         // Cam mounted facing forward, half a meter forward of center, half a meter up from center, up 15 degs.
         public static final Transform3d kRobotToCam =
-                new Transform3d(new Translation3d(0.5, 0.0, 0.2), new Rotation3d(0, Math.toRadians(-15), 0));
+                new Transform3d(new Translation3d(0.3, 0.0, 0.15), new Rotation3d(0, Math.toRadians(-15), 0));
 
         // The layout of the AprilTags on the field
         public static final AprilTagFieldLayout kTagLayout =
@@ -98,14 +110,14 @@ public class Constants {
     }
 
     public static final class Example {
-    public static final CANDeviceID motorID = new CANDeviceID(99, kCanivoreName);
+    public static final CANDeviceID motorID = new CANDeviceID(99, kSuperStructureCanivoreName);
     public static final MechanismRatio motorRatio = new MechanismRatio(1, 1);
     public static final boolean motorInvert = false;
   }
 
   public static final class Elevator {
-    public static final CANDeviceID motorID = new CANDeviceID(20, kCanivoreName);
-    public static final CANDeviceID followerID = new CANDeviceID(21, kCanivoreName);
+    public static final CANDeviceID motorID = new CANDeviceID(20, kSuperStructureCanivoreName);
+    public static final CANDeviceID followerID = new CANDeviceID(21, kSuperStructureCanivoreName);
     public static final double StatorLimit = 80.0;
     public static final double SupplyLimit = 40.0;
     public static final double sprocketPitchDiameter = Units.inchesToMeters(1.273); // 16T #25
@@ -125,11 +137,8 @@ public class Constants {
     //public static final double powerCutoffHeight = Units.inchesToMeters(0.1); // m
     public static final double maxHeight = Units.inchesToMeters(75.0); // m
     public static final double stowHeight = Units.inchesToMeters(1); // m
+    public static final double upperStowHeight = Units.inchesToMeters(8); // m
     public static final double stowTolerance = Units.inchesToMeters(0.25); // m
-    public static final double scoreAmpHeight = Units.inchesToMeters(34.0); // m
-    public static final double scoreAmpTolerance = Units.inchesToMeters(0.25); // m
-    public static final double climbRetractHeight = Units.inchesToMeters(0.0); // m
-    public static final double climbExtendHeight = Units.inchesToMeters(2); // m
 
     public static final double L1 = Units.inchesToMeters(12); // m
     public static final double L2 = Units.inchesToMeters(34); // m
@@ -140,8 +149,6 @@ public class Constants {
     public static final double simCarriageMass = 7.0; // kg
 
     // TODO: find real values
-    public static final Constraints elevatorTrapConstraints =
-        new Constraints(1, 3); // m/s and m/s^2
     public static final ElevatorFeedforward elevatorFeedforward =
         new ElevatorFeedforward(0.0, 0.0, 0.0); // new ElevatorFeedforward(0.35, 0.15, 15.8);
   }
@@ -149,7 +156,8 @@ public class Constants {
   public static final class Intake {
     public static final int beamBreakPort = 1;
 
-    public static final CANDeviceID rollerMotorID = new CANDeviceID(9, kCanivoreName);
+    public static final CANDeviceID rollerMotorID = new CANDeviceID(33, kSuperStructureCanivoreName);
+
     public static final MechanismRatio rollerMotorRatio =
         new MechanismRatio(1, (36.0 / 12.0) * (36.0 / 28.0));
     public static final boolean rollerMotorInvert = false;
@@ -158,7 +166,10 @@ public class Constants {
     public static final PIDConfig rollerPIDConfig = new PIDConfig(0.1, 0, 0);
     public static final int rollerVelocitySlot = 0;
 
-    public static final CANDeviceID deployMotorID = new CANDeviceID(8, kCanivoreName);
+    public static final CANDeviceID deployMotorID = new CANDeviceID(31, kSuperStructureCanivoreName);
+    public static final CANDeviceID deployFollowerID = new CANDeviceID(32, kSuperStructureCanivoreName);
+
+    public static final boolean followerInvert = true;
     public static final MechanismRatio deployMotorRatio =
         new MechanismRatio(1, (42.0 / 10.0) * (22.0 / 22.0) * (42.0 / 16.0) * (36.0 / 16.0));
     public static final boolean deployMotorInvert = true;
@@ -173,6 +184,7 @@ public class Constants {
     public static final double maxAngle = Units.degreesToRadians(110.0); // rads
     public static final double startingAngle = maxAngle + bootAbsPositionOffset;
     public static final double intakeDeployAngle = Math.toRadians(-50); // rad
+    public static final double intakeScoreAngle = Math.toRadians(85); // rad
     public static final double intakeStowAngle = Math.toRadians(105); // rad
     public static final double intakeRollerVelocity = 100; // rad/s
 
@@ -185,20 +197,20 @@ public class Constants {
   public static final class Arm {
     public static final int beamBreakPort = 0;
 
-    public static final CANDeviceID armMotorID = new CANDeviceID(12, kCanivoreName);
-    public static final CANDeviceID armCoderID = new CANDeviceID(15, kCanivoreName);
+    public static final CANDeviceID armMotorID = new CANDeviceID(25, kSuperStructureCanivoreName);
+    public static final CANDeviceID armCoderID = new CANDeviceID(26, kSuperStructureCanivoreName);
     public static final MechanismRatio armMotorRatio =
         new MechanismRatio(1, (90.0 / 1.0) * (80.0 / 38.0));
     public static final MechanismRatio armSensorRatio =
         new MechanismRatio(1, (1.0));
     public static final boolean armMotorInvert = true;
 
-    public static final CANDeviceID wristMotorID = new CANDeviceID(13, kCanivoreName);
+    public static final CANDeviceID wristMotorID = new CANDeviceID(27, kSuperStructureCanivoreName);
     public static final MechanismRatio wristMotorRatio =
         new MechanismRatio(1, (5.0 / 1.0) * (32.0 / 14.0));
     public static final boolean wristMotorInvert = true;
 
-    public static final CANDeviceID rollerMotorID = new CANDeviceID(14, kCanivoreName);
+    public static final CANDeviceID rollerMotorID = new CANDeviceID(28, kSuperStructureCanivoreName);
     public static final MechanismRatio rollerMotorRatio = new MechanismRatio(12, 18);
     public static final boolean rollerMotorInvert = true;
 
@@ -270,11 +282,11 @@ public class Constants {
   public static final class Pose {
 
     public static final PathConstraints constraints = new PathConstraints(
-            2.5, 2.5,
-            Units.degreesToRadians(540), Units.degreesToRadians(720));
+            3, 2.5,
+            Units.degreesToRadians(400), Units.degreesToRadians(600));
 
-    public static final double XvelocityFactor = 0.25;
-    public static final double YvelocityFactor = 0.25;
+    public static final double XvelocityFactor = 0.20;
+    public static final double YvelocityFactor = 0.20;
 
     public static final Pose2d Error = new Pose2d(6, 6, Rotation2d.fromDegrees(0));
 

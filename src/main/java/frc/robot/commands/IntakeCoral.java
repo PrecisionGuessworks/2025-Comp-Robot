@@ -31,7 +31,7 @@ public class IntakeCoral extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-   m_elevator.setHeight(Constants.Elevator.climbExtendHeight);
+   m_elevator.setHeight(Constants.Elevator.stowHeight);
   m_arm.setArmAngle(Constants.Arm.armIntakeAngle);
    m_arm.setWristAngle(Constants.Arm.wristIntakeAngle);
     
@@ -57,8 +57,8 @@ public class IntakeCoral extends Command {
   }
 
   // Returns true when the command should end.
-  // @Override
-  // public boolean isFinished() {
-  //   return m_intake.hasPiece();
-  // }
+  @Override
+  public boolean isFinished() {
+    return m_arm.getRollerCurrent() > 10;
+  }
 }

@@ -97,10 +97,12 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
     armAngle = RobotContainer.arm.getArmAngle();
     wristAngle = RobotContainer.arm.getWristAngle();
-    if (armAngle < 91 && wristAngle < 91){
+    if (armAngle < 91 && wristAngle < 91 && m_setTargetHeight > Constants.Elevator.upperStowHeight){
       m_targetHeight = m_setTargetHeight;
-    } else {
+    } else if (armAngle > 80 && wristAngle > 80){
       m_targetHeight = Constants.Elevator.stowHeight;
+    } else {
+      m_targetHeight = Constants.Elevator.upperStowHeight;
     }
     // This method will be called once per scheduler run
     m_motor.setDynamicMotionMagicPositionSetpoint(

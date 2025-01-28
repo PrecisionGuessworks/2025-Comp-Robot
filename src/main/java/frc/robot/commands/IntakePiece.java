@@ -29,6 +29,7 @@ public class IntakePiece extends Command {
   public void initialize() {
     // m_elevator.setHeight(Constants.Elevator.stowHeight);
     m_intake.setAngle(Constants.Intake.intakeDeployAngle);
+    m_intake.setRollerCurrnt(30);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -43,6 +44,7 @@ public class IntakePiece extends Command {
   @Override
   public void end(boolean interrupted) {
     m_intake.setAngle(Constants.Intake.intakeStowAngle);
+    m_intake.setRollerCurrnt(5);
     m_intake.setRollerVelocity(0);
     // m_launcher.moveFeedAndRedirectToPositionOffset(Constants.Launcher.rollerBeamBreakOffset);
   }
