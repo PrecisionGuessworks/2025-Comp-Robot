@@ -287,7 +287,7 @@ public class Constants {
     public static final double sprocketPitchDiameter = Units.inchesToMeters(0.7); 
     public static final MechanismRatio motorRatio =
         new MechanismRatio(
-            1, (68.0 / 10.0) * (10.0 / 4.0) * (42.0 / 18.0), Math.PI * sprocketPitchDiameter);
+            1, (68.0 / 10.0) * (2.0 / 4.0) * (42.0 / 18.0), Math.PI * sprocketPitchDiameter);
     public static final boolean motorInvert = false;
     public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
@@ -305,7 +305,7 @@ public class Constants {
     public static final double stowTolerance = Units.inchesToMeters(0.25); // m
 
     // For simulation.
-    public static final double simCarriageMass = 65.0; // kg
+    public static final double simCarriageMass = 25.0; // kg
 
     // TODO: find real values
     public static final ElevatorFeedforward elevatorFeedforward =

@@ -87,12 +87,10 @@ public class ClimberSubsystem extends SubsystemBase {
   public void periodic() {
     armAngle = RobotContainer.arm.getArmAngle();
     wristAngle = RobotContainer.arm.getWristAngle();
-    if (armAngle < 91 && wristAngle < 91 && m_setTargetHeight > Constants.Climber.upperStowHeight){
+   if (armAngle < 91 && wristAngle < 91){
       m_targetHeight = m_setTargetHeight;
-    } else if (armAngle > 80 && wristAngle > 80){
-      m_targetHeight = Constants.Climber.stowHeight;
     } else {
-      m_targetHeight = Constants.Climber.upperStowHeight;
+      m_targetHeight = Constants.Climber.stowHeight;
     }
     // This method will be called once per scheduler run
     m_motor.setDynamicMotionMagicPositionSetpoint(
