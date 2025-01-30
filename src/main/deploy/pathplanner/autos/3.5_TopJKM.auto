@@ -23,7 +23,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "IntakePiece"
+                  "name": "IntakeCoral"
                 }
               }
             ]
@@ -48,7 +48,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "IntakePiece"
+                  "name": "IntakeCoral"
                 }
               }
             ]
@@ -73,7 +73,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "IntakePiece"
+                  "name": "IntakeCoral"
                 }
               }
             ]
