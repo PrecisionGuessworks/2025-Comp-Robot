@@ -61,7 +61,7 @@ public class Constants {
 
 
     // "rio" for rio bus
-    public static final String kDriveTrainCanivoreName = "driveTrain";
+    public static final String kDriveTrainCanivoreName = "driveTrain"; // need to update after new tuner
     public static final String kSuperStructureCanivoreName = "superStructure";
 
 
@@ -224,14 +224,16 @@ public class Constants {
     //public static final ArmFeedforward wristFeedForward = new ArmFeedforward(0.0, 0.3, 0.6);
     public static final Constraints WristConstraints =
         new Constraints(60.0, 80.0); // rad/s and rad/s^2
-    public static final int wristPositionPIDSlot = 1;
+    public static final int wristPositionPIDSlot = 0;
     public static final PIDConfig wristPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 0.12, 0.007, 0);
+    public static final int wristCoralPositionPIDSlot = 1;
+    public static final PIDConfig wristCoralPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 0.12, 0.007, 0);
 
     public static final SimpleMotorFeedforward rollerFeedforward =
         new SimpleMotorFeedforward(0.1, 0.028);
-    public static final int rollerVelocityPIDSlot = 2;
+    public static final int rollerVelocityPIDSlot = 1;
     public static final PIDConfig rollerVelocityPIDConfig = new PIDConfig(0.1, 0.0, 0.0);
-    public static final int rollerPositionPIDSlot = 1;
+    public static final int rollerPositionPIDSlot = 0;
     public static final PIDConfig rollerPositionPIDConfig = new PIDConfig(30.0, 0.0, 0.0);
 
     // TODO: Use real values

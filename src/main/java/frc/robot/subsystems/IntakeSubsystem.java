@@ -142,6 +142,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     SmartDashboard.putBoolean("Intake: Beam Break", m_beamBreak.get());
+    SmartDashboard.putBoolean("Intake: Has Piece", hasPiece());
 
     m_deployMotor.setMotionMagicPositionSetpoint(
         Constants.Intake.deployPositionSlot, m_targetAngle);

@@ -170,11 +170,11 @@ private final QuixTalonFX m_wristMotor =
     //SmartDashboard.putBoolean("Arm: Beam Break", m_beamBreak.get());
     //elevatorLocation = RobotContainer.elevator.getHeightLocation();
     if (RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, 2)&&
-    (Units.radiansToDegrees(setm_armTargetAngle)>80 && Units.radiansToDegrees(setm_wristTargetAngle)>80)
+    (Units.radiansToDegrees(setm_armTargetAngle)>80 && Units.radiansToDegrees(setm_wristTargetAngle)>80 && RobotContainer.climber.getHeight() < 5)
     ){
       m_armTargetAngle = setm_armTargetAngle;
       m_wristTargetAngle = setm_wristTargetAngle;
-    } else if (RobotContainer.elevator.getHeight() > Constants.Elevator.upperStowHeight && Units.radiansToDegrees(setm_armTargetAngle)<91 && Units.radiansToDegrees(setm_wristTargetAngle)<91 && Units.radiansToDegrees(setm_armTargetAngle)>80) {
+    } else if (RobotContainer.elevator.getHeight() > Constants.Elevator.upperStowHeight && Units.radiansToDegrees(setm_armTargetAngle)<91 && Units.radiansToDegrees(setm_wristTargetAngle)<91 && Units.radiansToDegrees(setm_armTargetAngle)>80 && RobotContainer.climber.getHeight() < 5) {
       m_armTargetAngle = setm_armTargetAngle;
       m_wristTargetAngle = setm_wristTargetAngle;
     } else {

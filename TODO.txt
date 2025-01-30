@@ -1,0 +1,23 @@
+TODO:
+
+-chage wrist pid based off coral
+-fix edge cases
+-fix red line up code
+-wrist and climb sometimes act weird with each other
+-op controls
+-tune all to real world
+-copy sim constants to new file
+
+autos
+-close and far 4 piece + subs
+-middle clear
+-maybe middle hug sides 2 piece
+
+commands
+-climb sequence + manual
+-drive snap
+-algae descore L2+L3
+-algae multi button
+-stow
+
+-maybe coral ground
