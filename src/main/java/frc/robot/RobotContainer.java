@@ -43,7 +43,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.quixlib.viz.Link2d;
 import frc.quixlib.viz.Viz2d;
-import frc.robot.commands.IntakePiece;
+import frc.robot.commands.IntakeAlgae;
 import frc.robot.commands.Moveup;
 import frc.robot.Constants.Climber;
 import frc.robot.commands.ClimbPrep;
@@ -189,10 +189,10 @@ climberFrameViz.addLink(
 
     public RobotContainer() {
 
-        robotCommands.put("IntakePiece", new IntakePiece(intake, elevator).withTimeout(2.5));
+        robotCommands.put("IntakePiece", new IntakeAlgae(intake,1).withTimeout(2.5));
         robotCommands.put("CoralMoveScore", new CoralMoveScore(intake, elevator, arm).withTimeout(4));
         robotCommands.put("CoralMoveStow", new CoralMoveStow(intake, elevator, arm));
-        robotCommands.put("IntakeCoral", new IntakeCoral(intake, elevator, arm));
+        robotCommands.put("IntakeCoral", new IntakeCoral(elevator, arm));
     
         NamedCommands.registerCommands(robotCommands);
 
@@ -250,8 +250,8 @@ climberFrameViz.addLink(
 
         driver.y().whileTrue(new ClimbPrep(climber));
         driver.x().whileTrue(pathfindingtofollowCommand());
-        driver.b().whileTrue(new IntakeCoral(intake, elevator, arm));
-        driver.rightTrigger().whileTrue(new IntakePiece(intake, elevator));
+        driver.b().whileTrue(new IntakeCoral(elevator, arm));
+        driver.rightTrigger().whileTrue(new IntakeAlgae(intake, 1));
 
         
 

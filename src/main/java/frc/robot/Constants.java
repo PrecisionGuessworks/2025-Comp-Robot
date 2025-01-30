@@ -187,6 +187,8 @@ public class Constants {
     public static final double intakeScoreAngle = Math.toRadians(85); // rad
     public static final double intakeStowAngle = Math.toRadians(105); // rad
     public static final double intakeRollerVelocity = 100; // rad/s
+    public static final double outtakeRollerVelocity = -100; // rad/s
+    public static final double holdRollerVelocity = 10; // rad/s
 
     // For simulation.
     public static final double simArmMOI = 0.2; // kgMetersSquared
