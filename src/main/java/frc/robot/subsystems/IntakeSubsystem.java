@@ -126,6 +126,10 @@ public class IntakeSubsystem extends SubsystemBase {
     m_rollerMotor.setStatorCurrentLimit(current);
   }
 
+  public double getRollerCurrnt (){
+    return m_rollerMotor.getSupplyCurrent();
+  }
+
   public void disabledInit() {
     m_deployMotor.setBrakeMode(true);
   }
