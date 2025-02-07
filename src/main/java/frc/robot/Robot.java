@@ -119,21 +119,23 @@ public class Robot extends TimedRobot {
     }
 
   if (m_robotContainer.operator.pov(0).getAsBoolean() == true){
-      RobotContainer.elevator.m_HeightLocation = 4;
+      RobotContainer.elevator.setHeightLocation(4);
   } else if (m_robotContainer.operator.pov(90).getAsBoolean() == true){
-    RobotContainer.elevator.m_HeightLocation = 3;
+    RobotContainer.elevator.setHeightLocation(3);
 
   } else if (m_robotContainer.operator.pov(180).getAsBoolean() == true){
-    RobotContainer.elevator.m_HeightLocation = 2;
+    RobotContainer.elevator.setHeightLocation(2);
 
   } else if (m_robotContainer.operator.pov(270).getAsBoolean() == true){
-    RobotContainer.elevator.m_HeightLocation = 1;
+    RobotContainer.elevator.setHeightLocation(1);
+
+  }
+  if(m_robotContainer.operator.leftBumper().getAsBoolean() == true){
+    RobotContainer.climber.setTargetAdjust(m_robotContainer.operator.getLeftY());
 
   }
 
-
-
-  }
+}
 
   @Override
   public void disabledInit() {

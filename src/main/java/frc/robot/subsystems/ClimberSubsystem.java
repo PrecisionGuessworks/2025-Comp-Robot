@@ -75,6 +75,18 @@ public class ClimberSubsystem extends SubsystemBase {
   public void setHeight(double targetHeight) {
     m_setTargetHeight = targetHeight;
   }
+
+  public void setTargetAdjust(double adjust) {
+    m_setTargetHeight += adjust*0.005;
+  }
+
+  public void setZero() {
+    m_motor.setSensorPosition(0.0);
+  }
+
+  public void setZero(double height) {
+    m_motor.setSensorPosition(height);
+  }
  
 
   public boolean isAtHeight(double height, double tolerance) {

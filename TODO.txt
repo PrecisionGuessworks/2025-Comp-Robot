@@ -14,6 +14,7 @@ autos
 
 commands
 -climb sequence + manual
--algae descore L2+L3
 
--maybe coral ground
+
+
+-maybe coral ground later
