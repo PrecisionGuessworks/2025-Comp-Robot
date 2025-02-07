@@ -86,6 +86,7 @@ private final QuixTalonFX m_wristMotor =
   private double m_wristTargetAngle = Constants.Arm.wristStartingAngle;
   private double setm_armTargetAngle = Constants.Arm.armStartingAngle;
   private double setm_wristTargetAngle = Constants.Arm.wristStartingAngle;
+  private boolean hasPiece = true;
   private Timer m_lastPieceTimer = new Timer();
 
   public ArmSubsystem(Link2d ArmArmViz, Link2d ArmWristViz, Link2d ArmRollerViz) {
@@ -130,6 +131,13 @@ private final QuixTalonFX m_wristMotor =
     setm_wristTargetAngle = targetAngle;
   }
 
+  public void setHasPiece(boolean thasPiece) {
+    hasPiece = thasPiece;
+  }
+  public boolean getHasPiece() {
+    return hasPiece;
+  }
+
 
   public void setArmRollerCurrent(double StatorCurrentLimit, double SupplyCurrentLimit) {
     m_rollerMotor.setStatorCurrentLimit(StatorCurrentLimit,SupplyCurrentLimit);
@@ -169,23 +177,48 @@ private final QuixTalonFX m_wristMotor =
 
     //SmartDashboard.putBoolean("Arm: Beam Break", m_beamBreak.get());
     //elevatorLocation = RobotContainer.elevator.getHeightLocation();
-    if (RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, 2)&&
-    (Units.radiansToDegrees(setm_armTargetAngle)>80 && Units.radiansToDegrees(setm_wristTargetAngle)>80 && RobotContainer.climber.getHeight() < 5)
-    ){
-      m_armTargetAngle = setm_armTargetAngle;
-      m_wristTargetAngle = setm_wristTargetAngle;
-    } else if (RobotContainer.elevator.getHeight() > Constants.Elevator.upperStowHeight && Units.radiansToDegrees(setm_armTargetAngle)<91 && Units.radiansToDegrees(setm_wristTargetAngle)<91 && Units.radiansToDegrees(setm_armTargetAngle)>80 && RobotContainer.climber.getHeight() < 5) {
-      m_armTargetAngle = setm_armTargetAngle;
-      m_wristTargetAngle = setm_wristTargetAngle;
-    } else {
-      m_armTargetAngle = Constants.Arm.armStowAngle;
-      m_wristTargetAngle = Constants.Arm.wristStowAngle;
-    }
+    // if (RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, 2)&&
+    // (Units.radiansToDegrees(setm_armTargetAngle)>80 && Units.radiansToDegrees(setm_wristTargetAngle)>80 && RobotContainer.climber.getHeight() < 5)
+    // ){
+    //   m_armTargetAngle = setm_armTargetAngle;
+    //   m_wristTargetAngle = setm_wristTargetAngle;
+    // } else if (RobotContainer.elevator.getHeight() > Constants.Elevator.upperStowHeight && Units.radiansToDegrees(setm_armTargetAngle)<91 && Units.radiansToDegrees(setm_wristTargetAngle)<91 && Units.radiansToDegrees(setm_armTargetAngle)>80 && RobotContainer.climber.getHeight() < 5) {
+    //   m_armTargetAngle = setm_armTargetAngle;
+    //   m_wristTargetAngle = setm_wristTargetAngle;
+    // } else if(getArmAngle() < 91 || RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, 2)) {
+    //   m_armTargetAngle = Constants.Arm.armStowAngle;
+    //   m_wristTargetAngle = Constants.Arm.wristStowAngle;
+    // }
 
-    m_armMotor.setMotionMagicPositionSetpoint(
+      if (RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle < Constants.Arm.armStowAngle){
+        m_armTargetAngle = setm_armTargetAngle;
+      } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, 1) && setm_armTargetAngle > Constants.Arm.armStowAngle)
+      || (getArmAngle() > 100 && RobotContainer.elevator.getHeight() > Constants.Elevator.wristStowHeight && setm_armTargetAngle > Constants.Arm.armStowAngle)){
+        m_armTargetAngle = setm_armTargetAngle;
+      } else if (getArmAngle() < 92) { // might need check 
+        m_armTargetAngle = Constants.Arm.armStowAngle;
+      } else if (getArmAngle() > 97) { // might need check 
+        m_armTargetAngle = Constants.Arm.armStowIntakeAngle;
+      }
+    
+      if (RobotContainer.elevator.getHeight() > Constants.Elevator.wristStowHeight && setm_wristTargetAngle > Constants.Arm.wristStowAngle){
+        m_wristTargetAngle = setm_wristTargetAngle;
+      } else {
+        m_wristTargetAngle = Constants.Arm.wristStowAngle;
+      }
+
+    
+    if(hasPiece){
+      m_armMotor.setMotionMagicPositionSetpoint(
+        Constants.Arm.armCoralPositionPIDSlot, m_armTargetAngle);
+      m_wristMotor.setMotionMagicPositionSetpoint(
+        Constants.Arm.wristCoralPositionPIDSlot, m_wristTargetAngle);
+    } else {
+      m_armMotor.setMotionMagicPositionSetpoint(
         Constants.Arm.armPositionPIDSlot, m_armTargetAngle);
-    m_wristMotor.setMotionMagicPositionSetpoint(
-      Constants.Arm.wristPositionPIDSlot, m_wristTargetAngle);
+      m_wristMotor.setMotionMagicPositionSetpoint(
+        Constants.Arm.wristPositionPIDSlot, m_wristTargetAngle);
+    }
 
     SmartDashboard.putNumber(
         "Arm: Current Angle (deg)", Units.radiansToDegrees(m_armMotor.getSensorPosition()));

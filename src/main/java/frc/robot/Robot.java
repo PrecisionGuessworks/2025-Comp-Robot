@@ -118,15 +118,15 @@ public class Robot extends TimedRobot {
       e.printStackTrace();
     }
 
-    if (m_robotContainer.driver.pov(0).getAsBoolean() == true){
+  if (m_robotContainer.operator.pov(0).getAsBoolean() == true){
       RobotContainer.elevator.m_HeightLocation = 4;
-  } else if (m_robotContainer.driver.pov(90).getAsBoolean() == true){
+  } else if (m_robotContainer.operator.pov(90).getAsBoolean() == true){
     RobotContainer.elevator.m_HeightLocation = 3;
 
-  } else if (m_robotContainer.driver.pov(180).getAsBoolean() == true){
+  } else if (m_robotContainer.operator.pov(180).getAsBoolean() == true){
     RobotContainer.elevator.m_HeightLocation = 2;
 
-  } else if (m_robotContainer.driver.pov(270).getAsBoolean() == true){
+  } else if (m_robotContainer.operator.pov(270).getAsBoolean() == true){
     RobotContainer.elevator.m_HeightLocation = 1;
 
   }
@@ -175,7 +175,7 @@ public class Robot extends TimedRobot {
                         if (ally.isPresent()) {
                           if (ally.get() == Alliance.Red) {
                             poses.addAll(path.getAllPathPoints().stream()
-                            .map(point -> new Pose2d(16.541 - point.position.getX(), point.position.getY(), new Rotation2d()))
+                            .map(point -> new Pose2d(Constants.Pose.feildFlip - point.position.getX(), point.position.getY(), new Rotation2d()))
                           .collect(Collectors.toList()));
                           }
                           if (ally.get() == Alliance.Blue) {
@@ -239,7 +239,7 @@ public class Robot extends TimedRobot {
                   if (ally.isPresent()) {
                     if (ally.get() == Alliance.Red) {
                       poses.addAll(path.getAllPathPoints().stream()
-                      .map(point -> new Pose2d(16.541 - point.position.getX(), point.position.getY(), new Rotation2d()))
+                      .map(point -> new Pose2d(Constants.Pose.feildFlip - point.position.getX(), point.position.getY(), new Rotation2d()))
                     .collect(Collectors.toList()));
                     }
                     if (ally.get() == Alliance.Blue) {

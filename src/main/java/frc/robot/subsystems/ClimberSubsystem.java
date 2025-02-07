@@ -87,7 +87,7 @@ public class ClimberSubsystem extends SubsystemBase {
   public void periodic() {
     armAngle = RobotContainer.arm.getArmAngle();
     wristAngle = RobotContainer.arm.getWristAngle();
-   if (armAngle < 91 && wristAngle < 91){
+   if (armAngle < 92 && wristAngle < 92){
       m_targetHeight = m_setTargetHeight;
     } else {
       m_targetHeight = Constants.Climber.stowHeight;

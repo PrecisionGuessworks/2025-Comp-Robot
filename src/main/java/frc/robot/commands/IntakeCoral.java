@@ -26,7 +26,7 @@ public class IntakeCoral extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_elevator.setHeight(Constants.Elevator.stowHeight);
+    m_elevator.setHeight(Constants.Elevator.intakeHeight);
     m_arm.setArmAngle(Constants.Arm.armIntakeAngle);
     m_arm.setWristAngle(Constants.Arm.wristIntakeAngle);
   }

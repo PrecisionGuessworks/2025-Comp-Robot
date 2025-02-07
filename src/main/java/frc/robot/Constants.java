@@ -137,13 +137,18 @@ public class Constants {
     //public static final double powerCutoffHeight = Units.inchesToMeters(0.1); // m
     public static final double maxHeight = Units.inchesToMeters(75.0); // m
     public static final double stowHeight = Units.inchesToMeters(1); // m
-    public static final double upperStowHeight = Units.inchesToMeters(8); // m
+    public static final double wristStowHeight = Units.inchesToMeters(8); // m
+    public static final double armStowHeight = Units.inchesToMeters(12); // m
     public static final double stowTolerance = Units.inchesToMeters(0.25); // m
+    public static final double intakeHeight = Units.inchesToMeters(7); // m
 
     public static final double L1 = Units.inchesToMeters(12); // m
     public static final double L2 = Units.inchesToMeters(34); // m
     public static final double L3 = Units.inchesToMeters(44); // m
     public static final double L4 = Units.inchesToMeters(68); // m
+
+    public static final double L2Algae = Units.inchesToMeters(40); // m
+    public static final double L3Algae = Units.inchesToMeters(55); // m
 
     // For simulation.
     public static final double simCarriageMass = 7.0; // kg
@@ -222,6 +227,8 @@ public class Constants {
         new Constraints(60.0, 80.0); // rad/s and rad/s^2
     public static final int armPositionPIDSlot = 0;
     public static final PIDConfig armPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 0.12, 0.007, 0);
+    public static final int armCoralPositionPIDSlot = 1;
+    public static final PIDConfig armCoralPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 0.12, 0.007, 0);
 
     //public static final ArmFeedforward wristFeedForward = new ArmFeedforward(0.0, 0.3, 0.6);
     public static final Constraints WristConstraints =
@@ -243,12 +250,12 @@ public class Constants {
     public static final double armMinAngle = Units.degreesToRadians(-10.0); // rads (trap position)
     public static final double armMaxAngle = Units.degreesToRadians(140.0); // rads (stow position)
     public static final double armStartingAngle = Units.degreesToRadians(90);
-    public static final double armCgOffset = Units.degreesToRadians(0); // TODO: NEED TO CALC IN SUBSYSTEM
+    public static final double armCgOffset = Units.degreesToRadians(0);
 
     public static final double wristBootAbsPositionOffset = Units.degreesToRadians(0);
     public static final double wristMinAngle = Units.degreesToRadians(-16.0); // rads (trap position)
     public static final double wristMaxAngle = Units.degreesToRadians(180.0); // rads (stow position)
-    public static final double wristStartingAngle = Units.degreesToRadians(90) + armStartingAngle;
+    public static final double wristStartingAngle = Units.degreesToRadians(180) + armStartingAngle;
     public static final double wristCgOffset = Units.degreesToRadians(0);
 
     public static final double AngleTolerance = Units.degreesToRadians(2);
@@ -262,9 +269,12 @@ public class Constants {
     public static final double armGroundIntakeAngle = Units.degreesToRadians(-5);
     public static final double wristGroundIntakeAngle = Units.degreesToRadians(25);
     public static final double armStowAngle = Units.degreesToRadians(89);
+    public static final double armStowIntakeAngle = Units.degreesToRadians(95);
     public static final double wristStowAngle = Units.degreesToRadians(90);
     public static final double armScoreAngle = Units.degreesToRadians(89);
     public static final double wristScoreAngle = Units.degreesToRadians(-15);
+    public static final double armWackAngle = Units.degreesToRadians(0);
+    public static final double wristWackAngle = Units.degreesToRadians(20);
 
     public static final Transform2d robotToArm =
         new Transform2d(Units.inchesToMeters(12.0), 0.0, new Rotation2d());
@@ -313,18 +323,22 @@ public class Constants {
 
     // TODO: find real values
     public static final ElevatorFeedforward elevatorFeedforward =
-        new ElevatorFeedforward(0.0, 0.0, 0.0); // new ElevatorFeedforward(0.35, 0.15, 15.8);
+        new ElevatorFeedforward(0.35, 0.15, 15.8);
   }
 
 
   public static final class Pose {
 
-    public static final PathConstraints constraints = new PathConstraints(
-            3, 2.5,
-            Units.degreesToRadians(400), Units.degreesToRadians(600));
+    // public static final PathConstraints constraints = new PathConstraints(
+    //         3, 2.5,
+    //         Units.degreesToRadians(400), Units.degreesToRadians(600));
 
-    public static final double XvelocityFactor = 0.20;
-    public static final double YvelocityFactor = 0.20;
+    // public static final double XvelocityFactor = 0.15;
+    // public static final double YvelocityFactor = 0.15;
+
+    public static final double PTranslationSlow = 1;
+    public static final double ITranslationSlow = 1;
+    public static final double DTranslationSlow = 1;
 
     public static final Pose2d Error = new Pose2d(6, 6, Rotation2d.fromDegrees(0));
 
@@ -341,7 +355,7 @@ public class Constants {
     public static final Pose2d Kblue = new Pose2d(4.1, 5.3, Rotation2d.fromDegrees(300));
     public static final Pose2d Lblue = new Pose2d(3.7, 5.0, Rotation2d.fromDegrees(300));
 
-    public static final double feildFlip = 16.54;
+    public static final double feildFlip = 117.5;
     public static final Pose2d Ared = new Pose2d(feildFlip - 3.2, 4.3, Rotation2d.fromDegrees(180));
     public static final Pose2d Bred = new Pose2d(feildFlip - 3.2, 3.8, Rotation2d.fromDegrees(180));
     public static final Pose2d Cred = new Pose2d(feildFlip - 3.7, 3.0, Rotation2d.fromDegrees(120));
