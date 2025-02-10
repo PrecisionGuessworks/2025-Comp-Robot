@@ -69,12 +69,22 @@ public class ElevatorSubsystem extends SubsystemBase {
     m_elevatorCarriageViz = elevatorCarriageViz;
   }
 
-  public boolean readyForIntake() {
-    return isAtHeight(Constants.Elevator.stowHeight, Constants.Elevator.stowTolerance);
+  public boolean isAtScore(){
+    if (m_HeightLocation == 4){
+      return isAtHeight(Constants.Elevator.L4, 0.5);
+    } else if (m_HeightLocation == 3){
+      return isAtHeight(Constants.Elevator.L3, 0.5);
+    } else if (m_HeightLocation == 2){
+      return isAtHeight(Constants.Elevator.L2, 0.5);
+    } else if (m_HeightLocation == 1){
+      return isAtHeight(Constants.Elevator.L1, 0.5);
+    } else {
+      return false;
+    }
   }
 
   public double getHeight() {
-    return m_motor.getSensorPosition();
+    return Constants.Elevator.motorRatio.sensorRadiansToMechanismPosition(m_motor.getSensorPosition());
   }
 
   public void setHeight(double targetHeight) {
@@ -97,13 +107,15 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
     armAngle = RobotContainer.arm.getArmAngle();
     wristAngle = RobotContainer.arm.getWristAngle();
-    if (armAngle < 91 && wristAngle < 91 && m_setTargetHeight > Constants.Elevator.wristStowHeight){
+    if (armAngle < 91 && wristAngle < 91 && m_setTargetHeight > Constants.Elevator.armStowHeight){
       m_targetHeight = m_setTargetHeight;
     } else if (armAngle < 87 && m_setTargetHeight < Constants.Elevator.armStowHeight){ 
       m_targetHeight = Constants.Elevator.armStowHeight;
     } else if (wristAngle < 87 && m_setTargetHeight < Constants.Elevator.wristStowHeight){ 
       m_targetHeight = Constants.Elevator.wristStowHeight; 
-    } else if (armAngle > 96 && wristAngle > 87 && m_setTargetHeight > Constants.Elevator.armStowHeight){ // intake
+    } else if (armAngle < 100 && armAngle > 91){ // intake
+      m_targetHeight = Constants.Elevator.stowHeight;
+    } else if (armAngle > 100 && m_setTargetHeight <= Constants.Elevator.intakeHeight){
       m_targetHeight = m_setTargetHeight;
     } else {
       m_targetHeight = Constants.Elevator.stowHeight;
@@ -140,7 +152,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
 
     SmartDashboard.putNumber(
-        "Elevator: Current Height (in)", Units.metersToInches(m_motor.getSensorPosition()));
+        "Elevator: Current Height (in)", Units.metersToInches(getHeight()));
     SmartDashboard.putNumber(
         "Elevator: Target Height (in)", Units.metersToInches(m_motor.getClosedLoopReference()));
 

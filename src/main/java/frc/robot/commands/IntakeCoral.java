@@ -4,8 +4,10 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 
@@ -26,15 +28,22 @@ public class IntakeCoral extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_elevator.setHeight(Constants.Elevator.intakeHeight);
+    m_elevator.setHeight(Constants.Elevator.stowHeight);
     m_arm.setArmAngle(Constants.Arm.armIntakeAngle);
     m_arm.setWristAngle(Constants.Arm.wristIntakeAngle);
+    m_arm.setRollerVelocity(Constants.Arm.intakeVelocity);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     //System.out.println(m_arm.getArmAngle());
+    if (RobotContainer.arm.getArmAngle() > 110) {
+      m_elevator.setHeight(Constants.Elevator.intakeHeight);
+    } else {
+      m_elevator.setHeight(Constants.Elevator.stowHeight);
+    }
+    
   }
 
   // Called once the command ends or is interrupted.

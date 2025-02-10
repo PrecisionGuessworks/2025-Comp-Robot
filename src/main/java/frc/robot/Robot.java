@@ -118,15 +118,15 @@ public class Robot extends TimedRobot {
       e.printStackTrace();
     }
 
-  if (m_robotContainer.operator.pov(0).getAsBoolean() == true){
+  if (m_robotContainer.driver.pov(0).getAsBoolean() == true){
       RobotContainer.elevator.setHeightLocation(4);
-  } else if (m_robotContainer.operator.pov(90).getAsBoolean() == true){
+  } else if (m_robotContainer.driver.pov(90).getAsBoolean() == true){
     RobotContainer.elevator.setHeightLocation(3);
 
-  } else if (m_robotContainer.operator.pov(180).getAsBoolean() == true){
+  } else if (m_robotContainer.driver.pov(180).getAsBoolean() == true){
     RobotContainer.elevator.setHeightLocation(2);
 
-  } else if (m_robotContainer.operator.pov(270).getAsBoolean() == true){
+  } else if (m_robotContainer.driver.pov(270).getAsBoolean() == true){
     RobotContainer.elevator.setHeightLocation(1);
 
   }

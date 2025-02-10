@@ -69,12 +69,12 @@ public class AlgeaWack extends Command {
   }
 
   // Called once the command ends or is interrupted.
-  // @Override
-  // public void end(boolean interrupted) {
-  //   m_arm.setArmAngle(Constants.Arm.armStowAngle);
-  //   m_arm.setWristAngle(Constants.Arm.wristStowAngle);
-  //   m_elevator.setHeight(Constants.Elevator.stowHeight);
-  // }
+  @Override
+  public void end(boolean interrupted) {
+    m_arm.setArmAngle(Constants.Arm.armStowAngle);
+    m_arm.setWristAngle(Constants.Arm.wristStowAngle);
+    m_elevator.setHeight(Constants.Elevator.stowHeight);
+  }
 
   // Returns true when the command should end.
   // @Override

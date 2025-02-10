@@ -137,18 +137,18 @@ public class Constants {
     //public static final double powerCutoffHeight = Units.inchesToMeters(0.1); // m
     public static final double maxHeight = Units.inchesToMeters(75.0); // m
     public static final double stowHeight = Units.inchesToMeters(1); // m
-    public static final double wristStowHeight = Units.inchesToMeters(8); // m
-    public static final double armStowHeight = Units.inchesToMeters(12); // m
+    public static final double wristStowHeight = Units.inchesToMeters(6); // m
+    public static final double armStowHeight = Units.inchesToMeters(16); // m
     public static final double stowTolerance = Units.inchesToMeters(0.25); // m
-    public static final double intakeHeight = Units.inchesToMeters(7); // m
+    public static final double intakeHeight = Units.inchesToMeters(10); // m
 
     public static final double L1 = Units.inchesToMeters(12); // m
     public static final double L2 = Units.inchesToMeters(34); // m
     public static final double L3 = Units.inchesToMeters(44); // m
     public static final double L4 = Units.inchesToMeters(68); // m
 
-    public static final double L2Algae = Units.inchesToMeters(40); // m
-    public static final double L3Algae = Units.inchesToMeters(55); // m
+    public static final double L2Algae = Units.inchesToMeters(33); // m
+    public static final double L3Algae = Units.inchesToMeters(46); // m
 
     // For simulation.
     public static final double simCarriageMass = 7.0; // kg
@@ -191,6 +191,7 @@ public class Constants {
     public static final double intakeDeployAngle = Math.toRadians(-50); // rad
     public static final double intakeScoreAngle = Math.toRadians(85); // rad
     public static final double intakeStowAngle = Math.toRadians(105); // rad
+    public static final double intakeClimbAngle = Math.toRadians(100); // rad
     public static final double intakeRollerVelocity = 100; // rad/s
     public static final double outtakeRollerVelocity = -100; // rad/s
     public static final double holdRollerVelocity = 10; // rad/s
@@ -248,7 +249,7 @@ public class Constants {
     // TODO: Use real values
     public static final double armBootAbsPositionOffset = Units.degreesToRadians(0);
     public static final double armMinAngle = Units.degreesToRadians(-10.0); // rads (trap position)
-    public static final double armMaxAngle = Units.degreesToRadians(140.0); // rads (stow position)
+    public static final double armMaxAngle = Units.degreesToRadians(160.0); // rads (stow position)
     public static final double armStartingAngle = Units.degreesToRadians(90);
     public static final double armCgOffset = Units.degreesToRadians(0);
 
@@ -264,7 +265,7 @@ public class Constants {
     public static final double outtakeVelocity = 310.0; // rads/s
 
 
-    public static final double armIntakeAngle = Units.degreesToRadians(120);
+    public static final double armIntakeAngle = Units.degreesToRadians(145);
     public static final double wristIntakeAngle = Units.degreesToRadians(90);
     public static final double armGroundIntakeAngle = Units.degreesToRadians(-5);
     public static final double wristGroundIntakeAngle = Units.degreesToRadians(25);
@@ -274,7 +275,7 @@ public class Constants {
     public static final double armScoreAngle = Units.degreesToRadians(89);
     public static final double wristScoreAngle = Units.degreesToRadians(-15);
     public static final double armWackAngle = Units.degreesToRadians(0);
-    public static final double wristWackAngle = Units.degreesToRadians(20);
+    public static final double wristWackAngle = Units.degreesToRadians(80);
 
     public static final Transform2d robotToArm =
         new Transform2d(Units.inchesToMeters(12.0), 0.0, new Rotation2d());
@@ -314,8 +315,9 @@ public class Constants {
     public static final double minHeight = 0.0; // m
     //public static final double powerCutoffHeight = Units.inchesToMeters(0.1); // m
     public static final double maxHeight = Units.inchesToMeters(75.0); // m
-    public static final double stowHeight = Units.inchesToMeters(1); // m
+    public static final double stowHeight = Units.inchesToMeters(0); // m
     public static final double upperStowHeight = Units.inchesToMeters(8); // m
+    public static final double climbHeight = Units.inchesToMeters(5); // m
     public static final double stowTolerance = Units.inchesToMeters(0.25); // m
 
     // For simulation.

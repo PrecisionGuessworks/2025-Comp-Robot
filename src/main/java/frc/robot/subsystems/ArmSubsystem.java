@@ -192,36 +192,38 @@ private final QuixTalonFX m_wristMotor =
 
       if (RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle < Constants.Arm.armStowAngle){
         m_armTargetAngle = setm_armTargetAngle;
-      } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, 1) && setm_armTargetAngle > Constants.Arm.armStowAngle)
-      || (getArmAngle() > 100 && RobotContainer.elevator.getHeight() > Constants.Elevator.wristStowHeight && setm_armTargetAngle > Constants.Arm.armStowAngle)){
+      } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, 2) && setm_armTargetAngle >= Constants.Arm.armStowAngle)
+      || (getArmAngle() > 100 && RobotContainer.elevator.getHeight() < Constants.Elevator.intakeHeight+1 && setm_armTargetAngle > Constants.Arm.armStowAngle)){
         m_armTargetAngle = setm_armTargetAngle;
-      } else if (getArmAngle() < 92) { // might need check 
+      } else if (getArmAngle() < 92 && setm_armTargetAngle < 91) { // might need check 
         m_armTargetAngle = Constants.Arm.armStowAngle;
-      } else if (getArmAngle() > 97) { // might need check 
-        m_armTargetAngle = Constants.Arm.armStowIntakeAngle;
-      }
+      } else if (getArmAngle() > 96 && setm_armTargetAngle < 96) { // might need check 
+         m_armTargetAngle = Constants.Arm.armStowIntakeAngle;
+       }
     
-      if (RobotContainer.elevator.getHeight() > Constants.Elevator.wristStowHeight && setm_wristTargetAngle > Constants.Arm.wristStowAngle){
+      if (RobotContainer.elevator.getHeight() >= Constants.Elevator.wristStowHeight && setm_wristTargetAngle < Units.degreesToRadians(93)){
         m_wristTargetAngle = setm_wristTargetAngle;
       } else {
         m_wristTargetAngle = Constants.Arm.wristStowAngle;
       }
 
     
-    if(hasPiece){
-      m_armMotor.setMotionMagicPositionSetpoint(
-        Constants.Arm.armCoralPositionPIDSlot, m_armTargetAngle);
-      m_wristMotor.setMotionMagicPositionSetpoint(
-        Constants.Arm.wristCoralPositionPIDSlot, m_wristTargetAngle);
-    } else {
+    // if(hasPiece){
+    //   m_armMotor.setMotionMagicPositionSetpoint(
+    //     Constants.Arm.armCoralPositionPIDSlot, m_armTargetAngle);
+    //   m_wristMotor.setMotionMagicPositionSetpoint(
+    //     Constants.Arm.wristCoralPositionPIDSlot, m_wristTargetAngle);
+    // } else {
       m_armMotor.setMotionMagicPositionSetpoint(
         Constants.Arm.armPositionPIDSlot, m_armTargetAngle);
       m_wristMotor.setMotionMagicPositionSetpoint(
         Constants.Arm.wristPositionPIDSlot, m_wristTargetAngle);
-    }
+   // }
 
     SmartDashboard.putNumber(
         "Arm: Current Angle (deg)", Units.radiansToDegrees(m_armMotor.getSensorPosition()));
+    SmartDashboard.putNumber(
+        "Arm: Real Current Angle (deg)", getArmAngle());
     SmartDashboard.putNumber(
         "Arm: Target Angle (deg)",
         Units.radiansToDegrees(m_armMotor.getClosedLoopReference()));
@@ -237,6 +239,8 @@ private final QuixTalonFX m_wristMotor =
 
       SmartDashboard.putNumber(
         "Wrist: Current Angle (deg)", Units.radiansToDegrees(m_wristMotor.getSensorPosition()));
+        SmartDashboard.putNumber(
+        "Wrist: Real Current Angle (deg)", getWristAngle());
       SmartDashboard.putNumber(
         "Wrist: Target Angle (deg)",
         Units.radiansToDegrees(m_wristMotor.getClosedLoopReference()));

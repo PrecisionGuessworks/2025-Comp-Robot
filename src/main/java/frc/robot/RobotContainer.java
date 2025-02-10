@@ -51,7 +51,7 @@ import frc.robot.commands.Moveup;
 import frc.robot.commands.StowArm;
 import frc.robot.Constants.Climber;
 import frc.robot.commands.AlgeaWack;
-import frc.robot.commands.ClimbPrep;
+import frc.robot.commands.ClimbSet;
 import frc.robot.commands.CoralMoveScore;
 import frc.robot.commands.CoralMoveStow;
 import frc.robot.commands.IntakeCoral;
@@ -249,10 +249,12 @@ climberFrameViz.addLink(
         //     point.withModuleDirection(new Rotation2d(-driver.getLeftY(), -driver.getLeftX()))
         // ));
 
-        driver.leftBumper().onTrue(new SequentialCommandGroup(new ParallelCommandGroup(new CoralMoveScore(intake, elevator, arm), pathfindingCommand(true)),new CoralMoveStow(intake, elevator, arm)));
-        driver.rightBumper().onTrue(new SequentialCommandGroup(new ParallelCommandGroup(new CoralMoveScore(intake, elevator, arm), pathfindingCommand(false)),new CoralMoveStow(intake, elevator, arm)));
+        driver.leftBumper().whileTrue(new ParallelCommandGroup(new CoralMoveScore(intake, elevator, arm), pathfindingCommand(true)));
+        driver.rightBumper().whileTrue(new ParallelCommandGroup(new CoralMoveScore(intake, elevator, arm), pathfindingCommand(false)));
+        driver.leftBumper().onFalse(new CoralMoveStow(intake, elevator, arm));
+        driver.rightBumper().onFalse(new CoralMoveStow(intake, elevator, arm));
 
-        //driver.y().whileTrue(new ClimbPrep(climber));
+        //driver.y().whileTrue(new ClimbSet(climber));
         //driver.x().whileTrue(pathfindingtofollowCommand());
         driver.rightTrigger().whileTrue(new IntakeCoral(elevator, arm));
         driver.leftTrigger().whileTrue(new IntakeAlgae(intake, 0));
@@ -294,7 +296,11 @@ climberFrameViz.addLink(
         operator.leftTrigger().whileTrue(new IntakeAlgae(intake, 1));
         operator.rightTrigger().whileTrue(new IntakeAlgae(intake, 2));
         operator.rightBumper().whileTrue(new StowArm(elevator, arm));
-        //operator.leftBumper().and(operator.rightBumper()).whileTrue(new Moveup(elevator, arm));
+        operator.leftBumper().and(operator.a()).onTrue(new ClimbSet(1, climber, intake, elevator, arm));
+        operator.leftBumper().and(operator.b()).onTrue(new ClimbSet(2, climber, intake, elevator, arm));
+        operator.leftBumper().and(operator.x()).onTrue(new ClimbSet(3, climber, intake, elevator, arm));
+        
+        
 
 
 
@@ -364,8 +370,8 @@ climberFrameViz.addLink(
             VY = currentSpeeds.vyMetersPerSecond;
                double xOutput = 2 * xController.calculate(X, targetPose.getX());
                double yOutput = 2 * yController.calculate(Y, targetPose.getY());
-               System.out.println(xOutput);
-               System.out.println(yOutput);
+            //    System.out.println(xOutput);
+            //    System.out.println(yOutput);
                drivetrain.applyRequest(() -> 
                    angle.withVelocityX(xOutput)
                         .withVelocityY(yOutput)
