@@ -130,9 +130,11 @@ public class Robot extends TimedRobot {
     RobotContainer.elevator.setHeightLocation(1);
 
   }
-  if(m_robotContainer.operator.leftBumper().getAsBoolean() == true){
-    RobotContainer.climber.setTargetAdjust(m_robotContainer.operator.getLeftY());
-
+  double leftY = m_robotContainer.operator.getLeftY();
+  if (Math.abs(leftY) > 0.1) { // Deadband of 0.1
+    if (m_robotContainer.operator.leftBumper().getAsBoolean() == true) {
+      RobotContainer.climber.setTargetAdjust(leftY);
+    }
   }
 
 }

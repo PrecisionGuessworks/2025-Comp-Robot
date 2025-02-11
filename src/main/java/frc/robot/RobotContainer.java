@@ -293,8 +293,8 @@ climberFrameViz.addLink(
         driver.start().and(driver.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
         driver.start().and(driver.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
         
-        operator.leftTrigger().whileTrue(new IntakeAlgae(intake, 1));
-        operator.rightTrigger().whileTrue(new IntakeAlgae(intake, 2));
+        operator.leftTrigger().whileTrue(new IntakeAlgae(intake, 2));
+        operator.rightTrigger().whileTrue(new IntakeAlgae(intake, 1));
         operator.rightBumper().whileTrue(new StowArm(elevator, arm));
         operator.leftBumper().and(operator.a()).onTrue(new ClimbSet(1, climber, intake, elevator, arm));
         operator.leftBumper().and(operator.b()).onTrue(new ClimbSet(2, climber, intake, elevator, arm));
