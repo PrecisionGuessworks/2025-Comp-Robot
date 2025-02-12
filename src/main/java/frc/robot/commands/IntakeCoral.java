@@ -38,10 +38,13 @@ public class IntakeCoral extends Command {
   @Override
   public void execute() {
     //System.out.println(m_arm.getArmAngle());
-    if (RobotContainer.arm.getArmAngle() > 110) {
+    if (RobotContainer.arm.getArmAngle() > 115) {
       m_elevator.setHeight(Constants.Elevator.intakeHeight);
     } else {
       m_elevator.setHeight(Constants.Elevator.stowHeight);
+    }
+    if (m_arm.getRollerCurrent() > 15) {
+      m_arm.setHasPiece(true);
     }
     
   }
@@ -52,11 +55,14 @@ public class IntakeCoral extends Command {
     m_arm.setArmAngle(Constants.Arm.armStowAngle);
     m_arm.setWristAngle(Constants.Arm.wristStowAngle);
     m_elevator.setHeight(Constants.Elevator.stowHeight);
+    m_arm.setArmRollerCurrent(5, 5);
+    m_arm.setRollerVelocity(-10);
+
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_arm.getHasPiece();
   }
 }

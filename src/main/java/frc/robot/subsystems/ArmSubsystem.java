@@ -192,12 +192,12 @@ private final QuixTalonFX m_wristMotor =
 
       if (RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle < Constants.Arm.armStowAngle){
         m_armTargetAngle = setm_armTargetAngle;
-      } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, 2) && setm_armTargetAngle >= Constants.Arm.armStowAngle)
+      } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, 1) && setm_armTargetAngle >= Constants.Arm.armStowAngle)
       || (getArmAngle() > 100 && RobotContainer.elevator.getHeight() < Constants.Elevator.intakeHeight+1 && setm_armTargetAngle > Constants.Arm.armStowAngle)){
         m_armTargetAngle = setm_armTargetAngle;
-      } else if (getArmAngle() < 92 && setm_armTargetAngle < 91) { // might need check 
+      } else if (getArmAngle() < 91 && setm_armTargetAngle < 91) { // might need check 
         m_armTargetAngle = Constants.Arm.armStowAngle;
-      } else if (getArmAngle() > 96 && setm_armTargetAngle < 96) { // might need check 
+      } else if (getArmAngle() > 98 && setm_armTargetAngle < 98) { // might need check 
          m_armTargetAngle = Constants.Arm.armStowIntakeAngle;
        }
     
@@ -253,6 +253,7 @@ private final QuixTalonFX m_wristMotor =
       SmartDashboard.putNumber(
         "Wrist: Current Roller Velocity (rad per sec)", m_rollerMotor.getSensorVelocity());
 
+    
     m_rollerMotor.logMotorState();
     m_wristMotor.logMotorState();
     m_armMotor.logMotorState();
@@ -340,7 +341,7 @@ private final QuixTalonFX m_wristMotor =
           0.0,
           Rotation2d.fromRadians(
             //m_ArmWristViz.getRelativeTransform().getRotation().getRadians()
-                  + m_wrstSim.getAngleRads()+ Units.degreesToRadians(- Constants.Viz.elevatorAngle.getDegrees()) - Units.degreesToRadians(90))));
+                  + m_wrstSim.getAngleRads()+ Units.degreesToRadians(- Constants.Viz.elevatorAngle.getDegrees()) - Constants.Arm.wristStartingAngle)));
 
     m_ArmRollerViz.setRelativeTransform(
         new Transform2d(
