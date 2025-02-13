@@ -72,7 +72,7 @@ public class Constants {
 
 
     public static class Vision {
-        public static final String kCameraName = "FrontCamera";
+        public static final String kCameraName = "YOUR CAMERA NAME";
         // Cam mounted facing forward, half a meter forward of center, half a meter up from center, up 15 degs.
         public static final Transform3d kRobotToCam =
                 new Transform3d(new Translation3d(0.3, 0.0, 0.15), new Rotation3d(0, Math.toRadians(-15), 0));
@@ -339,11 +339,9 @@ public class Constants {
     // public static final double XvelocityFactor = 0.15;
     // public static final double YvelocityFactor = 0.15;
 
-    public static final double PTranslationSlow = 3;
-    public static final double ITranslationSlow = 0;
-    public static final double DTranslationSlow = 0.1;
-
-    public static final double PIDmultValue = 2;
+    public static final double PTranslationSlow = 1;
+    public static final double ITranslationSlow = 1;
+    public static final double DTranslationSlow = 1;
 
     public static final Pose2d Error = new Pose2d(6, 6, Rotation2d.fromDegrees(0));
 

@@ -54,7 +54,6 @@ import frc.robot.commands.AlgeaWack;
 import frc.robot.commands.ClimbSet;
 import frc.robot.commands.CoralMoveScore;
 import frc.robot.commands.CoralMoveStow;
-import frc.robot.commands.EjectCoral;
 import frc.robot.commands.IntakeCoral;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -285,7 +284,7 @@ climberFrameViz.addLink(
         // );
 
 
-        
+        driver.a().whileTrue(new AlgeaWack(elevator, arm));
         
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
@@ -300,10 +299,6 @@ climberFrameViz.addLink(
         operator.leftBumper().and(operator.a()).onTrue(new ClimbSet(1, climber, intake, elevator, arm));
         operator.leftBumper().and(operator.b()).onTrue(new ClimbSet(2, climber, intake, elevator, arm));
         operator.leftBumper().and(operator.x()).onTrue(new ClimbSet(3, climber, intake, elevator, arm));
-        driver.a().whileTrue(new AlgeaWack(elevator, arm));
-        operator.povUp().whileTrue(new EjectCoral(false,arm));
-        operator.povDown().whileTrue(new EjectCoral(true,arm));
-        
         
         
 
@@ -352,6 +347,7 @@ climberFrameViz.addLink(
     // Create the constraints to use while pathfinding
     
     private Command pathfindingCommand(boolean left) {
+
        PIDController xController = new PIDController(Constants.Pose.PTranslationSlow, Constants.Pose.ITranslationSlow, Constants.Pose.DTranslationSlow);
        PIDController yController = new PIDController(Constants.Pose.PTranslationSlow, Constants.Pose.ITranslationSlow, Constants.Pose.DTranslationSlow);
 
@@ -372,8 +368,8 @@ climberFrameViz.addLink(
             Y = currentPose.getTranslation().getY();
             VX = currentSpeeds.vxMetersPerSecond;
             VY = currentSpeeds.vyMetersPerSecond;
-               double xOutput = Constants.Pose.PIDmultValue * xController.calculate(X, targetPose.getX());
-               double yOutput = Constants.Pose.PIDmultValue * yController.calculate(Y, targetPose.getY());
+               double xOutput = 2 * xController.calculate(X, targetPose.getX());
+               double yOutput = 2 * yController.calculate(Y, targetPose.getY());
             //    System.out.println(xOutput);
             //    System.out.println(yOutput);
                drivetrain.applyRequest(() -> 
