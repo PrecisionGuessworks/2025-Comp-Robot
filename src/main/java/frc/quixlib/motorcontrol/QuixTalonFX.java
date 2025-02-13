@@ -27,7 +27,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.quixlib.devices.CANDeviceID;
 import frc.quixlib.devices.QuixStatusSignal;
 import frc.quixlib.phoenix.PhoenixUtil;
-import frc.robot.Constants;
 import frc.robot.Robot;
 import java.util.function.Function;
 
@@ -259,7 +258,6 @@ public class QuixTalonFX implements QuixMotorControllerWithEncoder, AutoCloseabl
     SmartDashboard.putBoolean("TalonFX Configuration " + m_canID.toString(), setConfiguration());
 
     // Set up logging.
-   if (Constants.PublishState){
     m_percentOutputPublisher =
         NetworkTableInstance.getDefault()
             .getDoubleTopic("TalonFX " + m_canID + ": Percent Output")
@@ -292,7 +290,6 @@ public class QuixTalonFX implements QuixMotorControllerWithEncoder, AutoCloseabl
         NetworkTableInstance.getDefault()
             .getDoubleTopic("TalonFX " + m_canID + ": Sensor Velocity")
             .publish();
-   }
   }
 
   public boolean setConfiguration() {
@@ -393,7 +390,6 @@ public class QuixTalonFX implements QuixMotorControllerWithEncoder, AutoCloseabl
   }
 
   public void logMotorState() {
-    if (Constants.PublishState){
     m_percentOutputPublisher.set(getPercentOutput());
     m_supplyCurrentPublisher.set(getSupplyCurrent());
     m_statorCurrentPublisher.set(getStatorCurrent());
@@ -402,7 +398,6 @@ public class QuixTalonFX implements QuixMotorControllerWithEncoder, AutoCloseabl
     m_rawRotorPositionPublisher.set(m_controller.getRotorPosition().getValueAsDouble());
     m_sensorPositionPublisher.set(getSensorPosition());
     m_sensorVelocityPublisher.set(getSensorVelocity());
-    }
   }
 
   public void setBrakeMode(final boolean on) {

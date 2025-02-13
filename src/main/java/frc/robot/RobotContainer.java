@@ -196,7 +196,7 @@ climberFrameViz.addLink(
     public RobotContainer() {
 
         robotCommands.put("IntakePiece", new IntakeAlgae(intake,1).withTimeout(2.5));
-        robotCommands.put("CoralMoveScore", new CoralMoveScore(intake, elevator, arm));
+        robotCommands.put("CoralMoveScore", new CoralMoveScore(intake, elevator, arm).withTimeout(3));
         robotCommands.put("CoralMoveStow", new CoralMoveStow(intake, elevator, arm));
         robotCommands.put("IntakeCoral", new IntakeCoral(elevator, arm));
     

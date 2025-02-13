@@ -64,7 +64,6 @@ public class Constants {
     public static final String kDriveTrainCanivoreName = "driveTrain"; // need to update after new tuner
     public static final String kSuperStructureCanivoreName = "superStructure";
 
-    public static final boolean PublishState = true; // Turns on publishing through smartdashboard network tables for all device data
 
     public static final double g = 9.81; // m/s/s
     public static final double defaultPeriodSecs = 0.02; // s
