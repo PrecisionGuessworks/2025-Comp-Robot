@@ -203,7 +203,9 @@ private final QuixTalonFX m_wristMotor =
     
       if (RobotContainer.elevator.getHeight() >= Constants.Elevator.wristStowHeight && setm_wristTargetAngle < Units.degreesToRadians(93)){
         m_wristTargetAngle = setm_wristTargetAngle;
-      } else {
+      } else if (RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, 2) && setm_wristTargetAngle > Units.degreesToRadians(89)){
+        m_wristTargetAngle = setm_wristTargetAngle;
+      }else{
         m_wristTargetAngle = Constants.Arm.wristStowAngle;
       }
 
