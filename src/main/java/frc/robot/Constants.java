@@ -256,7 +256,7 @@ public class Constants {
     public static final double wristBootAbsPositionOffset = Units.degreesToRadians(0);
     public static final double wristMinAngle = Units.degreesToRadians(-16.0); // rads (trap position)
     public static final double wristMaxAngle = Units.degreesToRadians(181.0); // rads (stow position)
-    public static final double wristStartingAngle = Units.degreesToRadians(90) ; //+ armStartingAngle;
+    public static final double wristStartingAngle = Units.degreesToRadians(180) ; //+ armStartingAngle;
     public static final double wristCgOffset = Units.degreesToRadians(0);
 
     public static final double AngleTolerance = Units.degreesToRadians(2);
