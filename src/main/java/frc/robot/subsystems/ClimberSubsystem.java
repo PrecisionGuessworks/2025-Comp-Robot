@@ -37,21 +37,21 @@ public class ClimberSubsystem extends SubsystemBase {
               .setReverseSoftLimit(Constants.Climber.minHeight)
               .setForwardSoftLimit(Constants.Climber.maxHeight));
 
-  private final QuixTalonFX m_follower = new QuixTalonFX(
-      Constants.Climber.followerID,
-      m_motor,
-      Constants.Climber.followerInvert,
-      QuixTalonFX.makeDefaultConfig().setBrakeMode()
-      .setSupplyCurrentLimit(40.0)
-      .setStatorCurrentLimit(60.0)
-      .setInverted(Constants.Climber.motorInvert)
-      .setPIDConfig(Constants.Climber.motorPositionSlot, Constants.Climber.motorPIDConfig)
-      .setMotionMagicConfig(
-          Constants.Climber.maxVelocity,
-          Constants.Climber.maxAcceleration,
-          Constants.Climber.maxJerk)
-      .setReverseSoftLimit(Constants.Climber.minHeight)
-      .setForwardSoftLimit(Constants.Climber.maxHeight));
+  // private final QuixTalonFX m_follower = new QuixTalonFX(
+  //     Constants.Climber.followerID,
+  //     m_motor,
+  //     Constants.Climber.followerInvert,
+  //     QuixTalonFX.makeDefaultConfig().setBrakeMode()
+  //     .setSupplyCurrentLimit(40.0)
+  //     .setStatorCurrentLimit(60.0)
+  //     .setInverted(Constants.Climber.motorInvert)
+  //     .setPIDConfig(Constants.Climber.motorPositionSlot, Constants.Climber.motorPIDConfig)
+  //     .setMotionMagicConfig(
+  //         Constants.Climber.maxVelocity,
+  //         Constants.Climber.maxAcceleration,
+  //         Constants.Climber.maxJerk)
+  //     .setReverseSoftLimit(Constants.Climber.minHeight)
+  //     .setForwardSoftLimit(Constants.Climber.maxHeight));
 
   private double m_setTargetHeight = Constants.Climber.minHeight;
   private double m_targetHeight = Constants.Climber.minHeight;
@@ -64,9 +64,6 @@ public class ClimberSubsystem extends SubsystemBase {
     m_climberCarriageViz = climberCarriageViz;
   }
 
-  public boolean readyForIntake() {
-    return isAtHeight(Constants.Climber.stowHeight, Constants.Climber.stowTolerance);
-  }
 
   public double getHeight() {
     return m_motor.getSensorPosition();
@@ -122,7 +119,7 @@ public class ClimberSubsystem extends SubsystemBase {
   
 
     m_motor.logMotorState();
-    m_follower.logMotorState();
+    //m_follower.logMotorState();
   }
 
   // --- BEGIN STUFF FOR SIMULATION ---

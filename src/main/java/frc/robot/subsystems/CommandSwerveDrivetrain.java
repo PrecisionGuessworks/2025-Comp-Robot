@@ -41,6 +41,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     private static final double kSimLoopPeriod = 0.005; // 5 ms
     private Notifier m_simNotifier = null;
     private double m_lastSimTime;
+    public boolean Lineup = true;
 
     /* Blue alliance sees forward as 0 degrees (toward red alliance wall) */
     private static final Rotation2d kBlueAlliancePerspectiveRotation = Rotation2d.kZero;
@@ -300,7 +301,16 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
                 m_hasAppliedOperatorPerspective = true;
             });
         }
+        SmartDashboard.putBoolean(
+          "Auto Lineup", Lineup);
         
+    }
+
+    public void setLineup(boolean lineup){
+        Lineup = lineup;
+    }
+    public boolean getLineup(){
+        return Lineup;
     }
 
     private void startSimThread() {

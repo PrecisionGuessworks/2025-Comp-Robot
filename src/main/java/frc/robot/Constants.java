@@ -123,7 +123,9 @@ public class Constants {
     public static final double sprocketPitchDiameter = Units.inchesToMeters(1.273); // 16T #25
     public static final MechanismRatio motorRatio =
         new MechanismRatio(
-            1, (28.0 / 10.0) * (1.0 / 4.0) * (42.0 / 18.0), Math.PI * sprocketPitchDiameter);
+            1, (28.0 / 10.0) * (1.0 / 4.0) * (42.0 / 18.0), Math.PI * sprocketPitchDiameter); // Sim
+        // new MechanismRatio(
+            // 1, (1.0 / 16.0), Math.PI * sprocketPitchDiameter); // Real
     public static final boolean motorInvert = false;
     public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
@@ -164,7 +166,7 @@ public class Constants {
     public static final CANDeviceID rollerMotorID = new CANDeviceID(33, kSuperStructureCanivoreName);
 
     public static final MechanismRatio rollerMotorRatio =
-        new MechanismRatio(1, (36.0 / 12.0) * (36.0 / 28.0));
+        new MechanismRatio(1, (1.0 / 3.0));
     public static final boolean rollerMotorInvert = false;
     public static final SimpleMotorFeedforward rollerFeedforward =
         new SimpleMotorFeedforward(0.3, 0.12, 0);
@@ -176,7 +178,9 @@ public class Constants {
 
     public static final boolean followerInvert = true;
     public static final MechanismRatio deployMotorRatio =
-        new MechanismRatio(1, (42.0 / 10.0) * (22.0 / 22.0) * (42.0 / 16.0) * (36.0 / 16.0));
+        new MechanismRatio(1, (42.0 / 10.0) * (22.0 / 22.0) * (42.0 / 16.0) * (36.0 / 16.0)); // Sim
+        // new MechanismRatio(
+            // 1, (1.0 / 27.0)); // Real
     public static final boolean deployMotorInvert = true;
     public static final PIDConfig deployPIDConfig = new PIDConfig(2.0, 0, 0.3, 0, 0.12, 0.007, 0);
     public static final int deployPositionSlot = 0;
@@ -208,14 +212,16 @@ public class Constants {
     public static final CANDeviceID armMotorID = new CANDeviceID(25, kSuperStructureCanivoreName);
     public static final CANDeviceID armCoderID = new CANDeviceID(26, kSuperStructureCanivoreName);
     public static final MechanismRatio armMotorRatio =
-        new MechanismRatio(1, (90.0 / 1.0) * (80.0 / 38.0));
+        new MechanismRatio(1, (90.0 / 1.0) * (80.0 / 38.0)); // Sim
+        // new MechanismRatio(1, (1.0 / 60.0)); // Real
     public static final MechanismRatio armSensorRatio =
         new MechanismRatio(1, (1.0));
     public static final boolean armMotorInvert = true;
 
     public static final CANDeviceID wristMotorID = new CANDeviceID(27, kSuperStructureCanivoreName);
     public static final MechanismRatio wristMotorRatio =
-        new MechanismRatio(1, (5.0 / 1.0) * (32.0 / 14.0));
+        new MechanismRatio(1, (5.0 / 1.0) * (32.0 / 14.0)); // Sim
+        // new MechanismRatio(1, (1.0 / 27.0)); // Real
     public static final boolean wristMotorInvert = true;
 
     public static final CANDeviceID rollerMotorID = new CANDeviceID(28, kSuperStructureCanivoreName);
@@ -248,15 +254,15 @@ public class Constants {
 
     // TODO: Use real values
     public static final double armBootAbsPositionOffset = Units.degreesToRadians(0);
-    public static final double armMinAngle = Units.degreesToRadians(-10.0); // rads (trap position)
-    public static final double armMaxAngle = Units.degreesToRadians(160.0); // rads (stow position)
+    public static final double armMinAngle = Units.degreesToRadians(-10.0); // rads 
+    public static final double armMaxAngle = Units.degreesToRadians(160.0); // rads 
     public static final double armStartingAngle = Units.degreesToRadians(90);
     public static final double armCgOffset = Units.degreesToRadians(0);
 
     public static final double wristBootAbsPositionOffset = Units.degreesToRadians(0);
-    public static final double wristMinAngle = Units.degreesToRadians(-16.0); // rads (trap position)
-    public static final double wristMaxAngle = Units.degreesToRadians(181.0); // rads (stow position)
-    public static final double wristStartingAngle = Units.degreesToRadians(180) ; //+ armStartingAngle;
+    public static final double wristMinAngle = Units.degreesToRadians(-16.0); // rads 
+    public static final double wristMaxAngle = Units.degreesToRadians(181.0); // rads 
+    public static final double wristStartingAngle = Units.degreesToRadians(181) ; //+ armStartingAngle;
     public static final double wristCgOffset = Units.degreesToRadians(0);
 
     public static final double AngleTolerance = Units.degreesToRadians(2);
@@ -303,7 +309,9 @@ public class Constants {
     public static final double sprocketPitchDiameter = Units.inchesToMeters(0.7); 
     public static final MechanismRatio motorRatio =
         new MechanismRatio(
-            1, (68.0 / 10.0) * (2.0 / 4.0) * (42.0 / 18.0), Math.PI * sprocketPitchDiameter);
+            1, (68.0 / 10.0) * (2.0 / 4.0) * (42.0 / 18.0), Math.PI * sprocketPitchDiameter); // Sim
+        // new MechanismRatio(
+            // 1, (68.0 / 10.0) * (2.0 / 4.0) * (42.0 / 18.0) * (42.0 / 18.0), Math.PI * sprocketPitchDiameter); // Real
     public static final boolean motorInvert = false;
     public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
@@ -339,9 +347,9 @@ public class Constants {
     // public static final double XvelocityFactor = 0.15;
     // public static final double YvelocityFactor = 0.15;
 
-    public static final double PTranslationSlow = 1;
-    public static final double ITranslationSlow = 1;
-    public static final double DTranslationSlow = 1;
+    public static final double PTranslationSlow = 3;
+    public static final double ITranslationSlow = 0;
+    public static final double DTranslationSlow = 0.1;
 
     public static final Pose2d Error = new Pose2d(6, 6, Rotation2d.fromDegrees(0));
 
