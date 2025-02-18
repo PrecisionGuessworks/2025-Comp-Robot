@@ -357,12 +357,15 @@ climberFrameViz.addLink(
        return new Command() {
            @Override
            public void initialize() {
+            if (drivetrain.getLineup()){
                xController.reset();
                yController.reset();
+           }
            }
 
            @Override
            public void execute() {
+            if (drivetrain.getLineup()){
             Pose2d currentPose = drivetrain.getState().Pose;
             ChassisSpeeds currentSpeeds = drivetrain.getState().Speeds;
             X = currentPose.getTranslation().getX();
@@ -378,23 +381,19 @@ climberFrameViz.addLink(
                         .withVelocityY(yOutput)
                         .withTargetDirection(targetPose.getRotation())
                ).execute();
+            }
            }
 
            @Override
            public void end(boolean interrupted) {
-               drivetrain.applyRequest(() -> 
-                   angle.withVelocityX(0)
-                        .withVelocityY(0)
-                        .withTargetDirection(targetPose.getRotation())
-               ).execute();
                xController.close();
                 yController.close();
            }
 
-        //    @Override
-        //    public boolean isFinished() {
-        //        return xController.atSetpoint() && yController.atSetpoint();
-        //    }
+           @Override
+           public boolean isFinished() {
+               return !drivetrain.getLineup();
+           }
        };
     }
 
