@@ -22,7 +22,7 @@ public class Moveup extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_elevator.setHeight(Constants.Elevator.L2);
+    m_elevator.setHeight(Constants.Elevator.L1);
     
   }
 
