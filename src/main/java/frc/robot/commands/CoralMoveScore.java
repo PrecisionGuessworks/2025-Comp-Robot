@@ -82,8 +82,7 @@ public class CoralMoveScore extends Command {
   public void end(boolean interrupted) {
   //m_arm.setArmAngle(Constants.Arm.armStowAngle);
   // m_arm.setWristAngle(Constants.Arm.wristStowAngle);
-    m_arm.setArmRollerCurrent(30, 30);
-    m_arm.setRollerVelocity(100);
+    
    // m_elevator.setHeight(Constants.Elevator.stowHeight);
   }
 

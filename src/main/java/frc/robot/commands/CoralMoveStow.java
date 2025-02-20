@@ -37,6 +37,11 @@ public class CoralMoveStow extends Command {
   public void initialize() {
     m_placeTimer.restart();
     trueendtrigger = false;
+    if (m_elevator.isAtScore()){
+    m_arm.setArmRollerCurrent(30, 30);
+    m_arm.setRollerVelocity(10);
+    }
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -64,6 +69,6 @@ public class CoralMoveStow extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return trueendtrigger || m_elevator.isAtScore();
+    return trueendtrigger || !m_elevator.isAtScore();
   }
 }

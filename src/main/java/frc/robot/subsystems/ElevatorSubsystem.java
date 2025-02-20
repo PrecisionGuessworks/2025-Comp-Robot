@@ -111,7 +111,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       m_targetHeight = m_setTargetHeight;
     } else if (armAngle < 85 && m_setTargetHeight < Constants.Elevator.armStowHeight){ 
       m_targetHeight = Constants.Elevator.armStowHeight;
-    } else if (wristAngle < 85 && m_setTargetHeight < Constants.Elevator.wristStowHeight){ 
+    } else if (wristAngle < 88 && m_setTargetHeight < Constants.Elevator.wristStowHeight){ 
       m_targetHeight = Constants.Elevator.wristStowHeight; 
     } else if (armAngle < 100 && armAngle > 91){ // intake
       m_targetHeight = Constants.Elevator.stowHeight;

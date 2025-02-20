@@ -187,7 +187,7 @@ public class Constants {
     public static final boolean deployMotorInvert = true;
     public static final PIDConfig deployPIDConfig = new PIDConfig(2.0, 0, 0.3, 0, 1.5, 0.000, 0.08);
     public static final int deployPositionSlot = 0;
-    public static final double deployMaxVelocity = 0.001; // rad/s
+    public static final double deployMaxVelocity = 0.01; // rad/s
     public static final double deployMaxAcceleration = 140.0; // rad/s^2
     public static final double deployMaxJerk = 800.0; // rad/s^3
 
@@ -263,8 +263,8 @@ public class Constants {
 
     // TODO: Use real values
     public static final double armBootAbsPositionOffset = Units.degreesToRadians(0);
-    public static final double armMinAngle = Units.degreesToRadians(-10.0); // rads 
-    public static final double armMaxAngle = Units.degreesToRadians(160.0); // rads 
+    public static final double armMinAngle = Units.degreesToRadians(-1.0); // rads 
+    public static final double armMaxAngle = Units.degreesToRadians(150.0); // rads 
     public static final double armStartingAngle = Units.degreesToRadians(90);
     public static final double armCgOffset = Units.degreesToRadians(0);
 

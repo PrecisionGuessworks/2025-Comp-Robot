@@ -40,8 +40,8 @@ public class ArmSubsystem extends SubsystemBase {
           Constants.Arm.rollerMotorRatio,
           QuixTalonFX.makeDefaultConfig()
               .setInverted(Constants.Arm.rollerMotorInvert)
-              .setSupplyCurrentLimit(40.0)
-              .setStatorCurrentLimit(80.0)
+              .setSupplyCurrentLimit(30.0)
+              .setStatorCurrentLimit(60.0)
               .setPIDConfig(Constants.Arm.rollerVelocityPIDSlot, Constants.Arm.rollerPositionPIDConfig));
 
   private final QuixTalonFX m_armMotor =
@@ -170,6 +170,7 @@ private final QuixTalonFX m_wristMotor =
 
   @Override
   public void periodic() {
+    
     // This method will be called once per scheduler run
     // if (hasPiece()) {
     //   m_lastPieceTimer.reset();
