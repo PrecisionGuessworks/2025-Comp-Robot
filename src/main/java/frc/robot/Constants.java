@@ -185,7 +185,7 @@ public class Constants {
         new MechanismRatio(
             1, (27.0 / 1.0) * (36.0 / 16.0)); // Real
     public static final boolean deployMotorInvert = true;
-    public static final PIDConfig deployPIDConfig = new PIDConfig(2.0, 0, 0.3, 0, 0.12, 0.007, 0);
+    public static final PIDConfig deployPIDConfig = new PIDConfig(2.0, 0, 0.3, 0, 1.5, 0.000, 0.08);
     public static final int deployPositionSlot = 0;
     public static final double deployMaxVelocity = 0.001; // rad/s
     public static final double deployMaxAcceleration = 140.0; // rad/s^2
