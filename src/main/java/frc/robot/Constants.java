@@ -67,7 +67,7 @@ public class Constants {
 
     public static final double g = 9.81; // m/s/s
     public static final double defaultPeriodSecs = 0.02; // s
-
+    public static boolean isSim = edu.wpi.first.wpilibj.RobotBase.isSimulation();
 
 
     public static class Vision {
@@ -103,8 +103,8 @@ public class Constants {
         public static final double MaxAngularRatePercentage = 1; // Default 0.75 
 
         // Deadbands for the drive and rotation
-        public static final double DriveDeadband = 0.04; // Drive Deadband
-        public static final double RotationDeadband = 0.04; // Rotation Deadband
+        public static final double DriveDeadband = 0.09; // Drive Deadband
+        public static final double RotationDeadband = 0.09; // Rotation Deadband
         public static final double SnapRotationDeadband = 0.001; // Snap Rotation Deadband
 
     }
@@ -122,15 +122,16 @@ public class Constants {
     public static final double SupplyLimit = 40.0;
     public static final double sprocketPitchDiameter = Units.inchesToMeters(1.273); // 16T #25
     public static final MechanismRatio motorRatio =
-        //new MechanismRatio(
-        //    1, (28.0 / 10.0) * (1.0 / 4.0) * (42.0 / 18.0), Math.PI * sprocketPitchDiameter); // Sim
-         new MechanismRatio(
-             1, (16.0 / 1.0), Math.PI * sprocketPitchDiameter); // Real
+        isSim ? 
+        new MechanismRatio(
+            1, (28.0 / 10.0) * (1.0 / 4.0) * (42.0 / 18.0), Math.PI * sprocketPitchDiameter) : // Sim
+        new MechanismRatio(
+            1, (16.0 / 1.0), Math.PI * sprocketPitchDiameter); // Real
     public static final boolean motorInvert = true;
     public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
-    public static final PIDConfig motorPIDConfig = new PIDConfig(3, 0, 0.1, 0, 0.12, 0, 0.4);
-    public static final double maxVelocity = 0.004; // m/s
+    public static final PIDConfig motorPIDConfig = new PIDConfig(6, 0, 0.1, 0, 11, 0.01, 0.08);
+    public static final double maxVelocity = 0.02; // m/s
     public static final double maxAcceleration = 30.0; // m/s^2
     public static final double maxJerk = 0.0; // m/s^3 (0 disables jerk limit)
 
@@ -178,9 +179,11 @@ public class Constants {
 
     public static final boolean followerInvert = true;
     public static final MechanismRatio deployMotorRatio =
-        new MechanismRatio(1, (42.0 / 10.0) * (22.0 / 22.0) * (42.0 / 16.0) * (36.0 / 16.0)); // Sim
-        // new MechanismRatio(
-            // 1, (27.0 / 1.0) * (36.0 / 16.0)); // Real
+        isSim ? 
+        new MechanismRatio(
+            1, (42.0 / 10.0) * (22.0 / 22.0) * (42.0 / 16.0) * (36.0 / 16.0)) : // Sim
+        new MechanismRatio(
+            1, (27.0 / 1.0) * (36.0 / 16.0)); // Real
     public static final boolean deployMotorInvert = true;
     public static final PIDConfig deployPIDConfig = new PIDConfig(2.0, 0, 0.3, 0, 0.12, 0.007, 0);
     public static final int deployPositionSlot = 0;
@@ -212,16 +215,22 @@ public class Constants {
     public static final CANDeviceID armMotorID = new CANDeviceID(25, kSuperStructureCanivoreName);
     public static final CANDeviceID armCoderID = new CANDeviceID(26, kSuperStructureCanivoreName);
     public static final MechanismRatio armMotorRatio =
-       // new MechanismRatio(1, (90.0 / 1.0) * (80.0 / 38.0)); // Sim
-         new MechanismRatio(1, (60.0 / 1.0) * (80.0 / 38.0)); // Real
+        isSim ? 
+        new MechanismRatio(
+            1, (90.0 / 1.0) * (80.0 / 38.0)) : // Sim
+        new MechanismRatio(
+            1, (60.0 / 1.0) * (80.0 / 38.0)); // Real
     public static final MechanismRatio armSensorRatio =
         new MechanismRatio(1, (1.0));
     public static final boolean armMotorInvert = true;
 
     public static final CANDeviceID wristMotorID = new CANDeviceID(27, kSuperStructureCanivoreName);
     public static final MechanismRatio wristMotorRatio =
-       // new MechanismRatio(1, (5.0 / 1.0) * (32.0 / 14.0)); // Sim
-         new MechanismRatio(1, (27.0 / 1.0) * (32.0 / 14.0) ); // Real
+        isSim ? 
+        new MechanismRatio(
+            1, (5.0 / 1.0) * (32.0 / 14.0)) : // Sim
+        new MechanismRatio(
+            1, (27.0 / 1.0) * (32.0 / 14.0)); // Real
     public static final boolean wristMotorInvert = true;
 
     public static final CANDeviceID rollerMotorID = new CANDeviceID(28, kSuperStructureCanivoreName);
@@ -233,17 +242,17 @@ public class Constants {
     public static final Constraints ArmConstraints =
         new Constraints(0.1, 30.0); // rad/s and rad/s^2
     public static final int armPositionPIDSlot = 0;
-    public static final PIDConfig armPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 0.12, 0.007, 0);
-    public static final int armCoralPositionPIDSlot = 1;
-    public static final PIDConfig armCoralPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 0.12, 0.007, 0);
+    public static final PIDConfig armPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 2.37, 0.000, 0.1);
+  //  public static final int armCoralPositionPIDSlot = 1;
+  //  public static final PIDConfig armCoralPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 0.12, 0.007, 0);
 
     //public static final ArmFeedforward wristFeedForward = new ArmFeedforward(0.0, 0.3, 0.6);
     public static final Constraints WristConstraints =
         new Constraints(2.0, 40.0); // rad/s and rad/s^2
     public static final int wristPositionPIDSlot = 0;
-    public static final PIDConfig wristPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 0.12, 0.007, 0);
-    public static final int wristCoralPositionPIDSlot = 1;
-    public static final PIDConfig wristCoralPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 0.12, 0.007, 0);
+    public static final PIDConfig wristPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 1.22, 0.000, 0.4);
+   // public static final int wristCoralPositionPIDSlot = 1;
+    //public static final PIDConfig wristCoralPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 0.12, 0.007, 0);
 
     public static final SimpleMotorFeedforward rollerFeedforward =
         new SimpleMotorFeedforward(0.1, 0.028);
@@ -316,7 +325,7 @@ public class Constants {
     public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
     public static final PIDConfig motorPIDConfig = new PIDConfig(3, 0, 0.1, 0, 0.12, 0, 0.4);
-    public static final double maxVelocity = 1.0; // m/s
+    public static final double maxVelocity = 2.0; // m/s
     public static final double maxAcceleration = 30.0; // m/s^2
     public static final double maxJerk = 0.0; // m/s^3 (0 disables jerk limit)
 
