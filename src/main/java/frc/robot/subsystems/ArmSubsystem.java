@@ -40,8 +40,8 @@ public class ArmSubsystem extends SubsystemBase {
           Constants.Arm.rollerMotorRatio,
           QuixTalonFX.makeDefaultConfig()
               .setInverted(Constants.Arm.rollerMotorInvert)
-              .setSupplyCurrentLimit(30.0)
-              .setStatorCurrentLimit(60.0)
+              .setSupplyCurrentLimit(50.0)
+              .setStatorCurrentLimit(80.0)
               .setPIDConfig(Constants.Arm.rollerVelocityPIDSlot, Constants.Arm.rollerPositionPIDConfig));
 
   private final QuixTalonFX m_armMotor =
@@ -61,7 +61,7 @@ public class ArmSubsystem extends SubsystemBase {
               .setBootPositionOffset(Constants.Arm.armStartingAngle)
               .setReverseSoftLimit(Constants.Arm.armMinAngle)
               .setForwardSoftLimit(Constants.Arm.armMaxAngle)
-              //.setFeedbackConfig(FeedbackSensorSourceValue.FusedCANcoder, 15, 0.0,Constants.Arm.armMotorRatio,Constants.Arm.armSensorRatio)
+            //  .setFeedbackConfig(FeedbackSensorSourceValue.FusedCANcoder, 15, 0.0,Constants.Arm.armMotorRatio,Constants.Arm.armSensorRatio)
               );
 
 private final QuixTalonFX m_wristMotor =
@@ -191,26 +191,26 @@ private final QuixTalonFX m_wristMotor =
     //   m_wristTargetAngle = Constants.Arm.wristStowAngle;
     // }
 
-      if (RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle < Constants.Arm.armStowAngle){
-        m_armTargetAngle = setm_armTargetAngle;
-      } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, 2) && setm_armTargetAngle >= Constants.Arm.armStowAngle)
-      || (getArmAngle() > 100 && RobotContainer.elevator.getHeight() < Constants.Elevator.intakeHeight+1 && setm_armTargetAngle > Constants.Arm.armStowAngle)){
-        m_armTargetAngle = setm_armTargetAngle;
-      } else if (getArmAngle() < 92 && setm_armTargetAngle < 91) { // might need check 
-        m_armTargetAngle = Constants.Arm.armStowAngle;
-      } else if (getArmAngle() > 96 && setm_armTargetAngle < 96) { // might need check 
-         m_armTargetAngle = Constants.Arm.armStowIntakeAngle;
-       }
+      // if (RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle < Constants.Arm.armStowAngle){
+      //   m_armTargetAngle = setm_armTargetAngle;
+      // } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, 2) && setm_armTargetAngle >= Constants.Arm.armStowAngle)
+      // || (getArmAngle() > 100 && RobotContainer.elevator.getHeight() < Constants.Elevator.intakeHeight+1 && setm_armTargetAngle > Constants.Arm.armStowAngle)){
+      //   m_armTargetAngle = setm_armTargetAngle;
+      // } else if (getArmAngle() < 92 && setm_armTargetAngle < 91) { // might need check 
+      //   m_armTargetAngle = Constants.Arm.armStowAngle;
+      // } else if (getArmAngle() > 96 && setm_armTargetAngle < 96) { // might need check 
+      //    m_armTargetAngle = Constants.Arm.armStowIntakeAngle;
+      //  }
     
-      if (RobotContainer.elevator.getHeight() >= Constants.Elevator.wristStowHeight && setm_wristTargetAngle < Units.degreesToRadians(93)){
-        m_wristTargetAngle = setm_wristTargetAngle;
-      } else if (RobotContainer.elevator.isAtHeight(Constants.Elevator.minHeight, 2) && setm_wristTargetAngle > Units.degreesToRadians(89)){
-        m_wristTargetAngle = setm_wristTargetAngle;
-      }else{
-        m_wristTargetAngle = Constants.Arm.wristStowAngle;
-      }
-
-    
+      // if (RobotContainer.elevator.getHeight() >= Constants.Elevator.wristStowHeight && setm_wristTargetAngle < Units.degreesToRadians(93)){
+      //   m_wristTargetAngle = setm_wristTargetAngle;
+      // } else if (RobotContainer.elevator.isAtHeight(Constants.Elevator.minHeight, 2) && setm_wristTargetAngle > Units.degreesToRadians(89)){
+      //   m_wristTargetAngle = setm_wristTargetAngle;
+      // }else{
+      //   m_wristTargetAngle = Constants.Arm.wristStowAngle;
+      // }
+      m_armTargetAngle = setm_armTargetAngle;
+      m_wristTargetAngle = setm_wristTargetAngle;
     // if(hasPiece){
     //   m_armMotor.setMotionMagicPositionSetpoint(
     //     Constants.Arm.armCoralPositionPIDSlot, m_armTargetAngle);
@@ -225,6 +225,8 @@ private final QuixTalonFX m_wristMotor =
 
     SmartDashboard.putNumber(
         "Arm: Current Angle (deg)", Units.radiansToDegrees(m_armMotor.getSensorPosition()));
+        SmartDashboard.putNumber(
+        "Arm: Current CANcoder Angle (deg)", Units.radiansToDegrees(m_armCoder.getAbsPosition()));
     SmartDashboard.putNumber(
         "Arm: Real Current Angle (deg)", getArmAngle());
     SmartDashboard.putNumber(
