@@ -31,6 +31,7 @@ public class IntakeCoral extends Command {
     m_elevator.setHeight(Constants.Elevator.stowHeight);
     m_arm.setArmAngle(Constants.Arm.armIntakeAngle);
     m_arm.setWristAngle(Constants.Arm.wristIntakeAngle);
+    m_arm.setArmRollerCurrent(30, 60);  
     m_arm.setRollerVelocity(Constants.Arm.intakeVelocity);
   }
 

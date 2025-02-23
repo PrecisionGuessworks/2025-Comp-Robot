@@ -14,6 +14,7 @@ import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.Unit;
+import edu.wpi.first.units.measure.ImmutableAngle;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -31,9 +32,11 @@ import frc.robot.RobotContainer;
 public class ArmSubsystem extends SubsystemBase {
   //public final DigitalInput m_beamBreak = new DigitalInput(Constants.Arm.beamBreakPort);
 
-  private final QuixCANCoder m_armCoder = 
+  static private final QuixCANCoder m_armCoder = 
       new QuixCANCoder(Constants.Arm.armCoderID, Constants.Arm.armMotorRatio, SensorDirectionValue.CounterClockwise_Positive);
-      
+  
+      static double ArmStartingAngle = Constants.isSim ? Constants.Arm.armStartingAngle 
+      : Units.rotationsToRadians(m_armCoder.getAbsPosition());
   private final QuixTalonFX m_rollerMotor =
       new QuixTalonFX(
           Constants.Arm.rollerMotorID,
@@ -58,7 +61,7 @@ public class ArmSubsystem extends SubsystemBase {
                   Constants.Arm.ArmConstraints.maxAcceleration,
                   1)
               .setPIDConfig(Constants.Arm.armPositionPIDSlot, Constants.Arm.armPositionPIDConfig)
-              .setBootPositionOffset(Constants.Arm.armStartingAngle)
+              .setBootPositionOffset(ArmStartingAngle)
               .setReverseSoftLimit(Constants.Arm.armMinAngle)
               .setForwardSoftLimit(Constants.Arm.armMaxAngle)
             //  .setFeedbackConfig(FeedbackSensorSourceValue.FusedCANcoder, 15, 0.0,Constants.Arm.armMotorRatio,Constants.Arm.armSensorRatio)
@@ -82,9 +85,9 @@ private final QuixTalonFX m_wristMotor =
           .setReverseSoftLimit(Constants.Arm.wristMinAngle)
           .setForwardSoftLimit(Constants.Arm.wristMaxAngle));
 
-  private double m_armTargetAngle = Constants.Arm.armStartingAngle;
+  private double m_armTargetAngle = ArmStartingAngle;
   private double m_wristTargetAngle = Constants.Arm.wristStartingAngle;
-  private double setm_armTargetAngle = Constants.Arm.armStartingAngle;
+  private double setm_armTargetAngle = ArmStartingAngle;
   private double setm_wristTargetAngle = Constants.Arm.wristStartingAngle;
   private boolean hasPiece = true;
   private Timer m_lastPieceTimer = new Timer();
@@ -108,12 +111,13 @@ private final QuixTalonFX m_wristMotor =
 
   public boolean recentlyHadPiece() {
     return m_lastPieceTimer.get() < 1.0;
-  }
+    }
 
-  public double getArmAngle() {
-    return Units.radiansToDegrees(m_armMotor.getSensorPosition())* Constants.Arm.armMotorRatio.inverseReduction() + Units.radiansToDegrees(Constants.Arm.armStartingAngle);
-  }
-  public double getWristAngle() {
+    public double getArmAngle() { 
+    return Constants.isSim ? Units.radiansToDegrees(m_armMotor.getSensorPosition()) * Constants.Arm.armMotorRatio.inverseReduction() + Units.radiansToDegrees(ArmStartingAngle) 
+    : Units.rotationsToRadians(m_armCoder.getAbsPosition());
+    }
+    public double getWristAngle() {
     return Units.radiansToDegrees(m_wristMotor.getSensorPosition())* Constants.Arm.wristMotorRatio.inverseReduction() + Units.radiansToDegrees(Constants.Arm.wristStartingAngle);
   }
   public double getRollerCurrent() {
@@ -170,47 +174,29 @@ private final QuixTalonFX m_wristMotor =
 
   @Override
   public void periodic() {
-    
-    // This method will be called once per scheduler run
-    // if (hasPiece()) {
-    //   m_lastPieceTimer.reset();
-    // }
 
-    //SmartDashboard.putBoolean("Arm: Beam Break", m_beamBreak.get());
-    //elevatorLocation = RobotContainer.elevator.getHeightLocation();
-    // if (RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, 2)&&
-    // (Units.radiansToDegrees(setm_armTargetAngle)>80 && Units.radiansToDegrees(setm_wristTargetAngle)>80 && RobotContainer.climber.getHeight() < 5)
-    // ){
-    //   m_armTargetAngle = setm_armTargetAngle;
-    //   m_wristTargetAngle = setm_wristTargetAngle;
-    // } else if (RobotContainer.elevator.getHeight() > Constants.Elevator.upperStowHeight && Units.radiansToDegrees(setm_armTargetAngle)<91 && Units.radiansToDegrees(setm_wristTargetAngle)<91 && Units.radiansToDegrees(setm_armTargetAngle)>80 && RobotContainer.climber.getHeight() < 5) {
-    //   m_armTargetAngle = setm_armTargetAngle;
-    //   m_wristTargetAngle = setm_wristTargetAngle;
-    // } else if(getArmAngle() < 91 || RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, 2)) {
-    //   m_armTargetAngle = Constants.Arm.armStowAngle;
-    //   m_wristTargetAngle = Constants.Arm.wristStowAngle;
-    // }
 
-      // if (RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle < Constants.Arm.armStowAngle){
-      //   m_armTargetAngle = setm_armTargetAngle;
-      // } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, 2) && setm_armTargetAngle >= Constants.Arm.armStowAngle)
-      // || (getArmAngle() > 100 && RobotContainer.elevator.getHeight() < Constants.Elevator.intakeHeight+1 && setm_armTargetAngle > Constants.Arm.armStowAngle)){
-      //   m_armTargetAngle = setm_armTargetAngle;
-      // } else if (getArmAngle() < 92 && setm_armTargetAngle < 91) { // might need check 
-      //   m_armTargetAngle = Constants.Arm.armStowAngle;
-      // } else if (getArmAngle() > 96 && setm_armTargetAngle < 96) { // might need check 
-      //    m_armTargetAngle = Constants.Arm.armStowIntakeAngle;
-      //  }
+      if (RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle < Constants.Arm.armStowAngle){
+        m_armTargetAngle = setm_armTargetAngle;
+      } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, 2) && setm_armTargetAngle >= Constants.Arm.armStowAngle)
+      || (getArmAngle() > 100 && RobotContainer.elevator.getHeight() < Constants.Elevator.intakeHeight+1 && setm_armTargetAngle > Constants.Arm.armStowAngle)){
+        m_armTargetAngle = setm_armTargetAngle;
+      } else if (getArmAngle() < 92 && setm_armTargetAngle < 91) { // might need check 
+        m_armTargetAngle = Constants.Arm.armStowAngle;
+      } else if (getArmAngle() > 96 && setm_armTargetAngle < 96) { // might need check 
+         m_armTargetAngle = Constants.Arm.armStowIntakeAngle;
+       }
     
-      // if (RobotContainer.elevator.getHeight() >= Constants.Elevator.wristStowHeight && setm_wristTargetAngle < Units.degreesToRadians(93)){
-      //   m_wristTargetAngle = setm_wristTargetAngle;
-      // } else if (RobotContainer.elevator.isAtHeight(Constants.Elevator.minHeight, 2) && setm_wristTargetAngle > Units.degreesToRadians(89)){
-      //   m_wristTargetAngle = setm_wristTargetAngle;
-      // }else{
-      //   m_wristTargetAngle = Constants.Arm.wristStowAngle;
-      // }
-      m_armTargetAngle = setm_armTargetAngle;
-      m_wristTargetAngle = setm_wristTargetAngle;
+      if (RobotContainer.elevator.getHeight() >= Constants.Elevator.wristStowHeight && setm_wristTargetAngle < Units.degreesToRadians(93)){
+        m_wristTargetAngle = setm_wristTargetAngle;
+      } else if (RobotContainer.elevator.isAtHeight(Constants.Elevator.minHeight, 2) && setm_wristTargetAngle > Units.degreesToRadians(85)){
+        m_wristTargetAngle = setm_wristTargetAngle;
+      }else{
+        m_wristTargetAngle = Constants.Arm.wristStowAngle;
+      }
+      // m_armTargetAngle = setm_armTargetAngle;
+      // m_wristTargetAngle = setm_wristTargetAngle;
+
     // if(hasPiece){
     //   m_armMotor.setMotionMagicPositionSetpoint(
     //     Constants.Arm.armCoralPositionPIDSlot, m_armTargetAngle);
@@ -275,7 +261,7 @@ private final QuixTalonFX m_wristMotor =
           Constants.Arm.armMinAngle,
           Constants.Arm.armMaxAngle,
           true, // Simulate gravity
-          Constants.Arm.armStartingAngle);
+          ArmStartingAngle);
 
   private static final SingleJointedArmSim m_wrstSim =
   new SingleJointedArmSim(
@@ -309,7 +295,7 @@ private final QuixTalonFX m_wristMotor =
     m_armSim.setInput(m_armMotor.getPercentOutput() * RobotController.getBatteryVoltage());
     m_armSim.update(TimedRobot.kDefaultPeriod);
     m_armMotor.setSimSensorPositionAndVelocity(
-        m_armSim.getAngleRads() - Constants.Arm.armStartingAngle,
+        m_armSim.getAngleRads() - ArmStartingAngle,
         // m_armSim.getVelocityRadPerSec(), // TODO: Figure out why this causes jitter
         0.0,
         TimedRobot.kDefaultPeriod,
@@ -318,7 +304,7 @@ private final QuixTalonFX m_wristMotor =
     m_wrstSim.setInput(m_wristMotor.getPercentOutput() * RobotController.getBatteryVoltage());
     m_wrstSim.update(TimedRobot.kDefaultPeriod);
     m_wristMotor.setSimSensorPositionAndVelocity(
-      m_wrstSim.getAngleRads() - Constants.Arm.wristStartingAngle - Constants.Arm.armStartingAngle,
+      m_wrstSim.getAngleRads() - Constants.Arm.wristStartingAngle - ArmStartingAngle,
       // m_wrstSim.getVelocityRadPerSec(), // TODO: Figure out why this causes jitter
       0.0,
       TimedRobot.kDefaultPeriod,

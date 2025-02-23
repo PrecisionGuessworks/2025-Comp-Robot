@@ -71,7 +71,6 @@ import java.util.Map;
 
 public class RobotContainer {
     private double MaxSpeed = MaxSpeedPercentage*(TunerConstants.kSpeedAt12Volts.in(MetersPerSecond)); // kSpeedAt12Volts desired top speed
-    private double MaxSpeedUp = 0.6*MaxSpeedPercentage*(TunerConstants.kSpeedAt12Volts.in(MetersPerSecond)); // kSpeedAt12Volts desired top speed when arm is up
     private double MaxAngularRate = RotationsPerSecond.of(MaxAngularRatePercentage).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
     public final CommandXboxController driver = new CommandXboxController(0);
@@ -91,7 +90,7 @@ public class RobotContainer {
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
 
             private final SwerveRequest.FieldCentricFacingAngle angle = new SwerveRequest.FieldCentricFacingAngle()
-            .withDeadband(MaxSpeed * DriveDeadband).withRotationalDeadband(MaxAngularRate * SnapRotationDeadband) // Add a deadband
+            .withDeadband(MaxSpeed * SnapRotationDeadband).withRotationalDeadband(MaxAngularRate * SnapRotationDeadband) // Add a deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors 
           //  .withSteerRequestType(SteerRequestType.MotionMagicExpo); // Use motion magic control for steer motors
 
@@ -352,8 +351,10 @@ climberFrameViz.addLink(
     
     private Command pathfindingCommand(boolean left) {
 
-       PIDController xController = new PIDController(Constants.Pose.PTranslationSlow, Constants.Pose.ITranslationSlow, Constants.Pose.DTranslationSlow);
-       PIDController yController = new PIDController(Constants.Pose.PTranslationSlow, Constants.Pose.ITranslationSlow, Constants.Pose.DTranslationSlow);
+    PIDController xController = new PIDController(Constants.Pose.PTranslationSlow, Constants.Pose.ITranslationSlow, Constants.Pose.DTranslationSlow);
+    xController.setIntegratorRange(-1, 1);
+    PIDController yController = new PIDController(Constants.Pose.PTranslationSlow, Constants.Pose.ITranslationSlow, Constants.Pose.DTranslationSlow);
+    yController.setIntegratorRange(-1, 1);
 
        Pose2d targetPose = Constants.Pose.Ablue; // Example target pose
 
@@ -375,8 +376,8 @@ climberFrameViz.addLink(
             Y = currentPose.getTranslation().getY();
             VX = currentSpeeds.vxMetersPerSecond;
             VY = currentSpeeds.vyMetersPerSecond;
-               double xOutput = 2 * xController.calculate(X, targetPose.getX());
-               double yOutput = 2 * yController.calculate(Y, targetPose.getY());
+               double xOutput = Constants.Pose.SpeedReductionFactor * MaxSpeed * xController.calculate(X, targetPose.getX());
+               double yOutput = Constants.Pose.SpeedReductionFactor * MaxSpeed * yController.calculate(Y, targetPose.getY());
             //    System.out.println(xOutput);
             //    System.out.println(yOutput);
                drivetrain.applyRequest(() -> 
