@@ -131,7 +131,7 @@ public class Constants {
     public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
     public static final PIDConfig motorPIDConfig = new PIDConfig(3, 0, 0.1, 0, 0.11, 0.01, 0.008);
-    public static final double maxVelocity = 0.08; // m/s
+    public static final double maxVelocity = 0.3; // m/s
     public static final double maxAcceleration = 20.0; // m/s^2
     public static final double maxJerk = 0.0; // m/s^3 (0 disables jerk limit)
 
@@ -146,12 +146,12 @@ public class Constants {
     public static final double intakeHeight = Units.inchesToMeters(10); // m
 
     public static final double L1 = Units.inchesToMeters(12); // m
-    public static final double L2 = Units.inchesToMeters(34); // m
-    public static final double L3 = Units.inchesToMeters(44); // m
-    public static final double L4 = Units.inchesToMeters(68); // m
+    public static final double L2 = Units.inchesToMeters(18); // m
+    public static final double L3 = Units.inchesToMeters(32); // m
+    public static final double L4 = Units.inchesToMeters(48); // m
 
     public static final double L2Algae = Units.inchesToMeters(33); // m
-    public static final double L3Algae = Units.inchesToMeters(46); // m
+    public static final double L3Algae = Units.inchesToMeters(32); // m
 
     // For simulation.
     public static final double simCarriageMass = 7.0; // kg
@@ -184,10 +184,10 @@ public class Constants {
             1, (42.0 / 10.0) * (22.0 / 22.0) * (42.0 / 16.0) * (36.0 / 16.0)) : // Sim
         new MechanismRatio(
             1, (27.0 / 1.0) * (36.0 / 16.0)); // Real
-    public static final boolean deployMotorInvert = true;
+    public static final boolean deployMotorInvert = false;
     public static final PIDConfig deployPIDConfig = new PIDConfig(2.0, 0, 0.3, 0, 1.5, 0.000, 0.08);
     public static final int deployPositionSlot = 0;
-    public static final double deployMaxVelocity = 0.05; // rad/s
+    public static final double deployMaxVelocity = 0.2; // rad/s
     public static final double deployMaxAcceleration = 140.0; // rad/s^2
     public static final double deployMaxJerk = 800.0; // rad/s^3
 
@@ -195,7 +195,7 @@ public class Constants {
     public static final double minAngle = Units.degreesToRadians(-20.0); // rads
     public static final double maxAngle = Units.degreesToRadians(110.0); // rads
     public static final double startingAngle = maxAngle + bootAbsPositionOffset;
-    public static final double intakeDeployAngle = Math.toRadians(45); // rad
+    public static final double intakeDeployAngle = Math.toRadians(40); // rad
     public static final double intakeScoreAngle = Math.toRadians(85); // rad
     public static final double intakeStowAngle = Math.toRadians(105); // rad
     public static final double intakeClimbAngle = Math.toRadians(100); // rad
@@ -240,9 +240,9 @@ public class Constants {
 
     //public static final ArmFeedforward armFeedForward = new ArmFeedforward(3.0, 0.3, 0.6);
     public static final Constraints ArmConstraints =
-        new Constraints(0.3, 30.0); // rad/s and rad/s^2
+        new Constraints(0.5, 30.0); // rad/s and rad/s^2
     public static final int armPositionPIDSlot = 0;
-    public static final PIDConfig armPositionPIDConfig = new PIDConfig(1.0, 0, 0.1, 0, 2.37, 0.000, 0.1);
+    public static final PIDConfig armPositionPIDConfig = new PIDConfig(3.0, 0, 0.1, 0, 2.37, 0.000, 0.1);
   //  public static final int armCoralPositionPIDSlot = 1;
   //  public static final PIDConfig armCoralPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 0.12, 0.007, 0);
 
@@ -250,7 +250,7 @@ public class Constants {
     public static final Constraints WristConstraints =
         new Constraints(4.0, 40.0); // rad/s and rad/s^2
     public static final int wristPositionPIDSlot = 0;
-    public static final PIDConfig wristPositionPIDConfig = new PIDConfig(1.0, 0, 0.1, 0, 1.22, 0.000, 0.4);
+    public static final PIDConfig wristPositionPIDConfig = new PIDConfig(3.0, 0, 0.1, 0, 1.22, 0.000, 0.4);
    // public static final int wristCoralPositionPIDSlot = 1;
     //public static final PIDConfig wristCoralPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 0.12, 0.007, 0);
 
@@ -276,8 +276,8 @@ public class Constants {
 
     public static final double AngleTolerance = Units.degreesToRadians(2);
 
-    public static final double intakeVelocity = 3.0; // rads/s
-    public static final double outtakeVelocity = 3.0; // rads/s
+    public static final double intakeVelocity = 30.0; // rads/s
+    public static final double outtakeVelocity = -100.0; // rads/s
 
 
     public static final double armIntakeAngle = Units.degreesToRadians(145);
@@ -288,7 +288,7 @@ public class Constants {
     public static final double armStowIntakeAngle = Units.degreesToRadians(95);
     public static final double wristStowAngle = Units.degreesToRadians(87);
     public static final double armScoreAngle = Units.degreesToRadians(89);
-    public static final double wristScoreAngle = Units.degreesToRadians(-15);
+    public static final double wristScoreAngle = Units.degreesToRadians(-10);
     public static final double armWackAngle = Units.degreesToRadians(0);
     public static final double wristWackAngle = Units.degreesToRadians(80);
     public static final double wristTestAngle = Units.degreesToRadians(160);

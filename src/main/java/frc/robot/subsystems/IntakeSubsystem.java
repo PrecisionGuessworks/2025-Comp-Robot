@@ -43,8 +43,8 @@ public class IntakeSubsystem extends SubsystemBase {
           QuixTalonFX.makeDefaultConfig()
               .setInverted(Constants.Intake.deployMotorInvert)
               .setBrakeMode()
-              .setSupplyCurrentLimit(20.0)
-              .setStatorCurrentLimit(20.0)
+              .setSupplyCurrentLimit(30.0)
+              .setStatorCurrentLimit(40.0)
               .setMotionMagicConfig(
                   Constants.Intake.deployMaxVelocity,
                   Constants.Intake.deployMaxAcceleration,
@@ -59,8 +59,8 @@ public class IntakeSubsystem extends SubsystemBase {
                 m_deployMotor,
                 Constants.Intake.followerInvert,
                 QuixTalonFX.makeDefaultConfig().setBrakeMode()
-              .setSupplyCurrentLimit(20.0)
-              .setStatorCurrentLimit(20.0)
+              .setSupplyCurrentLimit(30.0)
+              .setStatorCurrentLimit(40.0)
               .setMotionMagicConfig(
                   Constants.Intake.deployMaxVelocity,
                   Constants.Intake.deployMaxAcceleration,

@@ -37,10 +37,10 @@ public class CoralMoveStow extends Command {
   public void initialize() {
     m_placeTimer.restart();
     trueendtrigger = false;
-    if (m_elevator.isAtScore()){
-    m_arm.setArmRollerCurrent(30, 30);
-    m_arm.setRollerVelocity(10);
-    }
+    //if (m_elevator.isAtScore()){
+    m_arm.setArmRollerCurrent(65, 120);
+    m_arm.setRollerVelocity(-1000);
+    //}
     
   }
 
@@ -48,7 +48,7 @@ public class CoralMoveStow extends Command {
   @Override
   public void execute() {
 
-      if (0.75 <= m_placeTimer.get()){
+      if (1 <= m_placeTimer.get()){
         trueendtrigger = true;
       }
 
