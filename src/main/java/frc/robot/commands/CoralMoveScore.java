@@ -53,7 +53,7 @@ public class CoralMoveScore extends Command {
     Pose2d targetpose = new Pose2d(4.5,4,new Rotation2d(0));
     //    && m_arm.getWristAngle() < 91 && m_arm.getArmAngle() < 91
     // 4 >= PhotonUtils.getDistanceToPose(m_pose,targetpose)
-   // if (2.5 >= PhotonUtils.getDistanceToPose(m_pose,targetpose)){
+   if (2.5 >= PhotonUtils.getDistanceToPose(m_pose,targetpose)||Constants.PoseProtections){
       //System.out.println("CoralMoveScore");
       if(pastscoreheight != m_elevator.getHeightLocation()){
         m_arm.setArmAngle(Constants.Arm.armScoreAngle);
@@ -73,12 +73,12 @@ public class CoralMoveScore extends Command {
           m_elevator.setHeight(Constants.Elevator.L4);
         }
       }
-    //} else {
-      // m_elevator.setHeight(Constants.Elevator.stowHeight);
-      // m_arm.setArmAngle(Constants.Arm.armStowAngle);
-      // m_arm.setWristAngle(Constants.Arm.wristStowAngle);
+    } else {
+      m_elevator.setHeight(Constants.Elevator.stowHeight);
+      m_arm.setArmAngle(Constants.Arm.armStowAngle);
+      m_arm.setWristAngle(Constants.Arm.wristStowAngle);
 
-    //}
+    }
   }
 
   // Called once the command ends or is interrupted.

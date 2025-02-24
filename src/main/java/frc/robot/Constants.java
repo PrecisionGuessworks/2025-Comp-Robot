@@ -68,6 +68,8 @@ public class Constants {
     public static final double g = 9.81; // m/s/s
     public static final double defaultPeriodSecs = 0.02; // s
     public static boolean isSim = edu.wpi.first.wpilibj.RobotBase.isSimulation();
+    public static boolean PoseProtections = false; // Only move Scoring Stuff if close to reef
+    public static boolean Lineup = false; // Auto Lineup to Reef to Scrore.
 
 
     public static class Vision {
@@ -138,12 +140,12 @@ public class Constants {
     // TODO: use real numbers
     public static final double minHeight = 0.0; // m
     //public static final double powerCutoffHeight = Units.inchesToMeters(0.1); // m
-    public static final double maxHeight = Units.inchesToMeters(75.0); // m
+    public static final double maxHeight = Units.inchesToMeters(60.0); // m
     public static final double stowHeight = Units.inchesToMeters(0.5); // m
     public static final double wristStowHeight = Units.inchesToMeters(6); // m
     public static final double armStowHeight = Units.inchesToMeters(16); // m
     public static final double stowTolerance = Units.inchesToMeters(0.1); // m
-    public static final double intakeHeight = Units.inchesToMeters(10); // m
+    public static final double intakeHeight = Units.inchesToMeters(6); // m
 
     public static final double L1 = Units.inchesToMeters(12); // m
     public static final double L2 = Units.inchesToMeters(18); // m
@@ -280,7 +282,7 @@ public class Constants {
     public static final double outtakeVelocity = -100.0; // rads/s
 
 
-    public static final double armIntakeAngle = Units.degreesToRadians(145);
+    public static final double armIntakeAngle = Units.degreesToRadians(135);
     public static final double wristIntakeAngle = Units.degreesToRadians(90);
     public static final double armGroundIntakeAngle = Units.degreesToRadians(-5);
     public static final double wristGroundIntakeAngle = Units.degreesToRadians(25);

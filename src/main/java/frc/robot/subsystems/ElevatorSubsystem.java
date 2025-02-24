@@ -157,7 +157,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber(
         "Elevator: Current Height (in)", Units.metersToInches(getHeight()));
     SmartDashboard.putNumber(
-        "Elevator: Target Height (in)", Units.metersToInches(m_motor.getClosedLoopReference()));
+        "Elevator: Target Height (in)", Units.metersToInches(Constants.Elevator.motorRatio.sensorRadiansToMechanismPosition(m_motor.getClosedLoopReference())));
 
     SmartDashboard.putBoolean(
           "L1", Loc1);
