@@ -11,6 +11,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "CoralMoveStow"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -36,6 +42,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "CoralMoveStow"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -58,6 +70,12 @@
           "type": "path",
           "data": {
             "pathName": "Load_M"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralMoveStow"
           }
         },
         {
