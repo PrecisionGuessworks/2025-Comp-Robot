@@ -130,7 +130,7 @@ public class Constants {
     public static final boolean motorInvert = true;
     public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
-    public static final PIDConfig motorPIDConfig = new PIDConfig(3, 0, 0.1, 0, 0.11, 0.01, 0.008);
+    public static final PIDConfig motorPIDConfig = new PIDConfig(3, 0.1, 0.1, 0, 0.11, 0.01, 0.008);
     public static final double maxVelocity = 0.3; // m/s
     public static final double maxAcceleration = 20.0; // m/s^2
     public static final double maxJerk = 0.0; // m/s^3 (0 disables jerk limit)
@@ -142,7 +142,7 @@ public class Constants {
     public static final double stowHeight = Units.inchesToMeters(0.5); // m
     public static final double wristStowHeight = Units.inchesToMeters(6); // m
     public static final double armStowHeight = Units.inchesToMeters(16); // m
-    public static final double stowTolerance = Units.inchesToMeters(0.25); // m
+    public static final double stowTolerance = Units.inchesToMeters(0.1); // m
     public static final double intakeHeight = Units.inchesToMeters(10); // m
 
     public static final double L1 = Units.inchesToMeters(12); // m
@@ -240,9 +240,9 @@ public class Constants {
 
     //public static final ArmFeedforward armFeedForward = new ArmFeedforward(3.0, 0.3, 0.6);
     public static final Constraints ArmConstraints =
-        new Constraints(0.5, 30.0); // rad/s and rad/s^2
+        new Constraints(1, 30.0); // rad/s and rad/s^2
     public static final int armPositionPIDSlot = 0;
-    public static final PIDConfig armPositionPIDConfig = new PIDConfig(3.0, 0, 0.1, 0, 2.37, 0.000, 0.1);
+    public static final PIDConfig armPositionPIDConfig = new PIDConfig(5.0, 0, 0, 0, 2.37, 0.000, 0.1);
   //  public static final int armCoralPositionPIDSlot = 1;
   //  public static final PIDConfig armCoralPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 0.12, 0.007, 0);
 

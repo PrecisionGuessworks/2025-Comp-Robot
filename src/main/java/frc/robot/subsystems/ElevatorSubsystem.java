@@ -175,7 +175,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   // --- BEGIN STUFF FOR SIMULATION ---
   private static final ElevatorSim m_elevatorSim =
       new ElevatorSim(
-          DCMotor.getKrakenX60Foc(1),
+          DCMotor.getKrakenX60Foc(2),
           Constants.Elevator.motorRatio.reduction(),
           Constants.Elevator.simCarriageMass,
           Constants.Elevator.sprocketPitchDiameter * 0.5,

@@ -51,7 +51,7 @@ public class IntakeAlgae extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_intake.getRollerCurrnt() > 30) {
+    if (m_intake.getRollerCurrent() > 40) {
       m_intake.setHasPiece(true);
       return true;
     } else {
