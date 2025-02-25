@@ -13,7 +13,7 @@ import frc.robot.subsystems.ArmSubsystem;
 
 
 public class CoralMoveStow extends Command {
-  private final IntakeSubsystem m_intake;
+//  private final IntakeSubsystem m_intake;
   private final ElevatorSubsystem m_elevator;
   private final ArmSubsystem m_arm;
   public int pastscoreheight = 0;
@@ -21,15 +21,15 @@ public class CoralMoveStow extends Command {
   private Timer m_placeTimer = new Timer();
 
   public CoralMoveStow(
-      IntakeSubsystem intakeSubsystem,
+ //     IntakeSubsystem intakeSubsystem,
       ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem) {
-    m_intake = intakeSubsystem;
+ //   m_intake = intakeSubsystem;
     m_elevator = elevatorSubsystem;
     m_arm = armSubsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intakeSubsystem, elevatorSubsystem, armSubsystem);
+    addRequirements( elevatorSubsystem, armSubsystem);
   }
 
   // Called when the command is initially scheduled.

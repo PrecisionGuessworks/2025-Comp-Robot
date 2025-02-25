@@ -18,23 +18,20 @@ import frc.robot.Telemetry;
 
 
 public class CoralMoveScore extends Command {
-  private final IntakeSubsystem m_intake;
   private final ElevatorSubsystem m_elevator;
   private final ArmSubsystem m_arm;
   //private Pose2d m_pose;
   public int pastscoreheight = 4;
   public CoralMoveScore(
-      IntakeSubsystem intakeSubsystem,
       ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem) {
     
     //m_pose = currentPose;
-    m_intake = intakeSubsystem;
     m_elevator = elevatorSubsystem;
     m_arm = armSubsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intakeSubsystem, elevatorSubsystem, armSubsystem);
+    addRequirements( elevatorSubsystem, armSubsystem);
   }
 
   // Called when the command is initially scheduled.
