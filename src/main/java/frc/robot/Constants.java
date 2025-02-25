@@ -73,10 +73,10 @@ public class Constants {
 
 
     public static class Vision {
-        public static final String kCameraName = "YOUR CAMERA NAME";
+        public static final String kCameraName = "FrontCamera";
         // Cam mounted facing forward, half a meter forward of center, half a meter up from center, up 15 degs.
         public static final Transform3d kRobotToCam =
-                new Transform3d(new Translation3d(0.3, 0.0, 0.15), new Rotation3d(0, Math.toRadians(-15), 0));
+                new Transform3d(new Translation3d(Units.inchesToMeters(13.311564), 0.0, Units.inchesToMeters(7.332072)), new Rotation3d(0, Math.toRadians(-20), 0));
 
         // The layout of the AprilTags on the field
         public static final AprilTagFieldLayout kTagLayout =
