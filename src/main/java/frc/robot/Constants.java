@@ -142,8 +142,8 @@ public class Constants {
     //public static final double powerCutoffHeight = Units.inchesToMeters(0.1); // m
     public static final double maxHeight = Units.inchesToMeters(60.0); // m
     public static final double stowHeight = Units.inchesToMeters(0.5); // m
-    public static final double wristStowHeight = Units.inchesToMeters(6); // m
-    public static final double armStowHeight = Units.inchesToMeters(16); // m
+    public static final double wristStowHeight = Units.inchesToMeters(4); // m
+    public static final double armStowHeight = Units.inchesToMeters(4); // m
     public static final double stowTolerance = Units.inchesToMeters(0.1); // m
     public static final double intakeHeight = Units.inchesToMeters(6); // m
 
@@ -152,7 +152,7 @@ public class Constants {
     public static final double L3 = Units.inchesToMeters(32); // m
     public static final double L4 = Units.inchesToMeters(48); // m
 
-    public static final double L2Algae = Units.inchesToMeters(33); // m
+    public static final double L2Algae = Units.inchesToMeters(20); // m
     public static final double L3Algae = Units.inchesToMeters(32); // m
 
     // For simulation.
@@ -282,13 +282,13 @@ public class Constants {
     public static final double outtakeVelocity = -100.0; // rads/s
 
 
-    public static final double armIntakeAngle = Units.degreesToRadians(135);
+    public static final double armIntakeAngle = Units.degreesToRadians(130);
     public static final double wristIntakeAngle = Units.degreesToRadians(90);
     public static final double armGroundIntakeAngle = Units.degreesToRadians(-5);
     public static final double wristGroundIntakeAngle = Units.degreesToRadians(25);
     public static final double armStowAngle = Units.degreesToRadians(87);
     public static final double armStowIntakeAngle = Units.degreesToRadians(95);
-    public static final double wristStowAngle = Units.degreesToRadians(87);
+    public static final double wristStowAngle = Units.degreesToRadians(85);
     public static final double armScoreAngle = Units.degreesToRadians(89);
     public static final double wristScoreAngle = Units.degreesToRadians(-10);
     public static final double armWackAngle = Units.degreesToRadians(0);

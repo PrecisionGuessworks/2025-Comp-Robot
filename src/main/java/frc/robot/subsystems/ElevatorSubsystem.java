@@ -107,21 +107,21 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
     armAngle = RobotContainer.arm.getArmAngle();
     wristAngle = RobotContainer.arm.getWristAngle();
-    // if (armAngle < 90 && wristAngle < 90 && m_setTargetHeight > Constants.Elevator.armStowHeight){
-    //   m_targetHeight = m_setTargetHeight;
-    // } else if (armAngle < 85 && m_setTargetHeight < Constants.Elevator.armStowHeight && !isAtHeight(Constants.Elevator.stowHeight, 3)){ 
-    //   m_targetHeight = Constants.Elevator.armStowHeight;
-    // } else if (wristAngle < 88 && m_setTargetHeight < Constants.Elevator.wristStowHeight && !isAtHeight(Constants.Elevator.stowHeight, 3)){ 
-    //   m_targetHeight = Constants.Elevator.wristStowHeight; 
-    // } else if (armAngle < 100 && armAngle > 91){ // intake
-    //   m_targetHeight = Constants.Elevator.stowHeight;
-    // } else if (armAngle > 100 && m_setTargetHeight <= Constants.Elevator.intakeHeight){
-    //   m_targetHeight = m_setTargetHeight;
-    // } else {
-    //   m_targetHeight = Constants.Elevator.stowHeight;
-    // }
+    if (armAngle < 90 && wristAngle < 90 && m_setTargetHeight > Constants.Elevator.armStowHeight){
+      m_targetHeight = m_setTargetHeight;
+    } else if (armAngle < 85 && m_setTargetHeight < Constants.Elevator.armStowHeight && getHeight() >= Constants.Elevator.armStowHeight){ 
+      m_targetHeight = Constants.Elevator.armStowHeight;
+    } else if (wristAngle < 88 && m_setTargetHeight < Constants.Elevator.wristStowHeight && getHeight() >= Constants.Elevator.armStowHeight){ 
+      m_targetHeight = Constants.Elevator.wristStowHeight; 
+    } else if (armAngle < 100 && armAngle > 91){ // intake
+      m_targetHeight = Constants.Elevator.stowHeight;
+    } else if (armAngle > 100 && m_setTargetHeight <= Constants.Elevator.intakeHeight){
+      m_targetHeight = m_setTargetHeight;
+    } else {
+      m_targetHeight = Constants.Elevator.stowHeight;
+    }
 
-    m_targetHeight = m_setTargetHeight;
+    //m_targetHeight = m_setTargetHeight;
 
     // This method will be called once per scheduler run
     m_motor.setDynamicMotionMagicPositionSetpoint(

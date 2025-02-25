@@ -55,7 +55,7 @@ public class ArmSubsystem extends SubsystemBase {
               .setInverted(Constants.Arm.armMotorInvert)
               .setBrakeMode()
               .setSupplyCurrentLimit(20.0)
-              .setStatorCurrentLimit(20.0)
+              .setStatorCurrentLimit(40.0)
               .setMotionMagicConfig(
                   Constants.Arm.ArmConstraints.maxVelocity,
                   Constants.Arm.ArmConstraints.maxAcceleration,
@@ -75,7 +75,7 @@ private final QuixTalonFX m_wristMotor =
           .setInverted(Constants.Arm.wristMotorInvert)
           .setBrakeMode()
           .setSupplyCurrentLimit(20.0)
-          .setStatorCurrentLimit(30.0)
+          .setStatorCurrentLimit(40.0)
           .setMotionMagicConfig(
               Constants.Arm.WristConstraints.maxVelocity,
               Constants.Arm.WristConstraints.maxAcceleration,
@@ -114,8 +114,8 @@ private final QuixTalonFX m_wristMotor =
     }
 
     public double getArmAngle() { 
-    return Constants.isSim ? Units.radiansToDegrees(m_armMotor.getSensorPosition()) * Constants.Arm.armMotorRatio.inverseReduction() + Units.radiansToDegrees(ArmStartingAngle) 
-    : Units.rotationsToRadians(m_armCoder.getAbsPosition());
+    return Units.radiansToDegrees(m_armMotor.getSensorPosition()) * Constants.Arm.armMotorRatio.inverseReduction() + Units.radiansToDegrees(ArmStartingAngle) ;
+    //: Units.rotationsToRadians(m_armCoder.getAbsPosition());   Constants.isSim ? 
     }
     public double getWristAngle() {
     return Units.radiansToDegrees(m_wristMotor.getSensorPosition())* Constants.Arm.wristMotorRatio.inverseReduction() + Units.radiansToDegrees(Constants.Arm.wristStartingAngle);
@@ -125,7 +125,7 @@ private final QuixTalonFX m_wristMotor =
   }
 
   public double getArmCoder(){
-    return m_armCoder.getAbsPosition();
+    return Units.rotationsToDegrees(m_armCoder.getAbsPosition());
   }
 
   public void setArmAngle(double targetAngle) {
@@ -212,7 +212,7 @@ private final QuixTalonFX m_wristMotor =
     SmartDashboard.putNumber(
         "Arm: Current Angle (deg)", Units.radiansToDegrees(m_armMotor.getSensorPosition()));
         SmartDashboard.putNumber(
-        "Arm: Current CANcoder Angle (deg)", Units.radiansToDegrees(m_armCoder.getAbsPosition()));
+        "Arm: Current CANcoder Angle (deg)", getArmCoder());
     SmartDashboard.putNumber(
         "Arm: Real Current Angle (deg)", getArmAngle());
     SmartDashboard.putNumber(

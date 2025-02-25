@@ -48,20 +48,20 @@ public class AlgeaWack extends Command {
     if (3 >= PhotonUtils.getDistanceToPose(m_pose,targetpose)||Constants.PoseProtections){
       //System.out.println("CoralMoveScore");
       if(pastscoreheight != m_elevator.getHeightLocation()){
-        //System.out.println("part");
-        // if(m_elevator.getHeightLocation() == 1){
-        //   pastscoreheight = 2;
-        //   m_elevator.setHeight(Constants.Elevator.L2Algae);
-        // } else if(m_elevator.getHeightLocation() == 2){
-        //   pastscoreheight = 2;
-        //   m_elevator.setHeight(Constants.Elevator.L2Algae);
-        // } else if(m_elevator.getHeightLocation() == 3){
-        //   pastscoreheight = 3;
-        //   m_elevator.setHeight(Constants.Elevator.L3Algae);
-        // } else if(m_elevator.getHeightLocation() == 4){
-        //   pastscoreheight = 3;
-        //   m_elevator.setHeight(Constants.Elevator.L3Algae);
-        // }
+        System.out.println("part");
+        if(m_elevator.getHeightLocation() == 1){
+          pastscoreheight = 2;
+          m_elevator.setHeight(Constants.Elevator.L2Algae);
+        } else if(m_elevator.getHeightLocation() == 2){
+          pastscoreheight = 2;
+          m_elevator.setHeight(Constants.Elevator.L2Algae);
+        } else if(m_elevator.getHeightLocation() == 3){
+          pastscoreheight = 3;
+          m_elevator.setHeight(Constants.Elevator.L3Algae);
+        } else if(m_elevator.getHeightLocation() == 4){
+          pastscoreheight = 3;
+          m_elevator.setHeight(Constants.Elevator.L3Algae);
+        }
         m_elevator.setHeight(Constants.Elevator.L3Algae);
       }
     } else {
