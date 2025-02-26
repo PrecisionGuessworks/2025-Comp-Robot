@@ -74,7 +74,7 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void setTargetAdjust(double adjust) {
-    m_setTargetHeight += adjust*0.01;
+    m_setTargetHeight += adjust * 0.002 *0.0254 *0.1;
   }
 
   public void setZero() {
