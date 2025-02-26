@@ -10,16 +10,13 @@ import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class ClimbSet extends Command {
+public class ClimbZero extends Command {
 
   private final ClimberSubsystem m_climber;
   private final ElevatorSubsystem m_elevator;
   private final ArmSubsystem m_arm;
-  //private Timer m_ejectTimer = new Timer();
-  private int m_climbPosition = 0;
 
-  public ClimbSet(int climbPosition, ClimberSubsystem climber, ElevatorSubsystem elevator, ArmSubsystem arm) {
-    m_climbPosition = climbPosition;
+  public ClimbZero(ClimberSubsystem climber, ElevatorSubsystem elevator, ArmSubsystem arm) {
     m_climber = climber;
     m_elevator = elevator;
     m_arm = arm;
@@ -31,19 +28,12 @@ public class ClimbSet extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (m_climbPosition == 1){
-    m_climber.setHeight(Constants.Climber.stowHeight);
-    } else if (m_climbPosition == 2){
-      m_climber.setHeight(Constants.Climber.upperStowHeight);
-    } else if (m_climbPosition == 3){
-      m_climber.setHeight(Constants.Climber.climbHeight);
-    } else {
-      m_climber.setHeight(Constants.Climber.stowHeight);
-    }
-
+ 
     m_elevator.setHeight(Constants.Elevator.stowHeight);
     m_arm.setArmAngle(Constants.Arm.armStowAngle);
     m_arm.setWristAngle(Constants.Arm.wristStowAngle);
+    m_climber.setZero();
+    m_climber.setHeight(Constants.Climber.stowHeight);
     // m_intake.setRollerVelocity(-1.0);
     // m_intake.setAngle(Constants.Intake.intakeClimbAngle);
   }
@@ -61,8 +51,8 @@ public class ClimbSet extends Command {
   }
 
   // Returns true when the command should end.
-  // @Override
-  // public boolean isFinished() {
-  //   return m_ejectTimer.get() > 0.35;
-  // }
+  @Override
+  public boolean isFinished() {
+    return true;
+  }
 }

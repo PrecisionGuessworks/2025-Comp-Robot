@@ -53,6 +53,7 @@ import frc.robot.commands.StowArm;
 import frc.robot.Constants.Climber;
 import frc.robot.commands.AlgeaWack;
 import frc.robot.commands.ClimbSet;
+import frc.robot.commands.ClimbZero;
 import frc.robot.commands.CoralMoveScore;
 import frc.robot.commands.CoralMoveStow;
 import frc.robot.commands.IntakeCoral;
@@ -302,6 +303,7 @@ climberFrameViz.addLink(
         operator.leftBumper().and(operator.b()).onTrue(new ClimbSet(1, climber, elevator, arm));
         operator.leftBumper().and(operator.y()).onTrue(new ClimbSet(2, climber, elevator, arm));
         operator.leftBumper().and(operator.x()).onTrue(new ClimbSet(3, climber, elevator, arm));
+        operator.leftBumper().and(operator.start()).onTrue(new ClimbZero(climber, elevator, arm));
         
         
 
