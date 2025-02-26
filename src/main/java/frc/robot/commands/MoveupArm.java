@@ -12,14 +12,13 @@ public class MoveupArm extends Command {
 
   private final ElevatorSubsystem m_elevator;
   private final ArmSubsystem m_arm;
-  private final IntakeSubsystem m_intake;
+  
   private int m_TestOption = 0;
   private Timer m_ejectTimer = new Timer();
 
-  public MoveupArm(int TestOption, ElevatorSubsystem elevator, IntakeSubsystem intake, ArmSubsystem arm) {
+  public MoveupArm(int TestOption, ElevatorSubsystem elevator, ArmSubsystem arm) {
     m_TestOption = TestOption;
     m_elevator = elevator;
-    m_intake = intake;
     m_arm = arm;
 
     // Use addRequirements() here to declare subsystem dependencies.

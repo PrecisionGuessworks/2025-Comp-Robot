@@ -68,7 +68,7 @@ public class Constants {
     public static final double g = 9.81; // m/s/s
     public static final double defaultPeriodSecs = 0.02; // s
     public static boolean isSim = edu.wpi.first.wpilibj.RobotBase.isSimulation();
-    public static boolean PoseProtections = false; // Only move Scoring Stuff if close to reef
+    public static boolean PoseProtections = true; // Only move Scoring Stuff if close to reef
     public static boolean Lineup = false; // Auto Lineup to Reef to Scrore.
 
 
@@ -147,10 +147,10 @@ public class Constants {
     public static final double stowTolerance = Units.inchesToMeters(0.1); // m
     public static final double intakeHeight = Units.inchesToMeters(6); // m
 
-    public static final double L1 = Units.inchesToMeters(12); // m
-    public static final double L2 = Units.inchesToMeters(18); // m
-    public static final double L3 = Units.inchesToMeters(32); // m
-    public static final double L4 = Units.inchesToMeters(48); // m
+    public static final double L1 = Units.inchesToMeters(14); // m
+    public static final double L2 = Units.inchesToMeters(18.5); // m
+    public static final double L3 = Units.inchesToMeters(33.5); // m
+    public static final double L4 = Units.inchesToMeters(56); // m
 
     public static final double L2Algae = Units.inchesToMeters(20); // m
     public static final double L3Algae = Units.inchesToMeters(32); // m
@@ -278,19 +278,19 @@ public class Constants {
 
     public static final double AngleTolerance = Units.degreesToRadians(2);
 
-    public static final double intakeVelocity = 30.0; // rads/s
-    public static final double outtakeVelocity = -100.0; // rads/s
+    public static final double intakeVelocity = -200.0; // rads/s
+    public static final double outtakeVelocity = 600.0; // rads/s
 
 
     public static final double armIntakeAngle = Units.degreesToRadians(130);
     public static final double wristIntakeAngle = Units.degreesToRadians(90);
     public static final double armGroundIntakeAngle = Units.degreesToRadians(-5);
     public static final double wristGroundIntakeAngle = Units.degreesToRadians(25);
-    public static final double armStowAngle = Units.degreesToRadians(87);
+    public static final double armStowAngle = Units.degreesToRadians(89);
     public static final double armStowIntakeAngle = Units.degreesToRadians(95);
-    public static final double wristStowAngle = Units.degreesToRadians(85);
+    public static final double wristStowAngle = Units.degreesToRadians(70);
     public static final double armScoreAngle = Units.degreesToRadians(89);
-    public static final double wristScoreAngle = Units.degreesToRadians(-10);
+    public static final double wristScoreAngle = Units.degreesToRadians(-5);
     public static final double armWackAngle = Units.degreesToRadians(0);
     public static final double wristWackAngle = Units.degreesToRadians(80);
     public static final double wristTestAngle = Units.degreesToRadians(160);
@@ -327,17 +327,17 @@ public class Constants {
     public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
     public static final PIDConfig motorPIDConfig = new PIDConfig(3, 0, 0.1, 0, 0.12, 0, 0.4);
-    public static final double maxVelocity = 2.0; // m/s
+    public static final double maxVelocity = 0.01; // m/s
     public static final double maxAcceleration = 30.0; // m/s^2
     public static final double maxJerk = 0.0; // m/s^3 (0 disables jerk limit)
 
     // TODO: use real numbers
-    public static final double minHeight = 0.0; // m
+    public static final double minHeight = Units.inchesToMeters(-75.0); // m
     //public static final double powerCutoffHeight = Units.inchesToMeters(0.1); // m
     public static final double maxHeight = Units.inchesToMeters(75.0); // m
     public static final double stowHeight = Units.inchesToMeters(0); // m
-    public static final double upperStowHeight = Units.inchesToMeters(8); // m
-    public static final double climbHeight = Units.inchesToMeters(5); // m
+    public static final double upperStowHeight = Units.inchesToMeters(5); // m
+    public static final double climbHeight = Units.inchesToMeters(3); // m
     public static final double stowTolerance = Units.inchesToMeters(0.25); // m
 
     // For simulation.

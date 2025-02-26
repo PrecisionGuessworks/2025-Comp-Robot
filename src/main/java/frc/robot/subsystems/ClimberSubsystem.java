@@ -53,8 +53,8 @@ public class ClimberSubsystem extends SubsystemBase {
   //     .setReverseSoftLimit(Constants.Climber.minHeight)
   //     .setForwardSoftLimit(Constants.Climber.maxHeight));
 
-  private double m_setTargetHeight = Constants.Climber.minHeight;
-  private double m_targetHeight = Constants.Climber.minHeight;
+  private double m_setTargetHeight = Constants.Climber.stowHeight;
+  private double m_targetHeight = Constants.Climber.stowHeight;
 
   public ClimberSubsystem(Link2d climberCarriageViz) {
     // Show scheduler status in SmartDashboard.
@@ -74,7 +74,7 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void setTargetAdjust(double adjust) {
-    m_setTargetHeight += adjust*0.001;
+    m_setTargetHeight += adjust*0.01;
   }
 
   public void setZero() {

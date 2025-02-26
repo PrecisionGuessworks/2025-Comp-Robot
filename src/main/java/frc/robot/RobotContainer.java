@@ -286,8 +286,8 @@ climberFrameViz.addLink(
 
        // driver.a().whileTrue(new AlgeaWack(elevator, arm));
        // driver.b().onTrue(drivetrain.runOnce(() -> RobotContainer.drivetrain.setLineup(!RobotContainer.drivetrain.getLineup())));
-     //  driver.a().whileTrue(new MoveupArm(1,elevator,intake,arm)); 
-     //  driver.b().whileTrue(new MoveupArm(2,elevator,intake,arm)); 
+       driver.a().whileTrue(new MoveupArm(1,elevator,arm)); 
+       driver.b().whileTrue(new MoveupArm(2,elevator,arm)); 
        driver.y().whileTrue(new Moveup(elevator));
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
@@ -299,8 +299,8 @@ climberFrameViz.addLink(
      //   operator.leftTrigger().whileTrue(new IntakeAlgae(intake, 2));
      //   operator.rightTrigger().whileTrue(new IntakeAlgae(intake, 1));
         operator.rightBumper().whileTrue(new StowArm(elevator, arm));
-        operator.leftBumper().and(operator.a()).onTrue(new ClimbSet(1, climber, elevator, arm));
-        operator.leftBumper().and(operator.b()).onTrue(new ClimbSet(2, climber, elevator, arm));
+        operator.leftBumper().and(operator.b()).onTrue(new ClimbSet(1, climber, elevator, arm));
+        operator.leftBumper().and(operator.y()).onTrue(new ClimbSet(2, climber, elevator, arm));
         operator.leftBumper().and(operator.x()).onTrue(new ClimbSet(3, climber, elevator, arm));
         
         

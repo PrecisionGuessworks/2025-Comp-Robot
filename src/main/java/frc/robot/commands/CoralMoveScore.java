@@ -31,7 +31,7 @@ public class CoralMoveScore extends Command {
     m_arm = armSubsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements( elevatorSubsystem, armSubsystem);
+    addRequirements(elevatorSubsystem, armSubsystem);
   }
 
   // Called when the command is initially scheduled.
