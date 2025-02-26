@@ -22,6 +22,14 @@ public class Moveup extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    
+    
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
+    //m_elevator.setHeight(Constants.Elevator.L2);
     if(m_elevator.getHeightLocation() == 1){
       m_elevator.setHeight(Constants.Elevator.L1);
     } else if(m_elevator.getHeightLocation() == 2){
@@ -31,13 +39,6 @@ public class Moveup extends Command {
     } else if(m_elevator.getHeightLocation() == 4){
       m_elevator.setHeight(Constants.Elevator.L4);
     }
-    
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    //m_elevator.setHeight(Constants.Elevator.L2);
   }
 
   // Called once the command ends or is interrupted.
