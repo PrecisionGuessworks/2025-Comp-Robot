@@ -66,7 +66,7 @@ public class ClimberSubsystem extends SubsystemBase {
 
 
   public double getHeight() {
-    return m_motor.getSensorPosition();
+    return  Constants.Climber.motorRatio.sensorRadiansToMechanismPosition(m_motor.getSensorPosition());
   }
 
   public void setHeight(double targetHeight) {
@@ -114,9 +114,9 @@ public class ClimberSubsystem extends SubsystemBase {
 
 
     SmartDashboard.putNumber(
-        "Climber: Current Height (in)", Units.metersToInches(m_motor.getSensorPosition()));
+        "Climber: Current Height (in)", Units.metersToInches(getHeight()));
     SmartDashboard.putNumber(
-        "Climber: Target Height (in)", Units.metersToInches(m_motor.getClosedLoopReference()));
+        "Climber: Target Height (in)", Units.metersToInches(Constants.Climber.motorRatio.sensorRadiansToMechanismPosition(m_motor.getClosedLoopReference())));
 
   
 

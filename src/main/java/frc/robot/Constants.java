@@ -145,7 +145,7 @@ public class Constants {
     public static final double wristStowHeight = Units.inchesToMeters(4); // m
     public static final double armStowHeight = Units.inchesToMeters(4); // m
     public static final double stowTolerance = Units.inchesToMeters(0.1); // m
-    public static final double intakeHeight = Units.inchesToMeters(10); // m
+    public static final double intakeHeight = Units.inchesToMeters(5); // m
 
     public static final double L1 = Units.inchesToMeters(14); // m
     public static final double L2 = Units.inchesToMeters(18.5); // m
@@ -332,12 +332,12 @@ public class Constants {
     public static final double maxJerk = 0.0; // m/s^3 (0 disables jerk limit)
 
     // TODO: use real numbers
-    public static final double minHeight = Units.inchesToMeters(-75.0); // m
+    public static final double minHeight = Units.inchesToMeters(-25.0); // m
     //public static final double powerCutoffHeight = Units.inchesToMeters(0.1); // m
-    public static final double maxHeight = Units.inchesToMeters(75.0); // m
+    public static final double maxHeight = Units.inchesToMeters(25.0); // m
     public static final double stowHeight = Units.inchesToMeters(0); // m
-    public static final double upperStowHeight = Units.inchesToMeters(5); // m
-    public static final double climbHeight = Units.inchesToMeters(3); // m
+    public static final double upperStowHeight = Units.inchesToMeters(4); // m
+    public static final double climbHeight = Units.inchesToMeters(2); // m
     public static final double stowTolerance = Units.inchesToMeters(0.25); // m
 
     // For simulation.
