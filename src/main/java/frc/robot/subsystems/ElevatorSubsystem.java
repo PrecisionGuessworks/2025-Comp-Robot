@@ -152,7 +152,8 @@ public class ElevatorSubsystem extends SubsystemBase {
       Loc3 = false;
       Loc4 = true;
     }
-
+    SmartDashboard.putBoolean(
+          "Elevator", !Constants.ElevatorOff);
 
     SmartDashboard.putNumber(
         "Elevator: Current Height (in)", Units.metersToInches(getHeight()));

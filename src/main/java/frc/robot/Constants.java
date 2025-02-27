@@ -69,6 +69,7 @@ public class Constants {
     public static final double defaultPeriodSecs = 0.02; // s
     public static boolean isSim = edu.wpi.first.wpilibj.RobotBase.isSimulation();
     public static boolean PoseProtections = true; // Only move Scoring Stuff if close to reef
+    public static boolean ElevatorOff = false; // Shut off Elevator
     public static boolean Lineup = false; // Auto Lineup to Reef to Scrore.
 
 
@@ -380,6 +381,8 @@ public class Constants {
     public static final Pose2d Lblue = new Pose2d(3.7, 5.0, Rotation2d.fromDegrees(300));
 
     public static final double feildFlip = 17.5;
+    public static final double feildFlipy = 8;
+
     public static final Pose2d Ared = new Pose2d(feildFlip - 3.2, 4.3, Rotation2d.fromDegrees(180));
     public static final Pose2d Bred = new Pose2d(feildFlip - 3.2, 3.8, Rotation2d.fromDegrees(180));
     public static final Pose2d Cred = new Pose2d(feildFlip - 3.7, 3.0, Rotation2d.fromDegrees(120));

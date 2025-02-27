@@ -180,13 +180,15 @@ public class Robot extends TimedRobot {
                         if (ally.isPresent()) {
                           if (ally.get() == Alliance.Red) {
                             poses.addAll(path.getAllPathPoints().stream()
-                            .map(point -> new Pose2d(Constants.Pose.feildFlip - point.position.getX(), point.position.getY(), new Rotation2d()))
+                            .map(point -> new Pose2d(Constants.Pose.feildFlip - point.position.getX(),Constants.Pose.feildFlipy - point.position.getY(), new Rotation2d()))
                           .collect(Collectors.toList()));
+                          Elastic.selectTab("RED");
                           }
                           if (ally.get() == Alliance.Blue) {
                             poses.addAll(path.getAllPathPoints().stream()
                             .map(point -> new Pose2d(point.position.getX(), point.position.getY(), new Rotation2d()))
                           .collect(Collectors.toList()));
+                          Elastic.selectTab("BLUE");
                           }
                         }
                         else {
@@ -244,13 +246,15 @@ public class Robot extends TimedRobot {
                   if (ally.isPresent()) {
                     if (ally.get() == Alliance.Red) {
                       poses.addAll(path.getAllPathPoints().stream()
-                      .map(point -> new Pose2d(Constants.Pose.feildFlip - point.position.getX(), point.position.getY(), new Rotation2d()))
+                      .map(point -> new Pose2d(Constants.Pose.feildFlip - point.position.getX(),Constants.Pose.feildFlipy - point.position.getY(), new Rotation2d()))
                     .collect(Collectors.toList()));
+                    Elastic.selectTab("RED");
                     }
                     if (ally.get() == Alliance.Blue) {
                       poses.addAll(path.getAllPathPoints().stream()
                       .map(point -> new Pose2d(point.position.getX(), point.position.getY(), new Rotation2d()))
                     .collect(Collectors.toList()));
+                    Elastic.selectTab("BLUE");
                     }
                   }
                   else {
