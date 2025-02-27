@@ -25,6 +25,7 @@
 package frc.robot;
 
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
+import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.path.PathConstraints;
 
@@ -71,6 +72,7 @@ public class Constants {
     public static boolean PoseProtections = true; // Only move Scoring Stuff if close to reef
     public static boolean ElevatorOff = false; // Shut off Elevator
     public static boolean Lineup = false; // Auto Lineup to Reef to Scrore.
+   
 
 
     public static class Vision {
@@ -133,8 +135,8 @@ public class Constants {
     public static final boolean motorInvert = true;
     public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
-    public static final PIDConfig motorPIDConfig = new PIDConfig(1, 0.01, 0.01, 0.04, 0.11, 0.01, 0.8);
-    public static final double maxVelocity = 1; // m/s //1
+    public static final PIDConfig motorPIDConfig = new PIDConfig(1, 0.01, 0.01, 0.04, 0.11, 0.01, 0.8,GravityTypeValue.Elevator_Static);
+    public static final double maxVelocity = 1; // m/s // 1
     public static final double maxAcceleration = 20.0; // m/s^2
     public static final double maxJerk = 0.0; // m/s^3 (0 disables jerk limit)
 
@@ -188,7 +190,7 @@ public class Constants {
         new MechanismRatio(
             1, (27.0 / 1.0) * (36.0 / 16.0)); // Real
     public static final boolean deployMotorInvert = false;
-    public static final PIDConfig deployPIDConfig = new PIDConfig(2.0, 0, 0.3, 0, 1.5, 0.000, 0.08);
+    public static final PIDConfig deployPIDConfig = new PIDConfig(2.0, 0, 0.3, 0, 1.5, 0.000, 0.08, GravityTypeValue.Arm_Cosine);
     public static final int deployPositionSlot = 0;
     public static final double deployMaxVelocity = 0.2; // rad/s
     public static final double deployMaxAcceleration = 140.0; // rad/s^2
@@ -243,17 +245,19 @@ public class Constants {
 
     //public static final ArmFeedforward armFeedForward = new ArmFeedforward(3.0, 0.3, 0.6);
     public static final Constraints ArmConstraints =
-        new Constraints(8, 20.0); // rad/s and rad/s^2
+        new Constraints(8, 20.0); // rad/s and rad/s^2  8, 20.0
     public static final int armPositionPIDSlot = 0;
-    public static final PIDConfig armPositionPIDConfig = new PIDConfig(1, 0, 0, 0, 2.5, 0.000, 0.09);
+    public static final PIDConfig armPositionPIDConfig = new PIDConfig(1, 0, 0, 0, 2.5, 0.000, 0.09, GravityTypeValue.Arm_Cosine);
+    public static final double armExpo_kV = 2.5;    
+    public static final double armExpo_kA = 0.01; // Use a slower kA of 0.1 V/(rps/s)
   //  public static final int armCoralPositionPIDSlot = 1;
   //  public static final PIDConfig armCoralPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 0.12, 0.007, 0);
 
     //public static final ArmFeedforward wristFeedForward = new ArmFeedforward(0.0, 0.3, 0.6);
     public static final Constraints WristConstraints =
-        new Constraints(40.0, 80.0); // rad/s and rad/s^2
+        new Constraints(40.0, 80.0); // rad/s and rad/s^2   40.0, 80.0
     public static final int wristPositionPIDSlot = 0;
-    public static final PIDConfig wristPositionPIDConfig = new PIDConfig(1.0, 0, 0, 0, 1.22, 0.000, 0.04);
+    public static final PIDConfig wristPositionPIDConfig = new PIDConfig(1.0, 0, 0, 0, 1.22, 0.000, 0.04,GravityTypeValue.Arm_Cosine);
    // public static final int wristCoralPositionPIDSlot = 1;
     //public static final PIDConfig wristCoralPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 0.12, 0.007, 0);
 
@@ -328,7 +332,7 @@ public class Constants {
     public static final boolean motorInvert = false;
     public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
-    public static final PIDConfig motorPIDConfig = new PIDConfig(3, 0, 0.1, 0, 0.12, 0, 0.4);
+    public static final PIDConfig motorPIDConfig = new PIDConfig(3, 0, 0.1, 0, 0.12, 0, 0.4,GravityTypeValue.Elevator_Static);
     public static final double maxVelocity = 0.01; // m/s
     public static final double maxAcceleration = 30.0; // m/s^2
     public static final double maxJerk = 0.0; // m/s^3 (0 disables jerk limit)

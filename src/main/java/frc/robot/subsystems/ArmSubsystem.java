@@ -59,7 +59,10 @@ public class ArmSubsystem extends SubsystemBase {
               .setMotionMagicConfig(
                   Constants.Arm.ArmConstraints.maxVelocity,
                   Constants.Arm.ArmConstraints.maxAcceleration,
-                  1)
+                  1,
+                  Constants.Arm.armExpo_kV,
+                  Constants.Arm.armExpo_kA)
+
               .setPIDConfig(Constants.Arm.armPositionPIDSlot, Constants.Arm.armPositionPIDConfig)
               .setBootPositionOffset(ArmStartingAngle)
               .setReverseSoftLimit(Constants.Arm.armMinAngle)
@@ -206,8 +209,11 @@ private final QuixTalonFX m_wristMotor =
     //   m_wristMotor.setMotionMagicPositionSetpoint(
     //     Constants.Arm.wristCoralPositionPIDSlot, m_wristTargetAngle);
     // } else {
-      m_armMotor.setMotionMagicPositionSetpoint(
-        Constants.Arm.armPositionPIDSlot, m_armTargetAngle);
+      // m_armMotor.setMotionMagicPositionSetpoint(
+      //   Constants.Arm.armPositionPIDSlot, m_armTargetAngle);
+      m_armMotor.setMotionMagicPositionSetpointExpo(
+          Constants.Arm.armPositionPIDSlot, m_armTargetAngle);
+
       m_wristMotor.setMotionMagicPositionSetpoint(
         Constants.Arm.wristPositionPIDSlot, m_wristTargetAngle);
    // }

@@ -10,6 +10,7 @@ import com.ctre.phoenix6.sim.CANcoderSimState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.quixlib.motorcontrol.MechanismRatio;
 import frc.quixlib.phoenix.PhoenixUtil;
+import frc.robot.Constants;
 import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.units.measure.ImmutableAngle;
@@ -51,7 +52,7 @@ public class QuixCANCoder implements QuixAbsoluteEncoder {
     m_cancoder.hasResetOccurred();
 
     SmartDashboard.putBoolean("CANCoder Configuration " + m_canID.toString(), setConfiguration());
-
+    
     m_positionPublisher =
         NetworkTableInstance.getDefault()
             .getDoubleTopic("CanCoder " + m_canID + ": Sensor Position")
@@ -64,6 +65,7 @@ public class QuixCANCoder implements QuixAbsoluteEncoder {
         NetworkTableInstance.getDefault()
             .getDoubleTopic("CanCoder " + m_canID + ": Velocity")
             .publish();
+  
 
   }
 

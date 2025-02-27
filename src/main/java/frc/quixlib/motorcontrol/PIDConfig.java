@@ -3,6 +3,7 @@ package frc.quixlib.motorcontrol;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.Slot1Configs;
 import com.ctre.phoenix6.configs.Slot2Configs;
+import com.ctre.phoenix6.signals.GravityTypeValue;
 
 public class PIDConfig {
   // This matches CTRE configs
@@ -13,13 +14,14 @@ public class PIDConfig {
   public final double kV;
   public final double kA;
   public final double kG;
+  public final GravityTypeValue GravityType;
 
   public PIDConfig() {
-    this(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+    this(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, GravityTypeValue.Elevator_Static);
   }
 
   public PIDConfig(final double kP, final double kI, final double kD) {
-    this(kP, kI, kD, 0.0, 0.0, 0.0, 0.0);
+    this(kP, kI, kD, 0.0, 0.0, 0.0, 0.0, GravityTypeValue.Elevator_Static);
   }
 
   public PIDConfig(
@@ -29,7 +31,8 @@ public class PIDConfig {
       final double kS,
       final double kV,
       final double kA,
-      final double kG) {
+      final double kG,
+      final GravityTypeValue GravityType) {
     this.kP = kP;
     this.kI = kI;
     this.kD = kD;
@@ -37,6 +40,7 @@ public class PIDConfig {
     this.kV = kV;
     this.kA = kA;
     this.kG = kG;
+    this.GravityType = GravityType;
   }
 
   public Slot0Configs fillCTRE(Slot0Configs conf) {
@@ -47,6 +51,7 @@ public class PIDConfig {
     conf.kV = kV;
     conf.kA = kA;
     conf.kG = kG;
+    conf.GravityType = GravityType;
     return conf;
   }
 
@@ -58,9 +63,10 @@ public class PIDConfig {
     conf.kV = kV;
     conf.kA = kA;
     conf.kG = kG;
+    conf.GravityType = GravityType;
     return conf;
   }
-
+  
   public Slot2Configs fillCTRE(Slot2Configs conf) {
     conf.kP = kP;
     conf.kI = kI;
@@ -69,6 +75,7 @@ public class PIDConfig {
     conf.kV = kV;
     conf.kA = kA;
     conf.kG = kG;
+    conf.GravityType = GravityType;
     return conf;
   }
 }
