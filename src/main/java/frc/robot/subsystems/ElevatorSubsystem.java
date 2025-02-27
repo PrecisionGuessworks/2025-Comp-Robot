@@ -33,7 +33,9 @@ public class ElevatorSubsystem extends SubsystemBase {
               .setMotionMagicConfig(
                   Constants.Elevator.maxVelocity,
                   Constants.Elevator.maxAcceleration,
-                  Constants.Elevator.maxJerk)
+                  Constants.Elevator.maxJerk,
+                  Constants.Elevator.Expo_kV,
+                  Constants.Elevator.Expo_kA)
               .setReverseSoftLimit(Constants.Elevator.minHeight)
               .setForwardSoftLimit(Constants.Elevator.maxHeight));
 
@@ -124,12 +126,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     //m_targetHeight = m_setTargetHeight;
 
     // This method will be called once per scheduler run
-    m_motor.setDynamicMotionMagicPositionSetpoint(
+    m_motor.setMotionMagicPositionSetpointExpo(
         Constants.Elevator.motorPositionSlot,
-        m_targetHeight,
-        Constants.Elevator.maxVelocity,
-        Constants.Elevator.maxAcceleration,
-        Constants.Elevator.maxJerk);
+        m_targetHeight
+        );
 
     if (m_HeightLocation==1){
       Loc1 = true;

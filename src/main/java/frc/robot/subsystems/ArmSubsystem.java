@@ -59,7 +59,7 @@ public class ArmSubsystem extends SubsystemBase {
               .setMotionMagicConfig(
                   Constants.Arm.ArmConstraints.maxVelocity,
                   Constants.Arm.ArmConstraints.maxAcceleration,
-                  1,
+                  Constants.Arm.ArmMaxJerk,
                   Constants.Arm.armExpo_kV,
                   Constants.Arm.armExpo_kA)
 
@@ -82,7 +82,9 @@ private final QuixTalonFX m_wristMotor =
           .setMotionMagicConfig(
               Constants.Arm.WristConstraints.maxVelocity,
               Constants.Arm.WristConstraints.maxAcceleration,
-              1)
+              Constants.Arm.WristMaxJerk,
+                  Constants.Arm.wristExpo_kV,
+                  Constants.Arm.wristExpo_kA)
           .setPIDConfig(Constants.Arm.wristPositionPIDSlot, Constants.Arm.wristPositionPIDConfig)
           .setBootPositionOffset(Constants.Arm.wristStartingAngle)
           .setReverseSoftLimit(Constants.Arm.wristMinAngle)
@@ -196,6 +198,8 @@ private final QuixTalonFX m_wristMotor =
       m_wristTargetAngle = setm_wristTargetAngle;
     }else if (getArmAngle() >= 95){
       m_wristTargetAngle = setm_wristTargetAngle;
+    }else if (RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, 1)){
+      m_wristTargetAngle = setm_wristTargetAngle;
     }else{
       m_wristTargetAngle = Constants.Arm.wristStowAngle;
     }
@@ -214,7 +218,9 @@ private final QuixTalonFX m_wristMotor =
       m_armMotor.setMotionMagicPositionSetpointExpo(
           Constants.Arm.armPositionPIDSlot, m_armTargetAngle);
 
-      m_wristMotor.setMotionMagicPositionSetpoint(
+      // m_wristMotor.setMotionMagicPositionSetpoint(
+      //   Constants.Arm.wristPositionPIDSlot, m_wristTargetAngle);
+      m_wristMotor.setMotionMagicPositionSetpointExpo(
         Constants.Arm.wristPositionPIDSlot, m_wristTargetAngle);
    // }
 
