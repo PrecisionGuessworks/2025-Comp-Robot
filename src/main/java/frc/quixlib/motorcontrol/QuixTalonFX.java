@@ -473,6 +473,7 @@ public class QuixTalonFX implements QuixMotorControllerWithEncoder, AutoCloseabl
     m_motionMagicControl.Slot = slot;
     m_motionMagicControl.Position = toNativeSensorPosition(setpoint);
     m_motionMagicControl.FeedForward = feedforwardVolts;
+    m_motionMagicControl.EnableFOC = true;
     m_controller.setControl(m_motionMagicControl);
   }
 
@@ -498,6 +499,7 @@ public class QuixTalonFX implements QuixMotorControllerWithEncoder, AutoCloseabl
     m_dynamicMotionMagicControl.Velocity = toNativeSensorVelocity(velocity);
     m_dynamicMotionMagicControl.Acceleration = toNativeSensorVelocity(acceleration);
     m_dynamicMotionMagicControl.Jerk = toNativeSensorVelocity(jerk);
+    m_dynamicMotionMagicControl.EnableFOC = true;
     m_controller.setControl(m_dynamicMotionMagicControl);
   }
 
@@ -510,6 +512,7 @@ public class QuixTalonFX implements QuixMotorControllerWithEncoder, AutoCloseabl
     m_velocityControl.Slot = slot;
     m_velocityControl.Velocity = toNativeSensorVelocity(setpoint);
     m_velocityControl.FeedForward = feedforwardVolts;
+    m_voltageControl.EnableFOC = true;
     m_controller.setControl(m_velocityControl);
   }
 

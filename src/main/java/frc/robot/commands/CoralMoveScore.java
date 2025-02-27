@@ -54,20 +54,24 @@ public class CoralMoveScore extends Command {
       //System.out.println("CoralMoveScore");
       if(pastscoreheight != m_elevator.getHeightLocation()){
         m_arm.setArmAngle(Constants.Arm.armScoreAngle);
-        m_arm.setWristAngle(Constants.Arm.wristScoreAngle);
+        
         System.out.println("part");
         if(m_elevator.getHeightLocation() == 1){
           pastscoreheight = 1;
           m_elevator.setHeight(Constants.Elevator.L1);
+          m_arm.setWristAngle(Constants.Arm.wristL1Score);
         } else if(m_elevator.getHeightLocation() == 2){
           pastscoreheight = 2;
           m_elevator.setHeight(Constants.Elevator.L2);
+          m_arm.setWristAngle(Constants.Arm.wristScoreAngle);
         } else if(m_elevator.getHeightLocation() == 3){
           pastscoreheight = 3;
           m_elevator.setHeight(Constants.Elevator.L3);
+          m_arm.setWristAngle(Constants.Arm.wristScoreAngle);
         } else if(m_elevator.getHeightLocation() == 4){
           pastscoreheight = 4;
           m_elevator.setHeight(Constants.Elevator.L4);
+          m_arm.setWristAngle(Constants.Arm.wristScoreAngle);
         }
       }
     } else {

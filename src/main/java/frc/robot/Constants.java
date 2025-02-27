@@ -133,9 +133,9 @@ public class Constants {
     public static final boolean motorInvert = true;
     public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
-    public static final PIDConfig motorPIDConfig = new PIDConfig(1, 0.01, 0.01, 0, 0.11, 0.01, 0.008);
-    public static final double maxVelocity = 0.4; // m/s //1
-    public static final double maxAcceleration = 15.0; // m/s^2
+    public static final PIDConfig motorPIDConfig = new PIDConfig(1, 0.01, 0.01, 0.04, 0.11, 0.01, 0.8);
+    public static final double maxVelocity = 1; // m/s //1
+    public static final double maxAcceleration = 20.0; // m/s^2
     public static final double maxJerk = 0.0; // m/s^3 (0 disables jerk limit)
 
     // TODO: use real numbers
@@ -146,14 +146,14 @@ public class Constants {
     public static final double wristStowHeight = Units.inchesToMeters(4); // m
     public static final double armStowHeight = Units.inchesToMeters(4); // m
     public static final double stowTolerance = Units.inchesToMeters(0.1); // m
-    public static final double intakeHeight = Units.inchesToMeters(5); // m
+    public static final double intakeHeight = Units.inchesToMeters(10); // m
 
-    public static final double L1 = Units.inchesToMeters(14); // m
+    public static final double L1 = Units.inchesToMeters(2); // m
     public static final double L2 = Units.inchesToMeters(18.5); // m
     public static final double L3 = Units.inchesToMeters(33.5); // m
     public static final double L4 = Units.inchesToMeters(56); // m
 
-    public static final double L2Algae = Units.inchesToMeters(20); // m
+    public static final double L2Algae = Units.inchesToMeters(15); // m
     public static final double L3Algae = Units.inchesToMeters(32); // m
 
     // For simulation.
@@ -243,17 +243,17 @@ public class Constants {
 
     //public static final ArmFeedforward armFeedForward = new ArmFeedforward(3.0, 0.3, 0.6);
     public static final Constraints ArmConstraints =
-        new Constraints(1, 30.0); // rad/s and rad/s^2
+        new Constraints(8, 20.0); // rad/s and rad/s^2
     public static final int armPositionPIDSlot = 0;
-    public static final PIDConfig armPositionPIDConfig = new PIDConfig(5.0, 0, 0.1, 0, 2.37, 0.000, 0.1);
+    public static final PIDConfig armPositionPIDConfig = new PIDConfig(1, 0, 0, 0, 2.5, 0.000, 0.09);
   //  public static final int armCoralPositionPIDSlot = 1;
   //  public static final PIDConfig armCoralPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 0.12, 0.007, 0);
 
     //public static final ArmFeedforward wristFeedForward = new ArmFeedforward(0.0, 0.3, 0.6);
     public static final Constraints WristConstraints =
-        new Constraints(4.0, 40.0); // rad/s and rad/s^2
+        new Constraints(40.0, 80.0); // rad/s and rad/s^2
     public static final int wristPositionPIDSlot = 0;
-    public static final PIDConfig wristPositionPIDConfig = new PIDConfig(3.0, 0, 0.1, 0, 1.22, 0.000, 0.4);
+    public static final PIDConfig wristPositionPIDConfig = new PIDConfig(1.0, 0, 0, 0, 1.22, 0.000, 0.04);
    // public static final int wristCoralPositionPIDSlot = 1;
     //public static final PIDConfig wristCoralPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 0.12, 0.007, 0);
 
@@ -277,7 +277,7 @@ public class Constants {
     public static final double wristStartingAngle = Units.degreesToRadians(181) ; //+ armStartingAngle;
     public static final double wristCgOffset = Units.degreesToRadians(0);
 
-    public static final double AngleTolerance = Units.degreesToRadians(2);
+    public static final double AngleTolerance = Units.degreesToRadians(1);
 
     public static final double intakeVelocity = -200.0; // rads/s
     public static final double outtakeVelocity = 600.0; // rads/s
@@ -295,6 +295,7 @@ public class Constants {
     public static final double armWackAngle = Units.degreesToRadians(0);
     public static final double wristWackAngle = Units.degreesToRadians(80);
     public static final double wristTestAngle = Units.degreesToRadians(160);
+    public static final double wristL1Score = Units.degreesToRadians(20);
 
     public static final Transform2d robotToArm =
         new Transform2d(Units.inchesToMeters(12.0), 0.0, new Rotation2d());
@@ -303,12 +304,12 @@ public class Constants {
     public static final double rollerBeamBreakOffset = 1.5 * Math.PI; // rads
 
     // For simulation.
-    public static final double simArmMOI = 0.406; // kgMetersSquared
-    public static final double simArmCGLength = Units.inchesToMeters(9.0); // m
+    public static final double simArmMOI = 0.379; // kgMetersSquared
+    public static final double simArmCGLength = Units.inchesToMeters(8.5); // m
     public static final double simRollerMOI = 0.003; // kgMetersSquared
 
-    public static final double wristArmMOI = 0.045; // kgMetersSquared
-    public static final double simwristCGLength = Units.inchesToMeters(5.0); // m
+    public static final double wristArmMOI = 0.0374; // kgMetersSquared
+    public static final double simwristCGLength = Units.inchesToMeters(3.5); // m
     
   }
 
@@ -321,7 +322,7 @@ public class Constants {
     public static final double sprocketPitchDiameter = Units.inchesToMeters(2); 
     public static final MechanismRatio motorRatio =
         new MechanismRatio(
-            1, (135.0 / 1.0), Math.PI * sprocketPitchDiameter); // Sim
+            1, (200.0 / 1.0), Math.PI * sprocketPitchDiameter); // Sim
         // new MechanismRatio(
             // 1, (135.0 / 1.0), Math.PI * sprocketPitchDiameter); // Real
     public static final boolean motorInvert = false;
