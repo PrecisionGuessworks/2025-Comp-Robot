@@ -76,7 +76,7 @@ public class Constants {
 
 
     public static class Vision {
-        public static final String kCameraName = "FrontCamera";
+        public static final String kCameraName = "Front";
         // Cam mounted facing forward, half a meter forward of center, half a meter up from center, up 15 degs.
         public static final Transform3d kRobotToCam =
                 new Transform3d(new Translation3d(Units.inchesToMeters(13.311564), 0.0, Units.inchesToMeters(7.332072)), new Rotation3d(0, Math.toRadians(-20), 0));
@@ -136,7 +136,7 @@ public class Constants {
     public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
     public static final PIDConfig motorPIDConfig = new PIDConfig(1, 0.01, 0.01, 0.04, 0.11, 0.01, 0.08,GravityTypeValue.Elevator_Static);
-    public static final double maxVelocity = 0.4; // m/s // 1
+    public static final double maxVelocity = 0.6; // m/s // 1
     public static final double maxAcceleration = 20.0; // m/s^2
     public static final double maxJerk = 1.0; // m/s^3 (0 disables jerk limit)
     public static final double Expo_kV = 0.11;    
@@ -148,17 +148,17 @@ public class Constants {
     public static final double maxHeight = Units.inchesToMeters(60.0); // m
     public static final double stowHeight = Units.inchesToMeters(0.5); // m
     public static final double wristStowHeight = Units.inchesToMeters(4); // m
-    public static final double armStowHeight = Units.inchesToMeters(4); // m
+    public static final double armStowHeight = Units.inchesToMeters(5); // m
     public static final double stowTolerance = Units.inchesToMeters(0.1); // m
     public static final double intakeHeight = Units.inchesToMeters(10); // m
 
-    public static final double L1 = Units.inchesToMeters(2); // m
-    public static final double L2 = Units.inchesToMeters(18.5); // m
-    public static final double L3 = Units.inchesToMeters(33.5); // m
+    public static final double L1 = Units.inchesToMeters(1); // m
+    public static final double L2 = Units.inchesToMeters(17); // m
+    public static final double L3 = Units.inchesToMeters(33); // m
     public static final double L4 = Units.inchesToMeters(56); // m
 
     public static final double L2Algae = Units.inchesToMeters(15); // m
-    public static final double L3Algae = Units.inchesToMeters(32); // m
+    public static final double L3Algae = Units.inchesToMeters(34); // m
 
     // For simulation.
     public static final double simCarriageMass = 7.0; // kg
@@ -247,7 +247,7 @@ public class Constants {
 
     //public static final ArmFeedforward armFeedForward = new ArmFeedforward(3.0, 0.3, 0.6);
     public static final Constraints ArmConstraints =
-        new Constraints(0.5, 5.0); // rad/s and rad/s^2  8, 20.0
+        new Constraints(0.3, 5.0); // rad/s and rad/s^2  8, 20.0
     public static final double ArmMaxJerk = 1.0; // rad/s^3
     public static final int armPositionPIDSlot = 0;
     public static final PIDConfig armPositionPIDConfig = new PIDConfig(3, 0.1, 0, 0, 2.5, 0.000, 0.09, GravityTypeValue.Arm_Cosine);
@@ -290,7 +290,7 @@ public class Constants {
     public static final double AngleTolerance = Units.degreesToRadians(1);
 
     public static final double intakeVelocity = -200.0; // rads/s
-    public static final double outtakeVelocity = 600.0; // rads/s
+    public static final double outtakeVelocity = 1000.0; // rads/s
 
 
     public static final double armIntakeAngle = Units.degreesToRadians(130);
@@ -298,14 +298,16 @@ public class Constants {
     public static final double armGroundIntakeAngle = Units.degreesToRadians(-5);
     public static final double wristGroundIntakeAngle = Units.degreesToRadians(25);
     public static final double armStowAngle = Units.degreesToRadians(89);
-    public static final double armStowIntakeAngle = Units.degreesToRadians(100);
+    public static final double armStowIntakeAngle = Units.degreesToRadians(105);
     public static final double wristStowAngle = Units.degreesToRadians(70);
     public static final double armScoreAngle = Units.degreesToRadians(89);
     public static final double wristScoreAngle = Units.degreesToRadians(-5);
     public static final double armWackAngle = Units.degreesToRadians(0);
     public static final double wristWackAngle = Units.degreesToRadians(80);
+    public static final double armWackAfterAngle = Units.degreesToRadians(10);
+    public static final double wristWackAfterAngle = Units.degreesToRadians(130);
     public static final double wristTestAngle = Units.degreesToRadians(160);
-    public static final double wristL1Score = Units.degreesToRadians(20);
+    public static final double wristL1Score = Units.degreesToRadians(35);
 
     public static final Transform2d robotToArm =
         new Transform2d(Units.inchesToMeters(12.0), 0.0, new Rotation2d());

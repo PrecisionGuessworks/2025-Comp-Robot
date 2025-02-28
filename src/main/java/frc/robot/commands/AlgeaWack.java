@@ -62,7 +62,7 @@ public class AlgeaWack extends Command {
           pastscoreheight = 3;
           m_elevator.setHeight(Constants.Elevator.L3Algae);
         }
-        m_elevator.setHeight(Constants.Elevator.L3Algae);
+       // m_elevator.setHeight(Constants.Elevator.L3Algae);
       }
     } else {
       m_elevator.setHeight(Constants.Elevator.stowHeight);
@@ -72,9 +72,9 @@ public class AlgeaWack extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_arm.setArmAngle(Constants.Arm.armStowAngle);
-    m_arm.setWristAngle(Constants.Arm.wristStowAngle);
-    m_elevator.setHeight(Constants.Elevator.stowHeight);
+    m_arm.setArmAngle(Constants.Arm.armWackAfterAngle);
+    m_arm.setWristAngle(Constants.Arm.wristWackAfterAngle);
+    //m_elevator.setHeight(Constants.Elevator.stowHeight);
   }
 
   // Returns true when the command should end.

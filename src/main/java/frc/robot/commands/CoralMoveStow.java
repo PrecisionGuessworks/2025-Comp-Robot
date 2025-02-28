@@ -36,10 +36,10 @@ public class CoralMoveStow extends Command {
   @Override
   public void initialize() {
     m_placeTimer.restart();
-    //if (m_elevator.isAtScore()){
-    m_arm.setArmRollerCurrent(50, 100);
+    if (m_elevator.isAtScore()){
+    m_arm.setArmRollerCurrent(60, 120);
     m_arm.setRollerVelocity(Constants.Arm.outtakeVelocity);
-    //}
+    }
     
   }
 
@@ -54,19 +54,19 @@ public class CoralMoveStow extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-  //if(m_elevator.isAtScore()){
+  if(m_elevator.isAtScore()){
     m_arm.setArmAngle(Constants.Arm.armStowAngle);
    m_arm.setWristAngle(Constants.Arm.wristStowAngle);
    m_arm.setArmRollerCurrent(30, 60);
     m_arm.setRollerVelocity(0);
     m_elevator.setHeight(Constants.Elevator.stowHeight);
-  //}
+  }
     
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_placeTimer.hasElapsed(0.60) ; //|| !m_elevator.isAtScore()
+    return m_placeTimer.hasElapsed(0.50) ; //|| !m_elevator.isAtScore()
   }
 }

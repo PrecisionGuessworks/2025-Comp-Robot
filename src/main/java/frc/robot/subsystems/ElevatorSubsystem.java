@@ -111,9 +111,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     wristAngle = RobotContainer.arm.getWristAngle();
     if (armAngle < 90 && wristAngle < 90 && m_setTargetHeight > Constants.Elevator.armStowHeight){
       m_targetHeight = m_setTargetHeight;
-    } else if (armAngle < 85 && m_setTargetHeight < Constants.Elevator.armStowHeight && getHeight() >= Constants.Elevator.armStowHeight){ 
+    } else if (armAngle < 85 && m_setTargetHeight <= Constants.Elevator.armStowHeight && getHeight() >= Constants.Elevator.armStowHeight-Units.inchesToMeters(1)){ 
       m_targetHeight = Constants.Elevator.armStowHeight;
-    } else if (wristAngle < 88 && m_setTargetHeight < Constants.Elevator.wristStowHeight && getHeight() >= Constants.Elevator.armStowHeight){ 
+    } else if (wristAngle < 60 && m_setTargetHeight < Constants.Elevator.wristStowHeight && getHeight() >= Constants.Elevator.armStowHeight){ 
       m_targetHeight = Constants.Elevator.wristStowHeight; 
     } else if (armAngle < 100 && armAngle > 91){ // intake
       m_targetHeight = Constants.Elevator.stowHeight;

@@ -181,14 +181,14 @@ private final QuixTalonFX m_wristMotor =
   public void periodic() {
 
 
-    if (RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle < Constants.Arm.armStowAngle){
+    if (RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle <= Constants.Arm.armStowAngle){
       m_armTargetAngle = setm_armTargetAngle;
-    } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, 1) && setm_armTargetAngle >= Constants.Arm.armStowAngle)
+    } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.metersToInches(1)) && setm_armTargetAngle >= Constants.Arm.armStowAngle)
     || (getArmAngle() > 100 && RobotContainer.elevator.getHeight() <= Constants.Elevator.intakeHeight && setm_armTargetAngle > Constants.Arm.armStowAngle)){
       m_armTargetAngle = setm_armTargetAngle;
     } else if (getArmAngle() < 92 && setm_armTargetAngle < 91) { // might need check 
       m_armTargetAngle = Constants.Arm.armStowAngle;
-    } else if (getArmAngle() > 96 && setm_armTargetAngle < 96) { // might need check 
+    } else if (getArmAngle() > 93 && setm_armTargetAngle < 96) { // might need check 
        m_armTargetAngle = Constants.Arm.armStowIntakeAngle;
      }
   
@@ -197,6 +197,8 @@ private final QuixTalonFX m_wristMotor =
     } else if (Math.abs(getWristAngle() - Units.radiansToDegrees(Constants.Arm.wristStartingAngle)) <= 2 && setm_wristTargetAngle ==Constants.Arm.wristStartingAngle) {
       m_wristTargetAngle = setm_wristTargetAngle;
     }else if (getArmAngle() >= 95){
+      m_wristTargetAngle = setm_wristTargetAngle;
+    }else if (getArmAngle() <= 70){
       m_wristTargetAngle = setm_wristTargetAngle;
     }else if (RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, 1)){
       m_wristTargetAngle = setm_wristTargetAngle;
@@ -233,6 +235,9 @@ private final QuixTalonFX m_wristMotor =
     SmartDashboard.putNumber(
         "Arm: Target Angle (deg)",
         Units.radiansToDegrees(m_armMotor.getClosedLoopReference()));
+    SmartDashboard.putNumber(
+        "Arm: Target set Angle (deg)",
+        Units.radiansToDegrees(m_armTargetAngle));
     SmartDashboard.putNumber(
         "Arm: Current Velocity (deg per sec)",
         Units.radiansToDegrees(m_armMotor.getSensorVelocity()));

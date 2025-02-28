@@ -74,7 +74,7 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void setTargetAdjust(double adjust) {
-    m_setTargetHeight += adjust * Constants.defaultPeriodSecs *0.0254 *0.1; 
+    m_setTargetHeight += adjust * Constants.defaultPeriodSecs *0.0254 *0.3; 
     // Constants.defaultPeriodSecs converts seconds to cycles, 0.0254 is inches to meters, 0.1 is a scaling factor
     
   }
@@ -89,7 +89,7 @@ public class ClimberSubsystem extends SubsystemBase {
  
 
   public boolean isAtHeight(double height, double tolerance) {
-    return Math.abs(height - m_motor.getSensorPosition()) <= tolerance;
+    return Math.abs(height - getHeight()) <= tolerance;
   }
   private double armAngle = 0;
   private double wristAngle = 0;
