@@ -17,3 +17,51 @@ autos
 
 
 -maybe coral ground later
+
+
+
+------------------------------- Controller Layouts --------------------------------------
+
+Driver:
+
+A: -                  --------------------------------- NOT CODED
+B: -                  --------------------------------- NOT CODED
+X: -                  --------------------------------- NOT CODED
+Y: -                  --------------------------------- NOT CODED
+
+Left Bumper: Left Score
+Right Bumper: Right Score
+
+Left Trigger: -
+Right Trigger: Coral Intake
+
+Back Button: Enable Auto Line up ------------------------NOT CODED
+Start Button: Zero heading
+
+Left Stick: X,Y Drive
+Right Stick: Rotation Drive
+
+D-Pad: L1 - L4 Set postion
+
+---------------------------------------
+
+Operator:
+
+A: Algae Wack
+B: Climb!        - Needs Climb Enabled
+X: Stow Climb    - Needs Climb Enabled
+Y: Prep Climb    - Needs Climb Enabled
+
+Left Bumper: Climb Enable
+Right Bumper: Stow all
+
+Left Trigger: -
+Right Trigger: -
+
+Back Button: Disable Elevator  --------------------------------- NOT CODED
+Start Button: Zero Climber - Needs Climb Enabled
+
+Left Stick: X: Climb Adjust - Needs Climb Enabled
+Right Stick: Coral Intake Manual - Need to Hold Down stick
+
+D-Pad: L1 - L4 Set postion
