@@ -183,8 +183,8 @@ private final QuixTalonFX m_wristMotor =
 
     if (RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle <= Constants.Arm.armStowAngle){
       m_armTargetAngle = setm_armTargetAngle;
-    } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.metersToInches(1)) && setm_armTargetAngle >= Constants.Arm.armStowAngle)
-    || (getArmAngle() > 100 && RobotContainer.elevator.getHeight() <= Constants.Elevator.intakeHeight && setm_armTargetAngle > Constants.Arm.armStowAngle)){
+    } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.inchesToMeters(1)) && setm_armTargetAngle >= Constants.Arm.armStowAngle)
+    || (getArmAngle() > 100 && RobotContainer.elevator.getHeight() <= Constants.Elevator.intakeHeight && setm_armTargetAngle >= Constants.Arm.armStowAngle)){
       m_armTargetAngle = setm_armTargetAngle;
     } else if (getArmAngle() < 92 && setm_armTargetAngle < 91) { // might need check 
       m_armTargetAngle = Constants.Arm.armStowAngle;
@@ -192,15 +192,15 @@ private final QuixTalonFX m_wristMotor =
        m_armTargetAngle = Constants.Arm.armStowIntakeAngle;
      }
   
-    if (setm_wristTargetAngle < Units.degreesToRadians(91)){ //RobotContainer.elevator.getHeight() >= Constants.Elevator.wristStowHeight && 
+    if (setm_wristTargetAngle < Units.degreesToRadians(85)){ //RobotContainer.elevator.getHeight() >= Constants.Elevator.wristStowHeight && 
       m_wristTargetAngle = setm_wristTargetAngle;
-    } else if (Math.abs(getWristAngle() - Units.radiansToDegrees(Constants.Arm.wristStartingAngle)) <= 2 && setm_wristTargetAngle ==Constants.Arm.wristStartingAngle) {
+    } else if (Math.abs(getWristAngle() - Units.radiansToDegrees(Constants.Arm.wristStartingAngle)) <= 2 && setm_wristTargetAngle == Constants.Arm.wristStartingAngle) {
       m_wristTargetAngle = setm_wristTargetAngle;
     }else if (getArmAngle() >= 95){
       m_wristTargetAngle = setm_wristTargetAngle;
     }else if (getArmAngle() <= 70){
       m_wristTargetAngle = setm_wristTargetAngle;
-    }else if (RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, 1)){
+    }else if (RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.inchesToMeters(1))){
       m_wristTargetAngle = setm_wristTargetAngle;
     }else{
       m_wristTargetAngle = Constants.Arm.wristStowAngle;

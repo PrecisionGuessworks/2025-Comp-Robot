@@ -55,7 +55,7 @@ public class CoralMoveScore extends Command {
       if(pastscoreheight != m_elevator.getHeightLocation()){
         m_arm.setArmAngle(Constants.Arm.armScoreAngle);
         
-        System.out.println("part");
+        //System.out.println("part");
         if(m_elevator.getHeightLocation() == 1){
           pastscoreheight = 1;
           m_elevator.setHeight(Constants.Elevator.L1);

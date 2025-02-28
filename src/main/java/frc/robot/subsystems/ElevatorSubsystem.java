@@ -73,13 +73,13 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public boolean isAtScore(){
     if (m_HeightLocation == 4){
-      return isAtHeight(Constants.Elevator.L4, 0.5);
+      return isAtHeight(Constants.Elevator.L4, Units.inchesToMeters(3));
     } else if (m_HeightLocation == 3){
-      return isAtHeight(Constants.Elevator.L3, 0.5);
+      return isAtHeight(Constants.Elevator.L3, Units.inchesToMeters(3));
     } else if (m_HeightLocation == 2){
-      return isAtHeight(Constants.Elevator.L2, 0.5);
+      return isAtHeight(Constants.Elevator.L2, Units.inchesToMeters(3));
     } else if (m_HeightLocation == 1){
-      return isAtHeight(Constants.Elevator.L1, 0.5);
+      return isAtHeight(Constants.Elevator.L1, Units.inchesToMeters(3));
     } else {
       return false;
     }
@@ -100,7 +100,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public boolean isAtHeight(double height, double tolerance) {
-    return Math.abs(height - m_motor.getSensorPosition()) <= tolerance;
+    return Math.abs(height - getHeight()) <= tolerance;
   }
   private double armAngle = 0;
   private double wristAngle = 0;
@@ -109,13 +109,13 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
     armAngle = RobotContainer.arm.getArmAngle();
     wristAngle = RobotContainer.arm.getWristAngle();
-    if (armAngle < 90 && wristAngle < 90 && m_setTargetHeight > Constants.Elevator.armStowHeight){
-      m_targetHeight = m_setTargetHeight;
-    } else if (armAngle < 85 && m_setTargetHeight <= Constants.Elevator.armStowHeight && getHeight() >= Constants.Elevator.armStowHeight-Units.inchesToMeters(1)){ 
+    if (armAngle < 75 && m_setTargetHeight <= Constants.Elevator.armStowHeight){ 
       m_targetHeight = Constants.Elevator.armStowHeight;
     } else if (wristAngle < 60 && m_setTargetHeight < Constants.Elevator.wristStowHeight && getHeight() >= Constants.Elevator.armStowHeight){ 
       m_targetHeight = Constants.Elevator.wristStowHeight; 
-    } else if (armAngle < 100 && armAngle > 91){ // intake
+    } else if ((armAngle < 90 && wristAngle < 90 && m_setTargetHeight > Constants.Elevator.armStowHeight)||armAngle < 70 && m_setTargetHeight > Constants.Elevator.armStowHeight){
+      m_targetHeight = m_setTargetHeight;
+    }else if (armAngle < 100 && armAngle > 91){ // intake
       m_targetHeight = Constants.Elevator.stowHeight;
     } else if (armAngle > 100 && m_setTargetHeight <= Constants.Elevator.intakeHeight && wristAngle > 85){
       m_targetHeight = m_setTargetHeight;

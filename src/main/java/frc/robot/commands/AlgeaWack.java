@@ -32,7 +32,7 @@ public class AlgeaWack extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_elevator.setHeight(Constants.Elevator.stowHeight);
+    //m_elevator.setHeight(Constants.Elevator.stowHeight);
     m_arm.setArmAngle(Constants.Arm.armWackAngle);
     m_arm.setWristAngle(Constants.Arm.wristWackAngle);
     pastscoreheight = 0;
@@ -48,7 +48,7 @@ public class AlgeaWack extends Command {
     if (3 >= PhotonUtils.getDistanceToPose(m_pose,targetpose)||Constants.PoseProtections){
       //System.out.println("CoralMoveScore");
       if(pastscoreheight != m_elevator.getHeightLocation()){
-        System.out.println("part");
+        //System.out.println("part");
         if(m_elevator.getHeightLocation() == 1){
           pastscoreheight = 2;
           m_elevator.setHeight(Constants.Elevator.L2Algae);

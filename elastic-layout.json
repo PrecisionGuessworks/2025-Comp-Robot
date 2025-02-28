@@ -10,7 +10,7 @@
           {
             "title": "Swerve Drive",
             "x": 0.0,
-            "y": 384.0,
+            "y": 256.0,
             "width": 384.0,
             "height": 384.0,
             "type": "SwerveDrive",
@@ -24,7 +24,7 @@
           {
             "title": "FMSInfo",
             "x": 0.0,
-            "y": 128.0,
+            "y": 0.0,
             "width": 384.0,
             "height": 128.0,
             "type": "FMSInfo",
@@ -36,7 +36,7 @@
           {
             "title": "Auto",
             "x": 0.0,
-            "y": 256.0,
+            "y": 128.0,
             "width": 384.0,
             "height": 128.0,
             "type": "ComboBox Chooser",
@@ -49,7 +49,7 @@
           {
             "title": "Reset Gyro",
             "x": 704.0,
-            "y": 192.0,
+            "y": 128.0,
             "width": 320.0,
             "height": 128.0,
             "type": "Command",
@@ -82,9 +82,9 @@
           {
             "title": "L1",
             "x": 1024.0,
-            "y": 576.0,
+            "y": 384.0,
             "width": 384.0,
-            "height": 192.0,
+            "height": 128.0,
             "type": "Boolean Box",
             "properties": {
               "topic": "/SmartDashboard/L1",
@@ -99,9 +99,9 @@
           {
             "title": "L2",
             "x": 1024.0,
-            "y": 384.0,
+            "y": 256.0,
             "width": 384.0,
-            "height": 192.0,
+            "height": 128.0,
             "type": "Boolean Box",
             "properties": {
               "topic": "/SmartDashboard/L2",
@@ -116,9 +116,9 @@
           {
             "title": "L3",
             "x": 1024.0,
-            "y": 192.0,
+            "y": 128.0,
             "width": 384.0,
-            "height": 192.0,
+            "height": 128.0,
             "type": "Boolean Box",
             "properties": {
               "topic": "/SmartDashboard/L3",
@@ -135,7 +135,7 @@
             "x": 1024.0,
             "y": 0.0,
             "width": 384.0,
-            "height": 192.0,
+            "height": 128.0,
             "type": "Boolean Box",
             "properties": {
               "topic": "/SmartDashboard/L4",
@@ -150,9 +150,9 @@
           {
             "title": "Auto Lineup",
             "x": 704.0,
-            "y": 576.0,
-            "width": 320.0,
-            "height": 192.0,
+            "y": 384.0,
+            "width": 192.0,
+            "height": 128.0,
             "type": "Boolean Box",
             "properties": {
               "topic": "/SmartDashboard/Auto Lineup",
@@ -169,7 +169,7 @@
             "x": 704.0,
             "y": 0.0,
             "width": 320.0,
-            "height": 192.0,
+            "height": 128.0,
             "type": "Match Time",
             "properties": {
               "topic": "/SmartDashboard/Time",
@@ -183,8 +183,8 @@
           {
             "title": "Elevator",
             "x": 704.0,
-            "y": 448.0,
-            "width": 320.0,
+            "y": 256.0,
+            "width": 192.0,
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
@@ -208,7 +208,7 @@
           {
             "title": "Swerve Drive",
             "x": 0.0,
-            "y": 384.0,
+            "y": 256.0,
             "width": 384.0,
             "height": 384.0,
             "type": "SwerveDrive",
@@ -222,7 +222,7 @@
           {
             "title": "FMSInfo",
             "x": 0.0,
-            "y": 128.0,
+            "y": 0.0,
             "width": 384.0,
             "height": 128.0,
             "type": "FMSInfo",
@@ -234,7 +234,7 @@
           {
             "title": "Auto",
             "x": 0.0,
-            "y": 256.0,
+            "y": 128.0,
             "width": 384.0,
             "height": 128.0,
             "type": "ComboBox Chooser",
@@ -247,7 +247,7 @@
           {
             "title": "Reset Gyro",
             "x": 704.0,
-            "y": 192.0,
+            "y": 128.0,
             "width": 320.0,
             "height": 128.0,
             "type": "Command",
@@ -272,7 +272,7 @@
               "robot_length": 0.85,
               "show_other_objects": true,
               "show_trajectories": true,
-              "field_rotation": 90.0,
+              "field_rotation": -90.0,
               "robot_color": 4294198070,
               "trajectory_color": 4294967295
             }
@@ -280,9 +280,9 @@
           {
             "title": "L1",
             "x": 1024.0,
-            "y": 576.0,
+            "y": 384.0,
             "width": 384.0,
-            "height": 192.0,
+            "height": 128.0,
             "type": "Boolean Box",
             "properties": {
               "topic": "/SmartDashboard/L1",
@@ -297,9 +297,9 @@
           {
             "title": "L2",
             "x": 1024.0,
-            "y": 384.0,
+            "y": 256.0,
             "width": 384.0,
-            "height": 192.0,
+            "height": 128.0,
             "type": "Boolean Box",
             "properties": {
               "topic": "/SmartDashboard/L2",
@@ -314,9 +314,9 @@
           {
             "title": "L3",
             "x": 1024.0,
-            "y": 192.0,
+            "y": 128.0,
             "width": 384.0,
-            "height": 192.0,
+            "height": 128.0,
             "type": "Boolean Box",
             "properties": {
               "topic": "/SmartDashboard/L3",
@@ -333,7 +333,7 @@
             "x": 1024.0,
             "y": 0.0,
             "width": 384.0,
-            "height": 192.0,
+            "height": 128.0,
             "type": "Boolean Box",
             "properties": {
               "topic": "/SmartDashboard/L4",
@@ -348,9 +348,9 @@
           {
             "title": "Auto Lineup",
             "x": 704.0,
-            "y": 576.0,
-            "width": 320.0,
-            "height": 192.0,
+            "y": 384.0,
+            "width": 192.0,
+            "height": 128.0,
             "type": "Boolean Box",
             "properties": {
               "topic": "/SmartDashboard/Auto Lineup",
@@ -367,7 +367,7 @@
             "x": 704.0,
             "y": 0.0,
             "width": 320.0,
-            "height": 192.0,
+            "height": 128.0,
             "type": "Match Time",
             "properties": {
               "topic": "/SmartDashboard/Time",
@@ -381,8 +381,8 @@
           {
             "title": "Elevator",
             "x": 704.0,
-            "y": 448.0,
-            "width": 320.0,
+            "y": 256.0,
+            "width": 192.0,
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
