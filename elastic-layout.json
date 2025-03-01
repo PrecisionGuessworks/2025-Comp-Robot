@@ -8,20 +8,6 @@
         "layouts": [],
         "containers": [
           {
-            "title": "Swerve Drive",
-            "x": 0.0,
-            "y": 256.0,
-            "width": 384.0,
-            "height": 384.0,
-            "type": "SwerveDrive",
-            "properties": {
-              "topic": "/SmartDashboard/Swerve Drive",
-              "period": 0.06,
-              "show_robot_rotation": true,
-              "rotation_unit": "Degrees"
-            }
-          },
-          {
             "title": "FMSInfo",
             "x": 0.0,
             "y": 0.0,
@@ -49,7 +35,7 @@
           {
             "title": "Reset Gyro",
             "x": 704.0,
-            "y": 128.0,
+            "y": 192.0,
             "width": 320.0,
             "height": 128.0,
             "type": "Command",
@@ -60,30 +46,10 @@
             }
           },
           {
-            "title": "Field",
-            "x": 384.0,
-            "y": 0.0,
-            "width": 320.0,
-            "height": 768.0,
-            "type": "Field",
-            "properties": {
-              "topic": "/SmartDashboard/Field",
-              "period": 0.06,
-              "field_game": "Reefscape",
-              "robot_width": 0.85,
-              "robot_length": 0.85,
-              "show_other_objects": true,
-              "show_trajectories": true,
-              "field_rotation": -90.0,
-              "robot_color": 4294198070,
-              "trajectory_color": 4294967295
-            }
-          },
-          {
             "title": "L1",
             "x": 1024.0,
             "y": 384.0,
-            "width": 384.0,
+            "width": 512.0,
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
@@ -100,7 +66,7 @@
             "title": "L2",
             "x": 1024.0,
             "y": 256.0,
-            "width": 384.0,
+            "width": 512.0,
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
@@ -117,7 +83,7 @@
             "title": "L3",
             "x": 1024.0,
             "y": 128.0,
-            "width": 384.0,
+            "width": 512.0,
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
@@ -134,7 +100,7 @@
             "title": "L4",
             "x": 1024.0,
             "y": 0.0,
-            "width": 384.0,
+            "width": 512.0,
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
@@ -149,9 +115,9 @@
           },
           {
             "title": "Auto Lineup",
-            "x": 704.0,
+            "x": 832.0,
             "y": 384.0,
-            "width": 192.0,
+            "width": 128.0,
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
@@ -169,7 +135,7 @@
             "x": 704.0,
             "y": 0.0,
             "width": 320.0,
-            "height": 128.0,
+            "height": 192.0,
             "type": "Match Time",
             "properties": {
               "topic": "/SmartDashboard/Time",
@@ -183,8 +149,8 @@
           {
             "title": "Elevator",
             "x": 704.0,
-            "y": 256.0,
-            "width": 192.0,
+            "y": 384.0,
+            "width": 128.0,
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
@@ -195,6 +161,40 @@
               "false_color": 4294198070,
               "true_icon": "None",
               "false_icon": "None"
+            }
+          },
+          {
+            "title": "Field",
+            "x": 384.0,
+            "y": 0.0,
+            "width": 320.0,
+            "height": 512.0,
+            "type": "Field",
+            "properties": {
+              "topic": "/SmartDashboard/Field",
+              "period": 0.06,
+              "field_game": "Reefscape",
+              "robot_width": 0.85,
+              "robot_length": 0.85,
+              "show_other_objects": true,
+              "show_trajectories": true,
+              "field_rotation": -90.0,
+              "robot_color": 4294198070,
+              "trajectory_color": 4294967295
+            }
+          },
+          {
+            "title": "Swerve Drive",
+            "x": 0.0,
+            "y": 256.0,
+            "width": 384.0,
+            "height": 256.0,
+            "type": "SwerveDrive",
+            "properties": {
+              "topic": "/SmartDashboard/Swerve Drive",
+              "period": 0.06,
+              "show_robot_rotation": true,
+              "rotation_unit": "Radians"
             }
           }
         ]
@@ -206,20 +206,6 @@
         "layouts": [],
         "containers": [
           {
-            "title": "Swerve Drive",
-            "x": 0.0,
-            "y": 256.0,
-            "width": 384.0,
-            "height": 384.0,
-            "type": "SwerveDrive",
-            "properties": {
-              "topic": "/SmartDashboard/Swerve Drive",
-              "period": 0.06,
-              "show_robot_rotation": true,
-              "rotation_unit": "Degrees"
-            }
-          },
-          {
             "title": "FMSInfo",
             "x": 0.0,
             "y": 0.0,
@@ -247,7 +233,7 @@
           {
             "title": "Reset Gyro",
             "x": 704.0,
-            "y": 128.0,
+            "y": 192.0,
             "width": 320.0,
             "height": 128.0,
             "type": "Command",
@@ -258,30 +244,10 @@
             }
           },
           {
-            "title": "Field",
-            "x": 384.0,
-            "y": 0.0,
-            "width": 320.0,
-            "height": 768.0,
-            "type": "Field",
-            "properties": {
-              "topic": "/SmartDashboard/Field",
-              "period": 0.06,
-              "field_game": "Reefscape",
-              "robot_width": 0.85,
-              "robot_length": 0.85,
-              "show_other_objects": true,
-              "show_trajectories": true,
-              "field_rotation": -90.0,
-              "robot_color": 4294198070,
-              "trajectory_color": 4294967295
-            }
-          },
-          {
             "title": "L1",
             "x": 1024.0,
             "y": 384.0,
-            "width": 384.0,
+            "width": 512.0,
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
@@ -298,7 +264,7 @@
             "title": "L2",
             "x": 1024.0,
             "y": 256.0,
-            "width": 384.0,
+            "width": 512.0,
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
@@ -315,7 +281,7 @@
             "title": "L3",
             "x": 1024.0,
             "y": 128.0,
-            "width": 384.0,
+            "width": 512.0,
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
@@ -332,7 +298,7 @@
             "title": "L4",
             "x": 1024.0,
             "y": 0.0,
-            "width": 384.0,
+            "width": 512.0,
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
@@ -347,9 +313,9 @@
           },
           {
             "title": "Auto Lineup",
-            "x": 704.0,
+            "x": 832.0,
             "y": 384.0,
-            "width": 192.0,
+            "width": 128.0,
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
@@ -367,7 +333,7 @@
             "x": 704.0,
             "y": 0.0,
             "width": 320.0,
-            "height": 128.0,
+            "height": 192.0,
             "type": "Match Time",
             "properties": {
               "topic": "/SmartDashboard/Time",
@@ -381,8 +347,8 @@
           {
             "title": "Elevator",
             "x": 704.0,
-            "y": 256.0,
-            "width": 192.0,
+            "y": 384.0,
+            "width": 128.0,
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
@@ -393,6 +359,40 @@
               "false_color": 4294198070,
               "true_icon": "None",
               "false_icon": "None"
+            }
+          },
+          {
+            "title": "Field",
+            "x": 384.0,
+            "y": 0.0,
+            "width": 320.0,
+            "height": 512.0,
+            "type": "Field",
+            "properties": {
+              "topic": "/SmartDashboard/Field",
+              "period": 0.06,
+              "field_game": "Reefscape",
+              "robot_width": 0.85,
+              "robot_length": 0.85,
+              "show_other_objects": true,
+              "show_trajectories": true,
+              "field_rotation": 90.0,
+              "robot_color": 4294198070,
+              "trajectory_color": 4294967295
+            }
+          },
+          {
+            "title": "Swerve Drive",
+            "x": 0.0,
+            "y": 256.0,
+            "width": 384.0,
+            "height": 256.0,
+            "type": "SwerveDrive",
+            "properties": {
+              "topic": "/SmartDashboard/Swerve Drive",
+              "period": 0.06,
+              "show_robot_rotation": true,
+              "rotation_unit": "Radians"
             }
           }
         ]
