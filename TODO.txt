@@ -35,7 +35,7 @@ Right Bumper: Right Score
 Left Trigger: -
 Right Trigger: Coral Intake
 
-Back Button: Enable Auto Line up ------------------------NOT CODED
+Back Button: Enable Auto Line up 
 Start Button: Zero heading
 
 Left Stick: X,Y Drive

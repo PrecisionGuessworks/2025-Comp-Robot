@@ -247,7 +247,7 @@ public class Constants {
 
     //public static final ArmFeedforward armFeedForward = new ArmFeedforward(3.0, 0.3, 0.6);
     public static final Constraints ArmConstraints =
-        new Constraints(1, 5.0); // rad/s and rad/s^2  8, 20.0
+        new Constraints(2.0, 8.0); // rad/s and rad/s^2  8, 20.0
     public static final double ArmMaxJerk = 1.0; // rad/s^3
     public static final int armPositionPIDSlot = 0;
     public static final PIDConfig armPositionPIDConfig = new PIDConfig(7, 0.0001, 0.1, 0, 0.4, 0.0008, 0.09, GravityTypeValue.Arm_Cosine);
@@ -258,11 +258,11 @@ public class Constants {
 
     //public static final ArmFeedforward wristFeedForward = new ArmFeedforward(0.0, 0.3, 0.6);
     public static final Constraints WristConstraints =
-        new Constraints(3.0, 20.0); // rad/s and rad/s^2   40.0, 80.0
+        new Constraints(4.0, 20.0); // rad/s and rad/s^2   40.0, 80.0
         public static final double WristMaxJerk = 1.0; // rad/s^3
     public static final int wristPositionPIDSlot = 0;
     public static final PIDConfig wristPositionPIDConfig = new PIDConfig(1.0, 0.0001, 0.1, 0, 0.2, 0.0008, 0.02,GravityTypeValue.Arm_Cosine);
-    public static final double wristExpo_kV = 0.2;    
+    public static final double wristExpo_kV = 0.2;   //                                                      ^ 1.22   
     public static final double wristExpo_kA = 0.01; // Use a slower kA of 0.1 V/(rps/s)
     // public static final int wristCoralPositionPIDSlot = 1;
     //public static final PIDConfig wristCoralPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 0.12, 0.007, 0);
@@ -369,10 +369,10 @@ public class Constants {
     //         3, 2.5,
     //         Units.degreesToRadians(400), Units.degreesToRadians(600));
 
-    // public static final double XvelocityFactor = 0.15;
-    // public static final double YvelocityFactor = 0.15;
+     public static final double XvelocityFactor = 0.1;
+     public static final double YvelocityFactor = 0.1;
 
-    public static final double SpeedReductionFactor = 0.4;
+    public static final double SpeedReductionFactor = 0.3;
 
     public static final double PTranslationSlow = 1;
     public static final double ITranslationSlow = 0;
@@ -380,34 +380,34 @@ public class Constants {
 
     public static final Pose2d Error = new Pose2d(6, 6, Rotation2d.fromDegrees(0));
 
-    public static final Pose2d Ablue = new Pose2d(3.2, 4.3, Rotation2d.fromDegrees(0));
-    public static final Pose2d Bblue = new Pose2d(3.2, 3.8, Rotation2d.fromDegrees(0));
-    public static final Pose2d Cblue = new Pose2d(3.7, 3.0, Rotation2d.fromDegrees(60));
-    public static final Pose2d Dblue = new Pose2d(4.1, 2.8, Rotation2d.fromDegrees(60));
-    public static final Pose2d Eblue = new Pose2d(4.9, 2.8, Rotation2d.fromDegrees(120));
-    public static final Pose2d Fblue = new Pose2d(5.4, 3.1, Rotation2d.fromDegrees(120));
-    public static final Pose2d Gblue = new Pose2d(5.8, 3.7, Rotation2d.fromDegrees(180));
-    public static final Pose2d Hblue = new Pose2d(5.8, 4.3, Rotation2d.fromDegrees(180));
-    public static final Pose2d Iblue = new Pose2d(5.4, 5.0, Rotation2d.fromDegrees(240));
-    public static final Pose2d Jblue = new Pose2d(5.0, 5.3, Rotation2d.fromDegrees(240));
-    public static final Pose2d Kblue = new Pose2d(4.1, 5.3, Rotation2d.fromDegrees(300));
-    public static final Pose2d Lblue = new Pose2d(3.7, 5.0, Rotation2d.fromDegrees(300));
+    public static final Pose2d Ablue = new Pose2d(3.180, 4.175, Rotation2d.fromDegrees(0));
+    public static final Pose2d Bblue = new Pose2d(3.180, 3.850, Rotation2d.fromDegrees(0));
+    public static final Pose2d Cblue = new Pose2d(3.685, 2.975, Rotation2d.fromDegrees(60));
+    public static final Pose2d Dblue = new Pose2d(3.975, 2.825, Rotation2d.fromDegrees(60));
+    public static final Pose2d Eblue = new Pose2d(5.000, 2.825, Rotation2d.fromDegrees(120));
+    public static final Pose2d Fblue = new Pose2d(5.285, 2.975, Rotation2d.fromDegrees(120));
+    public static final Pose2d Gblue = new Pose2d(5.8, 3.850, Rotation2d.fromDegrees(180));
+    public static final Pose2d Hblue = new Pose2d(5.8, 4.175, Rotation2d.fromDegrees(180));
+    public static final Pose2d Iblue = new Pose2d(5.285, 5.075, Rotation2d.fromDegrees(240));
+    public static final Pose2d Jblue = new Pose2d(5.000, 5.230, Rotation2d.fromDegrees(240));
+    public static final Pose2d Kblue = new Pose2d(3.975, 5.230, Rotation2d.fromDegrees(300));
+    public static final Pose2d Lblue = new Pose2d(3.685, 5.075, Rotation2d.fromDegrees(300));
 
     public static final double feildFlip = 17.5;
     public static final double feildFlipy = 8;
 
-    public static final Pose2d Ared = new Pose2d(feildFlip - 3.2, 4.3, Rotation2d.fromDegrees(180));
-    public static final Pose2d Bred = new Pose2d(feildFlip - 3.2, 3.8, Rotation2d.fromDegrees(180));
-    public static final Pose2d Cred = new Pose2d(feildFlip - 3.7, 3.0, Rotation2d.fromDegrees(120));
-    public static final Pose2d Dred = new Pose2d(feildFlip - 4.1, 2.8, Rotation2d.fromDegrees(120));
-    public static final Pose2d Ered = new Pose2d(feildFlip - 4.9, 2.8, Rotation2d.fromDegrees(60));
-    public static final Pose2d Fred = new Pose2d(feildFlip - 5.4, 3.1, Rotation2d.fromDegrees(60));
-    public static final Pose2d Gred = new Pose2d(feildFlip - 5.8, 3.7, Rotation2d.fromDegrees(0));
-    public static final Pose2d Hred = new Pose2d(feildFlip - 5.8, 4.3, Rotation2d.fromDegrees(0));
-    public static final Pose2d Ired = new Pose2d(feildFlip - 5.4, 5.0, Rotation2d.fromDegrees(300));
-    public static final Pose2d Jred = new Pose2d(feildFlip - 5.0, 5.3, Rotation2d.fromDegrees(300));
-    public static final Pose2d Kred = new Pose2d(feildFlip - 4.1, 5.3, Rotation2d.fromDegrees(240));
-    public static final Pose2d Lred = new Pose2d(feildFlip - 3.7, 5.0, Rotation2d.fromDegrees(240));
+    public static final Pose2d Ared = new Pose2d(feildFlip - 3.180, feildFlipy - 4.175, Rotation2d.fromDegrees(180));
+    public static final Pose2d Bred = new Pose2d(feildFlip - 3.180, feildFlipy - 3.850, Rotation2d.fromDegrees(180));
+    public static final Pose2d Cred = new Pose2d(feildFlip - 3.685, feildFlipy - 2.975, Rotation2d.fromDegrees(120));
+    public static final Pose2d Dred = new Pose2d(feildFlip - 3.975, feildFlipy - 2.825, Rotation2d.fromDegrees(120));
+    public static final Pose2d Ered = new Pose2d(feildFlip - 5.000, feildFlipy - 2.825, Rotation2d.fromDegrees(60));
+    public static final Pose2d Fred = new Pose2d(feildFlip - 5.285, feildFlipy - 2.975, Rotation2d.fromDegrees(60));
+    public static final Pose2d Gred = new Pose2d(feildFlip - 5.8, feildFlipy - 3.850, Rotation2d.fromDegrees(0));
+    public static final Pose2d Hred = new Pose2d(feildFlip - 5.8, feildFlipy - 4.175, Rotation2d.fromDegrees(0));
+    public static final Pose2d Ired = new Pose2d(feildFlip - 5.285, feildFlipy - 5.075, Rotation2d.fromDegrees(300));
+    public static final Pose2d Jred = new Pose2d(feildFlip - 5.000, feildFlipy - 5.230, Rotation2d.fromDegrees(300));
+    public static final Pose2d Kred = new Pose2d(feildFlip - 3.975, feildFlipy - 5.230, Rotation2d.fromDegrees(240));
+    public static final Pose2d Lred = new Pose2d(feildFlip - 3.685, feildFlipy - 5.075, Rotation2d.fromDegrees(240));
 
 
 

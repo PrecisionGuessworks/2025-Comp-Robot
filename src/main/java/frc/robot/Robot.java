@@ -32,6 +32,7 @@ import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.swerve.SwerveDrivetrain.SwerveDriveState;
+import com.fasterxml.jackson.databind.util.internal.PrivateMaxEntriesMap;
 import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.swerve.SwerveModule;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants;
@@ -69,6 +70,9 @@ public class Robot extends TimedRobot {
   private final boolean kUseLimelight = false;
 
   private String autoName, newAutoName;
+
+  private boolean elevatorOn = false;
+  private boolean lineup = false;
 
   private final Field2d m_field = new Field2d();
   
@@ -130,6 +134,21 @@ public class Robot extends TimedRobot {
   } else if (m_robotContainer.driver.pov(270).getAsBoolean() == true || m_robotContainer.operator.pov(270).getAsBoolean() == true){
     RobotContainer.elevator.setHeightLocation(1);
 
+  }
+
+  if(m_robotContainer.driver.back().getAsBoolean()) {
+    lineup = true;
+  }
+  if(!m_robotContainer.driver.back().getAsBoolean()&&lineup) {
+    RobotContainer.drivetrain.setLineup(!RobotContainer.drivetrain.getLineup());
+    lineup = false;
+  }
+  if(m_robotContainer.operator.back().getAsBoolean()) {
+    elevatorOn = true;
+  }
+  if(!m_robotContainer.operator.back().getAsBoolean()&&elevatorOn) {
+    RobotContainer.elevator.setElevatorOn(!RobotContainer.elevator.getElevatorOn());
+    elevatorOn = false;
   }
   
   double leftY = m_robotContainer.operator.getLeftY();

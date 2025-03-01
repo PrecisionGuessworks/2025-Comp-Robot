@@ -69,6 +69,7 @@ import static frc.robot.Constants.Drive.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class RobotContainer {
     private double MaxSpeed = MaxSpeedPercentage*(TunerConstants.kSpeedAt12Volts.in(MetersPerSecond)); // kSpeedAt12Volts desired top speed
@@ -80,6 +81,8 @@ public class RobotContainer {
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
     public static final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+
+    private Optional<Alliance> m_ally = DriverStation.getAlliance();
 
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
@@ -286,11 +289,12 @@ climberFrameViz.addLink(
 
 
        // driver.a().whileTrue(new AlgeaWack(elevator, arm));
-       // driver.b().onTrue(drivetrain.runOnce(() -> RobotContainer.drivetrain.setLineup(!RobotContainer.drivetrain.getLineup())));
+       
        driver.a().whileTrue(new MoveupArm(1,elevator,arm)); 
        driver.b().whileTrue(new MoveupArm(2,elevator,arm)); 
        driver.y().whileTrue(new Moveup(elevator));
-       driver.x().whileTrue(new AlgeaWack(elevator, arm));
+
+       operator.a().whileTrue(new AlgeaWack(elevator, arm));
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a - single log.
         driver.back().and(driver.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
@@ -350,20 +354,24 @@ climberFrameViz.addLink(
     double intercpet = Math.tan(Units.degreesToRadians(30))*4.5;
     double intercpetRed = Math.tan(Units.degreesToRadians(30))*13;
     double slope = Math.tan(Units.degreesToRadians(30));
+    Pose2d targetPose = Constants.Pose.Error; // Example target pose
     // Create the constraints to use while pathfinding
     
     private Command pathfindingCommand(boolean left) {
+        
 
     PIDController xController = new PIDController(Constants.Pose.PTranslationSlow, Constants.Pose.ITranslationSlow, Constants.Pose.DTranslationSlow);
     xController.setIntegratorRange(-1, 1);
     PIDController yController = new PIDController(Constants.Pose.PTranslationSlow, Constants.Pose.ITranslationSlow, Constants.Pose.DTranslationSlow);
     yController.setIntegratorRange(-1, 1);
 
-       Pose2d targetPose = Constants.Pose.Ablue; // Example target pose
+       
 
        return new Command() {
            @Override
            public void initialize() {
+            m_ally = DriverStation.getAlliance();
+              targetPose = getTargetPose(left);
             if (drivetrain.getLineup()){
                xController.reset();
                yController.reset();
@@ -383,11 +391,19 @@ climberFrameViz.addLink(
                double yOutput = Constants.Pose.SpeedReductionFactor * MaxSpeed * yController.calculate(Y, targetPose.getY());
             //    System.out.println(xOutput);
             //    System.out.println(yOutput);
+            if (m_ally.get() == Alliance.Blue){
                drivetrain.applyRequest(() -> 
                    angle.withVelocityX(xOutput)
                         .withVelocityY(yOutput)
                         .withTargetDirection(targetPose.getRotation())
                ).execute();
+            } else {
+                drivetrain.applyRequest(() -> 
+                   angle.withVelocityX(-xOutput)
+                        .withVelocityY(-yOutput)
+                        .withTargetDirection(targetPose.getRotation())
+               ).execute();
+            }
             }
            }
 
@@ -404,237 +420,106 @@ climberFrameViz.addLink(
        };
     }
 
-    // private Command pathfindingCommand(boolean left) {
-    //     // Since AutoBuilder is configured, we can use it to build pathfinding commands
-    //     Map<String, Command> commandMap = new HashMap<>();
-    //     commandMap.put("error", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Error,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Ablue", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Ablue,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Bblue", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Bblue,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Cblue", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Cblue,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Dblue", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Dblue,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Eblue", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Eblue,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Fblue", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Fblue,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Gblue", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Gblue,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Hblue", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Hblue,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Iblue", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Iblue,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Jblue", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Jblue,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Kblue", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Kblue,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Lblue", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Lblue,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Ared", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Ared,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     )); 
-    //     commandMap.put("Bred", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Bred,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Cred", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Cred,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Dred", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Dred,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Ered", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Ered,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Fred", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Fred,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Gred", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Gred,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Hred", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Hred,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Ired", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Ired,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     )); 
-    //     commandMap.put("Jred", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Jred,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Kred", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Kred,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
-    //     commandMap.put("Lred", AutoBuilder.pathfindToPose(
-    //         Constants.Pose.Lred,
-    //         Constants.Pose.constraints,
-    //         0.0
-    //     ));
 
+     private Pose2d getTargetPose(boolean left) {
+        Pose2d currentPose = drivetrain.getState().Pose;
+        ChassisSpeeds currentSpeeds = drivetrain.getState().Speeds;
+        X = currentPose.getTranslation().getX() + currentSpeeds.vxMetersPerSecond * Constants.Pose.XvelocityFactor;
+        Y = currentPose.getTranslation().getY() + currentSpeeds.vyMetersPerSecond * Constants.Pose.YvelocityFactor;
+        System.out.println(X);
+        System.out.println(Y);
         
+        if(m_ally.get() == Alliance.Blue){ 
+
+            if (Y <= -X*slope + intercpet+4 && Y >= X*slope - intercpet+4 && left && X <= 4.5) {
+            System.out.println("Ablue");
+            return Constants.Pose.Ablue;
+            } else if (Y <= -X*slope + intercpet+4 && Y >= X*slope - intercpet+4 && !left && X <= 4.5) {
+            System.out.println("Bblue");
+            return Constants.Pose.Bblue;
+            } else if (Y <= X*slope - intercpet+4 && X <= 4.5 && left) {
+            System.out.println("Cblue");
+            return Constants.Pose.Cblue;
+            } else if (Y <= X*slope - intercpet+4 && X <= 4.5 && !left) {
+            System.out.println("Dblue");
+            return Constants.Pose.Dblue;
+            } else if (Y <= -X*slope + intercpet+4 && X >= 4.5 && !left) {
+            System.out.println("Eblue");
+            return Constants.Pose.Eblue;
+            } else if (Y <= -X*slope + intercpet+4 && X >= 4.5 && left) {
+            System.out.println("Fblue");
+            return Constants.Pose.Fblue;
+            } else if (Y >= -X*slope + intercpet+4 && Y <= X*slope - intercpet+4 && !left && X >= 4.5) {
+            System.out.println("Gblue");
+            return Constants.Pose.Gblue;
+            } else if (Y >= -X*slope + intercpet+4 && Y <= X*slope - intercpet+4 && left && X >= 4.5) {
+            System.out.println("Hblue");
+            return Constants.Pose.Hblue;
+            } else if (Y >= X*slope - intercpet+4 && X >= 4.5 && !left) {
+            System.out.println("Iblue");
+            return Constants.Pose.Iblue;
+            } else if (Y >= X*slope - intercpet+4 &&  X >= 4.5 && left) {
+            System.out.println("Jblue");
+            return Constants.Pose.Jblue;
+            } else if (Y >= -X*slope + intercpet+4 && X <= 4.5 && !left) {
+            System.out.println("Kblue");
+            return Constants.Pose.Kblue;
+            } else if (Y >= -X*slope + intercpet+4 && X <= 4.5 && left) {
+            System.out.println("Lblue");
+            return Constants.Pose.Lblue;
+            } else {
+            System.out.println("error");
+            return Constants.Pose.Error;
+            }
+
+        } else {
+        if (Y <= -X*slope + intercpetRed+4 && Y >= X*slope - intercpetRed+4 && !left && X <= 13.0) {
+            System.out.println("Gred");
+            return Constants.Pose.Gred;
+            } else if (Y <= -X*slope + intercpetRed+4 && Y >= X*slope - intercpetRed+4 && left && X <= 13.0) {
+            System.out.println("Hred");
+            return Constants.Pose.Hred;
+            } else if (Y <= X*slope - intercpetRed+4 && X <= 13.0 && !left) {
+            System.out.println("Ired");
+            return Constants.Pose.Ired;
+            } else if (Y <= X*slope - intercpetRed+4 && X <= 13.0 && left) {
+            System.out.println("Jred");
+            return Constants.Pose.Jred;
+            } else if (Y <= -X*slope + intercpetRed+4 && X >= 13.0 && left) {
+            System.out.println("Kred");
+            return Constants.Pose.Kred;
+            } else if (Y <= -X*slope + intercpetRed+4 && X >= 13.0 && !left) {
+            System.out.println("Lred");
+            return Constants.Pose.Lred;
+            } else if (Y >= -X*slope + intercpetRed+4 && Y <= X*slope - intercpetRed+4 && left && X >= 13.0) {
+            System.out.println("Ared");
+            return Constants.Pose.Ared;
+            } else if (Y >= -X*slope + intercpetRed+4 && Y <= X*slope - intercpetRed+4 && !left && X >= 13.0) {
+            System.out.println("Bred");
+            return Constants.Pose.Bred;
+            } else if (Y >= X*slope - intercpetRed+4 && X >= 13.0 && left) {
+            System.out.println("Cred");
+            return Constants.Pose.Cred;
+            } else if (Y >= X*slope - intercpetRed+4 &&  X >= 13.0 && !left) {
+            System.out.println("Dred");
+            return Constants.Pose.Dred;
+            } else if (Y >= -X*slope + intercpetRed+4 && X <= 13.0 && !left) {
+            System.out.println("Ered");
+            return Constants.Pose.Ered;
+            } else if (Y >= -X*slope + intercpetRed+4 && X <= 13.0 && left) {
+            System.out.println("Fred");
+            return Constants.Pose.Fred;
+            } else {
+            System.out.println("error");
+            return Constants.Pose.Error;
+            }
+            
+            }
+
+     }  
         
 
-    //     return Commands.select(commandMap, () -> {
-    //         Pose2d currentPose = drivetrain.getState().Pose;
-    //         ChassisSpeeds currentSpeeds = drivetrain.getState().Speeds;
-    //         X = currentPose.getTranslation().getX() + currentSpeeds.vxMetersPerSecond * Constants.Pose.XvelocityFactor;
-    //         Y = currentPose.getTranslation().getY() + currentSpeeds.vyMetersPerSecond * Constants.Pose.YvelocityFactor;
-    //         System.out.println(X);
-    //         System.out.println(Y);
-            
-    //         if(DriverStation.getAlliance().get() == Alliance.Blue){ 
-
-    //             if (Y <= -X*slope + intercpet+4 && Y >= X*slope - intercpet+4 && left && X <= 4.5) {
-    //             System.out.println("Ablue");
-    //             return "Ablue";
-    //             } else if (Y <= -X*slope + intercpet+4 && Y >= X*slope - intercpet+4 && !left && X <= 4.5) {
-    //             System.out.println("Bblue");
-    //             return "Bblue";
-    //             } else if (Y <= X*slope - intercpet+4 && X <= 4.5 && left) {
-    //             System.out.println("Cblue");
-    //             return "Cblue";
-    //             } else if (Y <= X*slope - intercpet+4 && X <= 4.5 && !left) {
-    //             System.out.println("Dblue");
-    //             return "Dblue";
-    //             } else if (Y <= -X*slope + intercpet+4 && X >= 4.5 && left) {
-    //             System.out.println("Eblue");
-    //             return "Eblue";
-    //             } else if (Y <= -X*slope + intercpet+4 && X >= 4.5 && !left) {
-    //             System.out.println("Fblue");
-    //             return "Fblue";
-    //             } else if (Y >= -X*slope + intercpet+4 && Y <= X*slope - intercpet+4 && left && X >= 4.5) {
-    //             System.out.println("Gblue");
-    //             return "Gblue";
-    //             } else if (Y >= -X*slope + intercpet+4 && Y <= X*slope - intercpet+4 && !left && X >= 4.5) {
-    //             System.out.println("Hblue");
-    //             return "Hblue";
-    //             } else if (Y >= X*slope - intercpet+4 && X >= 4.5 && left) {
-    //             System.out.println("Iblue");
-    //             return "Iblue";
-    //             } else if (Y >= X*slope - intercpet+4 &&  X >= 4.5 && !left) {
-    //             System.out.println("Jblue");
-    //             return "Jblue";
-    //             } else if (Y >= -X*slope + intercpet+4 && X <= 4.5 && left) {
-    //             System.out.println("Kblue");
-    //             return "Kblue";
-    //             } else if (Y >= -X*slope + intercpet+4 && X <= 4.5 && !left) {
-    //             System.out.println("Lblue");
-    //             return "Lblue";
-    //             } else {
-    //             System.out.println("error");
-    //             return "error";
-    //             }
-
-    //         } else {
-    //         if (Y <= -X*slope + intercpetRed+4 && Y >= X*slope - intercpetRed+4 && left && X <= 13.0) {
-    //                 System.out.println("Ared");
-    //                 return "Ared";
-    //                 } else if (Y <= -X*slope + intercpetRed+4 && Y >= X*slope - intercpetRed+4 && !left && X <= 13.0) {
-    //                 System.out.println("Bred");
-    //                 return "Bred";
-    //                 } else if (Y <= X*slope - intercpetRed+4 && X <= 13.0 && left) {
-    //                 System.out.println("Cred");
-    //                 return "Cred";
-    //                 } else if (Y <= X*slope - intercpetRed+4 && X <= 13.0 && !left) {
-    //                 System.out.println("Dred");
-    //                 return "Dred";
-    //                 } else if (Y <= -X*slope + intercpetRed+4 && X >= 13.0 && left) {
-    //                 System.out.println("Ered");
-    //                 return "Ered";
-    //                 } else if (Y <= -X*slope + intercpetRed+4 && X >= 13.0 && !left) {
-    //                 System.out.println("Fred");
-    //                 return "Fred";
-    //                 } else if (Y >= -X*slope + intercpetRed+4 && Y <= X*slope - intercpetRed+4 && left && X >= 13.0) {
-    //                 System.out.println("Gred");
-    //                 return "Gred";
-    //                 } else if (Y >= -X*slope + intercpetRed+4 && Y <= X*slope - intercpetRed+4 && !left && X >= 13.0) {
-    //                 System.out.println("Hred");
-    //                 return "Hred";
-    //                 } else if (Y >= X*slope - intercpetRed+4 && X >= 13.0 && left) {
-    //                 System.out.println("Ired");
-    //                 return "Ired";
-    //                 } else if (Y >= X*slope - intercpetRed+4 &&  X >= 13.0 && !left) {
-    //                 System.out.println("Jred");
-    //                 return "Jred";
-    //                 } else if (Y >= -X*slope + intercpetRed+4 && X <= 13.0 && left) {
-    //                 System.out.println("Kred");
-    //                 return "Kred";
-    //                 } else if (Y >= -X*slope + intercpetRed+4 && X <= 13.0 && !left) {
-    //                 System.out.println("Lred");
-    //                 return "Lred";
-    //                 } else {
-    //                 System.out.println("error");
-    //                 return "error";
-    //                 }
-                
-    //             }
-            
-
-
-    //     });
-    // }
+        
 
         
      private Command pathfindingtofollowCommand() {
