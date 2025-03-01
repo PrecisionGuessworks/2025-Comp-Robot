@@ -135,9 +135,9 @@ public class Constants {
     public static final boolean motorInvert = true;
     public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
-    public static final PIDConfig motorPIDConfig = new PIDConfig(2, 0.01, 0.01, 0.04, 0.09, 0.008, 0.08,GravityTypeValue.Elevator_Static);
-    public static final double maxVelocity = 0.6; // m/s // 1
-    public static final double maxAcceleration = 20.0; // m/s^2
+    public static final PIDConfig motorPIDConfig = new PIDConfig(10, 0.01, 0.01, 0.04, 0.09, 0.008, 0.08,GravityTypeValue.Elevator_Static);
+    public static final double maxVelocity = 1.2; // m/s // 1
+    public static final double maxAcceleration = 25.0; // m/s^2
     public static final double maxJerk = 1.0; // m/s^3 (0 disables jerk limit)
     public static final double Expo_kV = 0.09;    
     public static final double Expo_kA = 0.1; // Use a slower kA of 0.1 V/(rps/s)
@@ -250,7 +250,7 @@ public class Constants {
         new Constraints(1, 5.0); // rad/s and rad/s^2  8, 20.0
     public static final double ArmMaxJerk = 1.0; // rad/s^3
     public static final int armPositionPIDSlot = 0;
-    public static final PIDConfig armPositionPIDConfig = new PIDConfig(3, 0.0001, 0.1, 0, 0.4, 0.0008, 0.09, GravityTypeValue.Arm_Cosine);
+    public static final PIDConfig armPositionPIDConfig = new PIDConfig(7, 0.0001, 0.1, 0, 0.4, 0.0008, 0.09, GravityTypeValue.Arm_Cosine);
     public static final double armExpo_kV = 0.4;    
     public static final double armExpo_kA = 0.01; // Use a slower kA of 0.1 V/(rps/s)
   //  public static final int armCoralPositionPIDSlot = 1;
