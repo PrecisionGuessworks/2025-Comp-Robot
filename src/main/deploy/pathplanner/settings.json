@@ -7,9 +7,13 @@
     "Middle",
     "Left"
   ],
-  "autoFolders": [],
-  "defaultMaxVel": 3.0,
-  "defaultMaxAccel": 3.0,
+  "autoFolders": [
+    "Left",
+    "Middle",
+    "Right"
+  ],
+  "defaultMaxVel": 2.5,
+  "defaultMaxAccel": 2.75,
   "defaultMaxAngVel": 400.0,
   "defaultMaxAngAccel": 600.0,
   "defaultNominalVoltage": 12.0,
@@ -18,7 +22,7 @@
   "robotTrackwidth": 0.5588,
   "driveWheelRadius": 0.0508,
   "driveGearing": 6.21,
-  "maxDriveSpeed": 4.0,
+  "maxDriveSpeed": 5.0,
   "driveMotorType": "krakenX60FOC",
   "driveCurrentLimit": 120.0,
   "wheelCOF": 1.2,

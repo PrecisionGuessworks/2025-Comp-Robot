@@ -258,10 +258,10 @@ public class Constants {
 
     //public static final ArmFeedforward wristFeedForward = new ArmFeedforward(0.0, 0.3, 0.6);
     public static final Constraints WristConstraints =
-        new Constraints(4.0, 20.0); // rad/s and rad/s^2   40.0, 80.0
+        new Constraints(4.0, 14.0); // rad/s and rad/s^2   40.0, 80.0
         public static final double WristMaxJerk = 1.0; // rad/s^3
     public static final int wristPositionPIDSlot = 0;
-    public static final PIDConfig wristPositionPIDConfig = new PIDConfig(1.0, 0.0001, 0.1, 0, 0.2, 0.0008, 0.02,GravityTypeValue.Arm_Cosine);
+    public static final PIDConfig wristPositionPIDConfig = new PIDConfig(2.0, 0.0001, 0.1, 0, 0.2, 0.0008, 0.02,GravityTypeValue.Arm_Cosine);
     public static final double wristExpo_kV = 0.2;   //                                                      ^ 1.22   
     public static final double wristExpo_kA = 0.01; // Use a slower kA of 0.1 V/(rps/s)
     // public static final int wristCoralPositionPIDSlot = 1;

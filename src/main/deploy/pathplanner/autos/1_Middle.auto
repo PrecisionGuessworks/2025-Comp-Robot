@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Start-H"
+            "pathName": "Start-Mid"
           }
         },
         {
@@ -39,6 +39,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Middle",
   "choreoAuto": false
 }

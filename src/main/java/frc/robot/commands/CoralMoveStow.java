@@ -59,7 +59,9 @@ public class CoralMoveStow extends Command {
    m_arm.setWristAngle(Constants.Arm.wristStowAngle);
    m_arm.setArmRollerCurrent(30, 60);
     m_arm.setRollerVelocity(0);
-    m_elevator.setHeight(Constants.Elevator.stowHeight);
+    if (m_elevator.getHeightLocation()!=1){}
+    m_elevator.setHeight(Constants.Elevator.L2);
+  
   }
     
   }
