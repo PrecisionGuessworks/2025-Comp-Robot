@@ -103,13 +103,13 @@ public class Constants {
         public static final double DRotation = 0.03;
         
         // 0.0-1.0 of the max speed
-        public static final double MaxSpeedPercentage = 1.0; // Default 1.0
+        public static final double MaxSpeedPercentage = 0.75; // Default 1.0
         // Rotation per second max angular velocity
-        public static final double MaxAngularRatePercentage = 1; // Default 0.75 
+        public static final double MaxAngularRatePercentage = 0.75; // Default 0.75 
 
         // Deadbands for the drive and rotation
-        public static final double DriveDeadband = 0.04; // Drive Deadband
-        public static final double RotationDeadband = 0.04; // Rotation Deadband
+        public static final double DriveDeadband = 0.02; // Drive Deadband
+        public static final double RotationDeadband = 0.02; // Rotation Deadband
         public static final double SnapRotationDeadband = 0.001; // Snap Rotation Deadband
 
     }
@@ -150,12 +150,12 @@ public class Constants {
     public static final double wristStowHeight = Units.inchesToMeters(4); // m
     public static final double armStowHeight = Units.inchesToMeters(8); // m
     public static final double stowTolerance = Units.inchesToMeters(0.1); // m
-    public static final double intakeHeight = Units.inchesToMeters(10); // m
+    public static final double intakeHeight = Units.inchesToMeters(9); // m
 
     public static final double L1 = Units.inchesToMeters(1); // m
-    public static final double L2 = Units.inchesToMeters(17); // m
-    public static final double L3 = Units.inchesToMeters(33); // m
-    public static final double L4 = Units.inchesToMeters(56); // m
+    public static final double L2 = Units.inchesToMeters(19.25); // m
+    public static final double L3 = Units.inchesToMeters(35); // m
+    public static final double L4 = Units.inchesToMeters(56.5); // m
 
     public static final double L2Algae = Units.inchesToMeters(15); // m
     public static final double L3Algae = Units.inchesToMeters(34); // m
@@ -290,7 +290,7 @@ public class Constants {
     public static final double AngleTolerance = Units.degreesToRadians(1);
 
     public static final double intakeVelocity = -200.0; // rads/s
-    public static final double outtakeVelocity = 1000.0; // rads/s
+    public static final double outtakeVelocity = 1300.0; // rads/s
 
 
     public static final double armIntakeAngle = Units.degreesToRadians(130);
@@ -307,7 +307,8 @@ public class Constants {
     public static final double armWackAfterAngle = Units.degreesToRadians(10);
     public static final double wristWackAfterAngle = Units.degreesToRadians(130);
     public static final double wristTestAngle = Units.degreesToRadians(160);
-    public static final double wristL1Score = Units.degreesToRadians(35);
+    public static final double wristL1Score = Units.degreesToRadians(50);
+    public static final double wristL4Score = Units.degreesToRadians(4);
 
     public static final Transform2d robotToArm =
         new Transform2d(Units.inchesToMeters(12.0), 0.0, new Rotation2d());
@@ -341,7 +342,7 @@ public class Constants {
     public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
     public static final PIDConfig motorPIDConfig = new PIDConfig(3, 0, 0.1, 0, 0.12, 0, 0.4,GravityTypeValue.Elevator_Static);
-    public static final double maxVelocity = 0.01; // m/s
+    public static final double maxVelocity = 0.04; // m/s
     public static final double maxAcceleration = 30.0; // m/s^2
     public static final double maxJerk = 0.0; // m/s^3 (0 disables jerk limit)
 
@@ -350,9 +351,9 @@ public class Constants {
     //public static final double powerCutoffHeight = Units.inchesToMeters(0.1); // m
     public static final double maxHeight = Units.inchesToMeters(25.0); // m
     public static final double stowHeight = Units.inchesToMeters(0); // m
-    public static final double upperStowHeight = Units.inchesToMeters(4); // m
-    public static final double climbHeight = Units.inchesToMeters(2); // m
-    public static final double stowTolerance = Units.inchesToMeters(0.25); // m
+    public static final double upperStowHeight = Units.inchesToMeters(-8.1); // m //-1.3141   -8.2623
+    public static final double climbHeight = Units.inchesToMeters(0); // m
+    public static final double stowTolerance = Units.inchesToMeters(0.01); // m
 
     // For simulation.
     public static final double simCarriageMass = 25.0; // kg

@@ -37,7 +37,7 @@ public class CoralMoveStow extends Command {
   public void initialize() {
     m_placeTimer.restart();
     if (m_elevator.isAtScore()){
-    m_arm.setArmRollerCurrent(60, 120);
+    m_arm.setArmRollerCurrent(120, 65);
     m_arm.setRollerVelocity(Constants.Arm.outtakeVelocity);
     }
     

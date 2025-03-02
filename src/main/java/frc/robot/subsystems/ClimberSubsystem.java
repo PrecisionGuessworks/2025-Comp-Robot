@@ -74,7 +74,7 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void setTargetAdjust(double adjust) {
-    m_setTargetHeight += adjust * Constants.defaultPeriodSecs *0.0254 *0.5; 
+    m_setTargetHeight += adjust * Constants.defaultPeriodSecs *0.0254 *0.8; 
     // Constants.defaultPeriodSecs converts seconds to cycles, 0.0254 is inches to meters, 0.1 is a scaling factor
     
   }
@@ -98,12 +98,13 @@ public class ClimberSubsystem extends SubsystemBase {
   public void periodic() {
     armAngle = RobotContainer.arm.getArmAngle();
     wristAngle = RobotContainer.arm.getWristAngle();
-   if (armAngle < 92 && wristAngle < 92){
-      m_targetHeight = m_setTargetHeight;
-    } else {
-      m_targetHeight = Constants.Climber.stowHeight;
-    }
+  //  if (armAngle < 92 && wristAngle < 92){
+  //     m_targetHeight = m_setTargetHeight;
+  //   } else {
+  //    // m_targetHeight = Constants.Climber.stowHeight;
+  //   }
     // This method will be called once per scheduler run
+    m_targetHeight = m_setTargetHeight;
     m_motor.setDynamicMotionMagicPositionSetpoint(
         Constants.Climber.motorPositionSlot,
         m_targetHeight,

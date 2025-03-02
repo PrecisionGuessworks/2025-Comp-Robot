@@ -200,7 +200,7 @@ climberFrameViz.addLink(
     public RobotContainer() {
 
         //robotCommands.put("IntakePiece", new IntakeAlgae(intake,1).withTimeout(2.5));
-        robotCommands.put("CoralMoveScore", new CoralMoveScore(elevator, arm).withTimeout(3));
+        robotCommands.put("CoralMoveScore", new CoralMoveScore(elevator, arm));
         robotCommands.put("CoralMoveStow", new CoralMoveStow(elevator, arm));
         robotCommands.put("IntakeCoral", new IntakeCoral(elevator, arm));
     
@@ -260,6 +260,11 @@ climberFrameViz.addLink(
 
         //driver.y().whileTrue(new ClimbSet(climber));
         //driver.x().whileTrue(pathfindingtofollowCommand());
+        driver.leftTrigger().whileTrue(drivetrain.applyRequest(() ->
+        drive.withVelocityX(-driver.getLeftY() * MaxSpeed*0.3) // Drive forward with negative Y (forward)
+            .withVelocityY(-driver.getLeftX() * MaxSpeed*0.3) // Drive left with negative X (left)
+            .withRotationalRate(-driver.getRightX() * MaxAngularRate*0.3) // Drive counterclockwise with negative X (left)
+    ));
         driver.rightTrigger().whileTrue(new IntakeCoral(elevator, arm));
        // driver.leftTrigger().whileTrue(new IntakeAlgae(intake, 0));
         driver.start().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));

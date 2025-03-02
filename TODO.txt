@@ -32,7 +32,7 @@ Y: -                  --------------------------------- NOT CODED
 Left Bumper: Left Score
 Right Bumper: Right Score
 
-Left Trigger: -
+Left Trigger: Slow Mode
 Right Trigger: Coral Intake
 
 Back Button: Enable Auto Line up 
@@ -58,7 +58,7 @@ Right Bumper: Stow all
 Left Trigger: -
 Right Trigger: -
 
-Back Button: Disable Elevator  --------------------------------- NOT CODED
+Back Button: Disable Elevator  
 Start Button: Zero Climber - Needs Climb Enabled
 
 Left Stick: X: Climb Adjust - Needs Climb Enabled

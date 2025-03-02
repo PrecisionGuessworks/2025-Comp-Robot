@@ -54,8 +54,8 @@ public class IntakeCoral extends Command {
     m_arm.setArmAngle(Constants.Arm.armStowAngle);
     m_arm.setWristAngle(Constants.Arm.wristStowAngle);
     m_elevator.setHeight(Constants.Elevator.stowHeight);
-    m_arm.setArmRollerCurrent(10, 5); 
-    m_arm.setRollerVelocity(-8);
+    m_arm.setArmRollerCurrent(10, 10); 
+    m_arm.setRollerVelocity(-20);
   }
 
   // Returns true when the command should end.

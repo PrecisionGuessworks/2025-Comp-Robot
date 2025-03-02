@@ -81,8 +81,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     } else if (m_HeightLocation == 2){
       return isAtHeight(Constants.Elevator.L2, Units.inchesToMeters(3));
     } else if (m_HeightLocation == 1){
-      return isAtHeight(Constants.Elevator.L1, Units.inchesToMeters(3))&& RobotContainer.arm.getWristAngle()
-    >= Constants.Arm.wristL1Score - Units.degreesToRadians(3) && RobotContainer.arm.getWristAngle() <= Constants.Arm.wristL1Score + Units.degreesToRadians(3);
+      return isAtHeight(Constants.Elevator.L1, Units.inchesToMeters(3));
     } else {
       return false;
     }

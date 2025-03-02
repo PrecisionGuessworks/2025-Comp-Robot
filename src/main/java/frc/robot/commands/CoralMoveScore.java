@@ -38,13 +38,15 @@ public class CoralMoveScore extends Command {
   @Override
   public void initialize() {
     pastscoreheight = 0;
-  
+    
     
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_arm.setArmRollerCurrent(30, 15); 
+    m_arm.setRollerVelocity(-20);
     
     Pose2d m_pose = RobotContainer.drivetrain.getState().Pose;
     Pose2d targetpose = new Pose2d(4.5,4,new Rotation2d(0));
@@ -71,7 +73,7 @@ public class CoralMoveScore extends Command {
         } else if(m_elevator.getHeightLocation() == 4){
           pastscoreheight = 4;
           m_elevator.setHeight(Constants.Elevator.L4);
-          m_arm.setWristAngle(Constants.Arm.wristScoreAngle);
+          m_arm.setWristAngle(Constants.Arm.wristL4Score);
         }
       }
     } else {
