@@ -310,9 +310,9 @@ climberFrameViz.addLink(
      //   operator.leftTrigger().whileTrue(new IntakeAlgae(intake, 2));
      //   operator.rightTrigger().whileTrue(new IntakeAlgae(intake, 1));
         operator.rightBumper().whileTrue(new StowArm(elevator, arm));
-        operator.leftBumper().and(operator.b()).onTrue(new ClimbSet(1, climber, elevator, arm));
+        operator.leftBumper().and(operator.x()).onTrue(new ClimbSet(1, climber, elevator, arm));
         operator.leftBumper().and(operator.y()).onTrue(new ClimbSet(2, climber, elevator, arm));
-        operator.leftBumper().and(operator.x()).onTrue(new ClimbSet(3, climber, elevator, arm));
+        operator.leftBumper().and(operator.b()).onTrue(new ClimbSet(3, climber, elevator, arm));
         operator.leftBumper().and(operator.start()).onTrue(new ClimbZero(climber, elevator, arm));
         
         

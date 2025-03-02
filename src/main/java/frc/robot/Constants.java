@@ -153,8 +153,8 @@ public class Constants {
     public static final double intakeHeight = Units.inchesToMeters(9); // m
 
     public static final double L1 = Units.inchesToMeters(1); // m
-    public static final double L2 = Units.inchesToMeters(19.25); // m
-    public static final double L3 = Units.inchesToMeters(35); // m
+    public static final double L2 = Units.inchesToMeters(19); // m
+    public static final double L3 = Units.inchesToMeters(34.7); // m
     public static final double L4 = Units.inchesToMeters(56.5); // m
 
     public static final double L2Algae = Units.inchesToMeters(15); // m
@@ -352,7 +352,7 @@ public class Constants {
     public static final double maxHeight = Units.inchesToMeters(25.0); // m
     public static final double stowHeight = Units.inchesToMeters(0); // m
     public static final double upperStowHeight = Units.inchesToMeters(-8.1); // m //-1.3141   -8.2623
-    public static final double climbHeight = Units.inchesToMeters(0); // m
+    public static final double climbHeight = Units.inchesToMeters(1.1); // m
     public static final double stowTolerance = Units.inchesToMeters(0.01); // m
 
     // For simulation.
