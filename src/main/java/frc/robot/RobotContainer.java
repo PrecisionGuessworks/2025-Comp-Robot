@@ -297,7 +297,7 @@ climberFrameViz.addLink(
        
        driver.a().whileTrue(new MoveupArm(1,elevator,arm)); 
        driver.b().whileTrue(new MoveupArm(2,elevator,arm)); 
-       driver.y().whileTrue(new Moveup(elevator));
+       operator.y().whileTrue(new Moveup(elevator));
 
        operator.a().whileTrue(new AlgeaWack(elevator, arm));
         // Run SysId routines when holding back/start and X/Y.
@@ -310,9 +310,9 @@ climberFrameViz.addLink(
      //   operator.leftTrigger().whileTrue(new IntakeAlgae(intake, 2));
      //   operator.rightTrigger().whileTrue(new IntakeAlgae(intake, 1));
         operator.rightBumper().whileTrue(new StowArm(elevator, arm));
-        operator.leftBumper().and(operator.x()).onTrue(new ClimbSet(1, climber, elevator, arm));
-        operator.leftBumper().and(operator.y()).onTrue(new ClimbSet(2, climber, elevator, arm));
-        operator.leftBumper().and(operator.b()).onTrue(new ClimbSet(3, climber, elevator, arm));
+        //operator.leftBumper().and(operator.x()).onTrue(new ClimbSet(1, climber, elevator, arm));
+        //operator.leftBumper().and(operator.y()).onTrue(new ClimbSet(2, climber, elevator, arm));
+        //operator.leftBumper().and(operator.b()).onTrue(new ClimbSet(3, climber, elevator, arm));
         operator.leftBumper().and(operator.start()).onTrue(new ClimbZero(climber, elevator, arm));
         
         
