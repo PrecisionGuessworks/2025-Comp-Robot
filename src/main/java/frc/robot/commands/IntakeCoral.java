@@ -29,7 +29,7 @@ public class IntakeCoral extends Command {
   @Override
   public void initialize() {
     m_elevator.setHeight(Constants.Elevator.stowHeight);
-    m_arm.setArmAngle(Constants.Arm.armIntakeAngle);
+    m_arm.setArmAngle(Constants.Arm.armStowAngle);
     m_arm.setWristAngle(Constants.Arm.wristIntakeAngle);
     m_arm.setArmRollerCurrent(55, 90);  
     m_arm.setRollerVelocity(Constants.Arm.intakeVelocity);
@@ -39,11 +39,11 @@ public class IntakeCoral extends Command {
   @Override
   public void execute() {
     //System.out.println(m_arm.getArmAngle());
-    if (RobotContainer.arm.getArmAngle() > 110) {
-      m_elevator.setHeight(Constants.Elevator.intakeHeight);
-    } else {
-      m_elevator.setHeight(Constants.Elevator.stowHeight);
-    }
+    // if (RobotContainer.arm.getArmAngle() > 110) {
+    //   m_elevator.setHeight(Constants.Elevator.intakeHeight);
+    // } else {
+    //   m_elevator.setHeight(Constants.Elevator.stowHeight);
+    // }
     //m_elevator.setHeight(Constants.Elevator.stowHeight);
     
   }
