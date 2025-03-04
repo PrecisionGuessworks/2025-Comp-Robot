@@ -297,7 +297,7 @@ ArmWristViz.addLink(
        
        driver.a().whileTrue(new MoveupArm(1,elevator,arm)); 
        driver.b().whileTrue(new MoveupArm(2,elevator,arm)); 
-       driver.y().whileTrue(new Moveup(elevator));
+       operator.y().whileTrue(new Moveup(elevator));
 
        operator.a().whileTrue(new AlgeaWack(elevator, arm));
         // Run SysId routines when holding back/start and X/Y.
