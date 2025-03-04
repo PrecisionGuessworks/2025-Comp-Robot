@@ -151,12 +151,12 @@ public class Robot extends TimedRobot {
     elevatorOn = false;
   }
   
-  double leftY = m_robotContainer.operator.getLeftY();
-  if (Math.abs(leftY) > 0.1) { // Deadband of 0.1
-    if (m_robotContainer.operator.leftBumper().getAsBoolean() == true) {
-      RobotContainer.climber.setTargetAdjust(leftY);
-    }
-  }
+  // double leftY = m_robotContainer.operator.getLeftY();
+  // if (Math.abs(leftY) > 0.1) { // Deadband of 0.1
+  //   if (m_robotContainer.operator.leftBumper().getAsBoolean() == true) {
+  //     RobotContainer.climber.setTargetAdjust(leftY);
+  //   }
+  // }
 
     if (m_robotContainer.operator.rightStick().getAsBoolean() == true) {
       double rightyop = m_robotContainer.operator.getRightY();
