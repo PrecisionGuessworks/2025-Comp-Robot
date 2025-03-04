@@ -163,32 +163,32 @@ ArmWristViz.addLink(
 
     
 // Climber viz
-private static final Link2d climberFrameViz =
-robotViz.addLink(
-    new Link2d(
-        robotViz,
-        "Climber Base",
-        Constants.Viz.climberBaseLength,
-        4.0,
-        Color.kGreen,
-        new Transform2d(
-            Constants.Viz.climberBaseX,
-            Constants.Viz.climberBaseY,
-            Constants.Viz.climberAngle)));
-private static final Link2d climberCarriageViz =
-climberFrameViz.addLink(
-    new Link2d(
-        robotViz,
-        "Climber Carriage",
-        Constants.Viz.climberCarriageLength,
-        6.0,
-        Color.kLightGreen));
+// private static final Link2d climberFrameViz =
+// robotViz.addLink(
+//     new Link2d(
+//         robotViz,
+//         "Climber Base",
+//         Constants.Viz.climberBaseLength,
+//         4.0,
+//         Color.kGreen,
+//         new Transform2d(
+//             Constants.Viz.climberBaseX,
+//             Constants.Viz.climberBaseY,
+//             Constants.Viz.climberAngle)));
+// private static final Link2d climberCarriageViz =
+// climberFrameViz.addLink(
+//     new Link2d(
+//         robotViz,
+//         "Climber Carriage",
+//         Constants.Viz.climberCarriageLength,
+//         6.0,
+//         Color.kLightGreen));
 
 
         public static final ElevatorSubsystem elevator = new ElevatorSubsystem(elevatorCarriageViz);
         //public static final IntakeSubsystem intake = new IntakeSubsystem(intakeArmViz, intakeRollerViz);
         public static final ArmSubsystem arm = new ArmSubsystem(ArmArmViz,ArmWristViz,ArmWheelViz);
-        public static final ClimberSubsystem climber = new ClimberSubsystem(climberCarriageViz);
+//        public static final ClimberSubsystem climber = new ClimberSubsystem(climberCarriageViz);
 
 
 
@@ -310,10 +310,10 @@ climberFrameViz.addLink(
      //   operator.leftTrigger().whileTrue(new IntakeAlgae(intake, 2));
      //   operator.rightTrigger().whileTrue(new IntakeAlgae(intake, 1));
         operator.rightBumper().whileTrue(new StowArm(elevator, arm));
-        operator.leftBumper().and(operator.x()).onTrue(new ClimbSet(1, climber, elevator, arm));
-        operator.leftBumper().and(operator.y()).onTrue(new ClimbSet(2, climber, elevator, arm));
-        operator.leftBumper().and(operator.b()).onTrue(new ClimbSet(3, climber, elevator, arm));
-        operator.leftBumper().and(operator.start()).onTrue(new ClimbZero(climber, elevator, arm));
+        // operator.leftBumper().and(operator.x()).onTrue(new ClimbSet(1, climber, elevator, arm));
+        // operator.leftBumper().and(operator.y()).onTrue(new ClimbSet(2, climber, elevator, arm));
+        // operator.leftBumper().and(operator.b()).onTrue(new ClimbSet(3, climber, elevator, arm));
+        // operator.leftBumper().and(operator.start()).onTrue(new ClimbZero(climber, elevator, arm));
         
         
 

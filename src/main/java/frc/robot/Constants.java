@@ -95,11 +95,11 @@ public class Constants {
 
         // PID for Rotation and Translation for Auto and Teleop Snap
         public static final double PTranslation = 5;
-        public static final double ITranslation = 0;
+        public static final double ITranslation = 0.01;
         public static final double DTranslation = 0.1;
 
         public static final double PRotation = 3;
-        public static final double IRotation = 0;
+        public static final double IRotation = 0.01;
         public static final double DRotation = 0.03;
         
         // 0.0-1.0 of the max speed
