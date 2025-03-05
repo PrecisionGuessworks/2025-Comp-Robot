@@ -54,6 +54,7 @@ import frc.robot.Constants.Climber;
 import frc.robot.commands.AlgeaWack;
 import frc.robot.commands.ClimbSet;
 import frc.robot.commands.ClimbZero;
+import frc.robot.commands.CoralEleUp;
 import frc.robot.commands.CoralMoveScore;
 import frc.robot.commands.CoralMoveStow;
 import frc.robot.commands.IntakeCoral;
@@ -223,8 +224,8 @@ ArmWristViz.addLink(
           builder.setSmartDashboardType("Gyro");
           builder.addDoubleProperty("Value", () -> drivetrain.getPigeon2().getYaw().getValueAsDouble(), null);
         });
-          SmartDashboard.putNumber("Time",Timer.getMatchTime());
-          SmartDashboard.putNumber("Time2",DriverStation.getMatchTime());
+         // SmartDashboard.putNumber("Time",Timer.getMatchTime());
+          SmartDashboard.putNumber("Time",DriverStation.getMatchTime());
           SmartDashboard.putNumber("Voltage",RobotController.getBatteryVoltage());
           SmartDashboard.putNumber("CAN",RobotController.getCANStatus().percentBusUtilization * 100.0);
           SmartDashboard.putData("Command Scheduler", CommandScheduler.getInstance());
@@ -297,15 +298,16 @@ ArmWristViz.addLink(
        
        driver.a().whileTrue(new MoveupArm(1,elevator,arm)); 
        driver.b().whileTrue(new MoveupArm(2,elevator,arm)); 
-       operator.y().whileTrue(new Moveup(elevator));
+       driver.y().whileTrue(new Moveup(elevator));
 
+        operator.y().whileTrue(new CoralEleUp(elevator));
        operator.a().whileTrue(new AlgeaWack(elevator, arm));
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a - single log.
-        driver.back().and(driver.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
-        driver.back().and(driver.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
-        driver.start().and(driver.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
-        driver.start().and(driver.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
+        // driver.back().and(driver.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
+        // driver.back().and(driver.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
+        // driver.start().and(driver.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
+        // driver.start().and(driver.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
         
      //   operator.leftTrigger().whileTrue(new IntakeAlgae(intake, 2));
      //   operator.rightTrigger().whileTrue(new IntakeAlgae(intake, 1));

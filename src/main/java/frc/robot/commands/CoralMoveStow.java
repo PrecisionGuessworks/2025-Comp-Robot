@@ -38,8 +38,12 @@ public class CoralMoveStow extends Command {
     m_placeTimer.restart();
     if (m_elevator.isAtScore()){
     m_arm.setArmRollerCurrent(120, 65);
-    m_arm.setRollerVelocity(Constants.Arm.outtakeVelocity);
+    if (m_elevator.getHeightLocation()==1){
+    m_arm.setRollerVelocity(Constants.Arm.rollerL1Score);
+    } else {
+      m_arm.setRollerVelocity(Constants.Arm.outtakeVelocity);
     }
+  }
     
   }
 
@@ -60,7 +64,7 @@ public class CoralMoveStow extends Command {
    m_arm.setArmRollerCurrent(30, 60);
     m_arm.setRollerVelocity(0);
     if (m_elevator.getHeightLocation()!=1){
-    m_elevator.setHeight(Constants.Elevator.L2);
+    m_elevator.setHeight(Constants.Elevator.PreStow);
     }
   
   }
@@ -70,6 +74,6 @@ public class CoralMoveStow extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_placeTimer.hasElapsed(0.50) ; //|| !m_elevator.isAtScore()
+    return m_placeTimer.hasElapsed(0.40) ; //|| !m_elevator.isAtScore()
   }
 }
