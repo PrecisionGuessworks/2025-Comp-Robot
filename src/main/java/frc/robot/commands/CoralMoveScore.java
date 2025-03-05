@@ -45,7 +45,7 @@ public class CoralMoveScore extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_arm.setArmRollerCurrent(30, 15); 
+    m_arm.setArmRollerCurrent(20, 10); 
     m_arm.setRollerVelocity(-20);
     
     Pose2d m_pose = RobotContainer.drivetrain.getState().Pose;
@@ -55,25 +55,29 @@ public class CoralMoveScore extends Command {
    if (2.5 >= PhotonUtils.getDistanceToPose(m_pose,targetpose)||Constants.PoseProtections){
       //System.out.println("CoralMoveScore");
       if(pastscoreheight != m_elevator.getHeightLocation()){
-        m_arm.setArmAngle(Constants.Arm.armScoreAngle);
+        
         
         //System.out.println("part");
         if(m_elevator.getHeightLocation() == 1){
           pastscoreheight = 1;
           m_elevator.setHeight(Constants.Elevator.L1);
           m_arm.setWristAngle(Constants.Arm.wristL1Score);
+          m_arm.setArmAngle(Constants.Arm.armL1Score);
         } else if(m_elevator.getHeightLocation() == 2){
           pastscoreheight = 2;
           m_elevator.setHeight(Constants.Elevator.L2);
           m_arm.setWristAngle(Constants.Arm.wristScoreAngle);
+          m_arm.setArmAngle(Constants.Arm.armScoreAngle);
         } else if(m_elevator.getHeightLocation() == 3){
           pastscoreheight = 3;
           m_elevator.setHeight(Constants.Elevator.L3);
           m_arm.setWristAngle(Constants.Arm.wristScoreAngle);
+          m_arm.setArmAngle(Constants.Arm.armScoreAngle);
         } else if(m_elevator.getHeightLocation() == 4){
           pastscoreheight = 4;
           m_elevator.setHeight(Constants.Elevator.L4);
           m_arm.setWristAngle(Constants.Arm.wristL4Score);
+          m_arm.setArmAngle(Constants.Arm.armScoreAngle);
         }
       }
     } else {

@@ -181,42 +181,42 @@ private final QuixTalonFX m_wristMotor =
   public void periodic() {
 
 
-    // if (RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle <= Constants.Arm.armStowAngle){
-    //   m_armTargetAngle = setm_armTargetAngle;
-    // } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.inchesToMeters(1)) && setm_armTargetAngle >= Constants.Arm.armStowAngle)
-    // || (getArmAngle() > 100 && RobotContainer.elevator.getHeight() <= Constants.Elevator.intakeHeight && setm_armTargetAngle >= Constants.Arm.armStowAngle)){
-    //   m_armTargetAngle = setm_armTargetAngle;
-    // } else if (getArmAngle() < 92 && setm_armTargetAngle < 91) { // might need check 
-    //   m_armTargetAngle = Constants.Arm.armStowAngle;
-    // } else if (getArmAngle() > 93 && setm_armTargetAngle < 96) { // might need check 
-    //    m_armTargetAngle = Constants.Arm.armStowIntakeAngle;
-    //  }
     if (RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle <= Constants.Arm.armStowAngle){
-       m_armTargetAngle = setm_armTargetAngle;
-    } else {
+      m_armTargetAngle = setm_armTargetAngle;
+    } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.inchesToMeters(1)) && setm_armTargetAngle >= Constants.Arm.armStowAngle)
+    || (getArmAngle() > 100 && RobotContainer.elevator.getHeight() <= Constants.Elevator.intakeHeight && setm_armTargetAngle >= Constants.Arm.armStowAngle)){
+      m_armTargetAngle = setm_armTargetAngle;
+    } else if (getArmAngle() < 92 && setm_armTargetAngle < 91) { // might need check 
       m_armTargetAngle = Constants.Arm.armStowAngle;
-    }
-  
-    // if (setm_wristTargetAngle < Units.degreesToRadians(85)&&getArmAngle() < 95){ //RobotContainer.elevator.getHeight() >= Constants.Elevator.wristStowHeight && 
-    //   m_wristTargetAngle = setm_wristTargetAngle;
-    // } else if (Math.abs(getWristAngle() - Units.radiansToDegrees(Constants.Arm.wristStartingAngle)) <= 2 && setm_wristTargetAngle == Constants.Arm.wristStartingAngle) {
-    //   m_wristTargetAngle = setm_wristTargetAngle;
-    // }else if (getArmAngle() >= 95){
-    //   m_wristTargetAngle = Constants.Arm.wristIntakeAngle;
-    // }else if (getArmAngle() <= 70){
-    //   m_wristTargetAngle = setm_wristTargetAngle;
-    // }else if (RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.inchesToMeters(1))){
-    //  m_wristTargetAngle = setm_wristTargetAngle;
-    // }else{
-    //  m_wristTargetAngle = Constants.Arm.wristStowAngle;
+    } else if (getArmAngle() > 93 && setm_armTargetAngle < 96) { // might need check 
+       m_armTargetAngle = Constants.Arm.armStowIntakeAngle;
+     }
+    // if (RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle <= Constants.Arm.armStowAngle){
+    //    m_armTargetAngle = setm_armTargetAngle;
+    // } else {
+    //   m_armTargetAngle = Constants.Arm.armStowAngle;
     // }
-    if (RobotContainer.elevator.getHeight() > Constants.Elevator.wristStowHeight && setm_wristTargetAngle <= Constants.Arm.wristStowAngle){
+  
+    if (setm_wristTargetAngle < Units.degreesToRadians(85)&&getArmAngle() < 95){ //RobotContainer.elevator.getHeight() >= Constants.Elevator.wristStowHeight && 
       m_wristTargetAngle = setm_wristTargetAngle;
-    } else if (RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.inchesToMeters(1))){ 
+    } else if (Math.abs(getWristAngle() - Units.radiansToDegrees(Constants.Arm.wristStartingAngle)) <= 2 && setm_wristTargetAngle == Constants.Arm.wristStartingAngle) {
       m_wristTargetAngle = setm_wristTargetAngle;
-    } else {
-      m_wristTargetAngle = Constants.Arm.wristStowAngle;
+    }else if (getArmAngle() >= 95){
+      m_wristTargetAngle = Constants.Arm.wristIntakeAngle;
+    }else if (getArmAngle() <= 70){
+      m_wristTargetAngle = setm_wristTargetAngle;
+    }else if (RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.inchesToMeters(1))){
+     m_wristTargetAngle = setm_wristTargetAngle;
+    }else{
+     m_wristTargetAngle = Constants.Arm.wristStowAngle;
     }
+    // if (RobotContainer.elevator.getHeight() > Constants.Elevator.wristStowHeight && setm_wristTargetAngle <= Constants.Arm.wristStowAngle){
+    //   m_wristTargetAngle = setm_wristTargetAngle;
+    // } else if (RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.inchesToMeters(1))){ 
+    //   m_wristTargetAngle = setm_wristTargetAngle;
+    // } else {
+    //   m_wristTargetAngle = Constants.Arm.wristStowAngle;
+    // }
 
        //m_armTargetAngle = setm_armTargetAngle;
        //m_wristTargetAngle = setm_wristTargetAngle;
