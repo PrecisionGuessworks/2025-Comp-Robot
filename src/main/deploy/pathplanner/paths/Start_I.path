@@ -47,6 +47,17 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
+      "name": "StowArm",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "StowArm"
+        }
+      }
+    },
+    {
       "name": "CoralMoveScore",
       "waypointRelativePos": 0.45572666025024056,
       "endWaypointRelativePos": null,
