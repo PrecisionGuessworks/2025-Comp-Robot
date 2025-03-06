@@ -153,14 +153,14 @@ public class Constants {
     public static final double intakeHeight = Units.inchesToMeters(9); // m
 
     public static final double L1 = Units.inchesToMeters(1); // m
-    public static final double L2 = Units.inchesToMeters(17); // m
-    public static final double L3 = Units.inchesToMeters(33); // m
+    public static final double L2 = Units.inchesToMeters(14.5); // m
+    public static final double L3 = Units.inchesToMeters(30.5); // m
     public static final double L4 = Units.inchesToMeters(56.3); // m
 
     public static final double L2Algae = Units.inchesToMeters(15); // m
     public static final double L3Algae = Units.inchesToMeters(31.5); // m
 
-    public static final double PreStow = Units.inchesToMeters(8); // m
+    public static final double PreStow = Units.inchesToMeters(12); // m
 
     // For simulation.
     public static final double simCarriageMass = 7.0; // kg
@@ -206,8 +206,8 @@ public class Constants {
         new Constraints(2.5, 8.0); // rad/s and rad/s^2  8, 20.0
     public static final double ArmMaxJerk = 1.0; // rad/s^3
     public static final int armPositionPIDSlot = 0;
-    public static final PIDConfig armPositionPIDConfig = new PIDConfig(7, 0.0001, 0.1, 0, 0.35, 0.0008, 0.09, GravityTypeValue.Arm_Cosine);
-    public static final double armExpo_kV = 0.35;    
+    public static final PIDConfig armPositionPIDConfig = new PIDConfig(10, 0.0001, 0.03, 0, 0.45, 0.0008, 0.09, GravityTypeValue.Arm_Cosine);
+    public static final double armExpo_kV = 0.45;    
     public static final double armExpo_kA = 0.01; // Use a slower kA of 0.1 V/(rps/s)
   //  public static final int armCoralPositionPIDSlot = 1;
   //  public static final PIDConfig armCoralPositionPIDConfig = new PIDConfig(2.0, 0, 0.1, 0, 0.12, 0.007, 0);

@@ -3,7 +3,7 @@ import cv2
 # OPEN CV 
 
 # URL of the camera stream
-stream_url = 'http://localhost:1182/stream.mjpg' # Replace this with the URL of the camera stream 10.16.46.11:????
+stream_url = 'http://10.16.46.11:1183/stream.mjpg' # Replace this with the URL of the camera stream 10.16.46.11:????
 
 # Open the video stream
 cap = cv2.VideoCapture(stream_url)
@@ -22,13 +22,13 @@ while True:
 
     # Draw some lines on the frame
     height, width, _ = frame.shape
-    cv2.line(frame, (0, 0), (width, height), (0, 255, 0), 2)  # Diagonal line from top-left to bottom-right
-    cv2.line(frame, (0, height), (width, 0), (0, 255, 0), 2)  # Diagonal line from bottom-left to top-right
-    cv2.line(frame, (width // 2, 0), (width // 2, height), (0, 255, 0), 2)  # Vertical line in the middle
-    cv2.line(frame, (0, height // 2), (width, height // 2), (0, 255, 0), 2)  # Horizontal line in the middle
+    #cv2.line(frame, (0, 0), (width, height), (0, 255, 0), 2)  # Diagonal line from top-left to bottom-right
+    #cv2.line(frame, (0, height), (width, 0), (0, 255, 0), 2)  # Diagonal line from bottom-left to top-right
+    cv2.line(frame, (150, 0), (150, height), (0, 255, 0), 2)  # Vertical line in the middle
+    cv2.line(frame, (175, 0), (175, height), (0, 255, 0), 2)
 
     # Display the resulting frame
-    cv2.imshow('Camera Stream with Lines', frame)
+    cv2.imshow('Camera Stream', frame)
 
     # Break the loop on 'q' key press
     if cv2.waitKey(1) & 0xFF == ord('q'):

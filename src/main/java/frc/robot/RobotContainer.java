@@ -263,9 +263,9 @@ ArmWristViz.addLink(
         //driver.y().whileTrue(new ClimbSet(climber));
         //driver.x().whileTrue(pathfindingtofollowCommand());
         driver.leftTrigger().whileTrue(drivetrain.applyRequest(() ->
-        drive.withVelocityX(-driver.getLeftY() * MaxSpeed*0.3) // Drive forward with negative Y (forward)
-            .withVelocityY(-driver.getLeftX() * MaxSpeed*0.3) // Drive left with negative X (left)
-            .withRotationalRate(-driver.getRightX() * MaxAngularRate*0.3) // Drive counterclockwise with negative X (left)
+        drive.withVelocityX(-driver.getLeftY() * MaxSpeed*0.15) // Drive forward with negative Y (forward)
+            .withVelocityY(-driver.getLeftX() * MaxSpeed*0.15) // Drive left with negative X (left)
+            .withRotationalRate(-driver.getRightX() * MaxAngularRate*0.15) // Drive counterclockwise with negative X (left)
     ));
         driver.rightTrigger().whileTrue(new IntakeCoral(elevator, arm));
        // driver.leftTrigger().whileTrue(new IntakeAlgae(intake, 0));

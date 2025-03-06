@@ -186,9 +186,9 @@ private final QuixTalonFX m_wristMotor =
     } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.inchesToMeters(1)) && setm_armTargetAngle >= Constants.Arm.armStowAngle)
     || (getArmAngle() > 100 && RobotContainer.elevator.getHeight() <= Constants.Elevator.intakeHeight && setm_armTargetAngle >= Constants.Arm.armStowAngle)){
       m_armTargetAngle = setm_armTargetAngle;
-    } else if (getArmAngle() < 92 && setm_armTargetAngle < 91) { // might need check 
+    } else if (getArmAngle() < 93 && setm_armTargetAngle < 91) { // might need check 
       m_armTargetAngle = Constants.Arm.armStowAngle;
-    } else if (getArmAngle() > 93 && setm_armTargetAngle < 96) { // might need check 
+    } else if (getArmAngle() >= 93 && setm_armTargetAngle < 96) { // might need check 
        m_armTargetAngle = Constants.Arm.armStowIntakeAngle;
      }
     // if (RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle <= Constants.Arm.armStowAngle){
