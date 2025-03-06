@@ -3,7 +3,9 @@ import cv2
 # OPEN CV 
 
 # URL of the camera stream
-stream_url = 'http://10.16.46.11:1183/stream.mjpg' # Replace this with the URL of the camera stream 10.16.46.11:????
+stream_url = 'http://localhost:1182/stream.mjpg' # Replace this with the URL of the camera stream 10.16.46.11:?????
+#TEST: http://localhost:1182/stream.mjpg
+#REAL: http://10.16.46.11:1183/stream.mjpg
 
 # Open the video stream
 cap = cv2.VideoCapture(stream_url)
@@ -11,6 +13,8 @@ cap = cv2.VideoCapture(stream_url)
 if not cap.isOpened():
     print("Error: Could not open video stream")
     exit()
+
+cv2.namedWindow('Camera Stream', cv2.WINDOW_NORMAL)
 
 while True:
     # Capture frame-by-frame
@@ -20,12 +24,17 @@ while True:
         print("Error: Could not read frame")
         break
 
+    # Get the current window size
+    window_width = cv2.getWindowImageRect('Camera Stream')[2]
+    window_height = cv2.getWindowImageRect('Camera Stream')[3]
+
+    # Resize the frame to fit the window
+    frame = cv2.resize(frame, (window_width, window_height))
+
     # Draw some lines on the frame
     height, width, _ = frame.shape
-    #cv2.line(frame, (0, 0), (width, height), (0, 255, 0), 2)  # Diagonal line from top-left to bottom-right
-    #cv2.line(frame, (0, height), (width, 0), (0, 255, 0), 2)  # Diagonal line from bottom-left to top-right
-    cv2.line(frame, (150, 0), (150, height), (0, 255, 0), 2)  # Vertical line in the middle
-    cv2.line(frame, (175, 0), (175, height), (0, 255, 0), 2)
+    cv2.line(frame, (int(width*150/640), 0), (int(width*150/640), height), (0, 255, 0), 2)  # Vertical line in the middle
+    cv2.line(frame, (int(width*175/640), 0), (int(width*175/640), height), (0, 255, 0), 2)
 
     # Display the resulting frame
     cv2.imshow('Camera Stream', frame)
