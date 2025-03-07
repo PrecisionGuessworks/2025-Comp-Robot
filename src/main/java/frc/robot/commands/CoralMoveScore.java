@@ -52,7 +52,7 @@ public class CoralMoveScore extends Command {
     Pose2d targetpose = new Pose2d(4.5,4,new Rotation2d(0));
     //    && m_arm.getWristAngle() < 91 && m_arm.getArmAngle() < 91
     // 4 >= PhotonUtils.getDistanceToPose(m_pose,targetpose)
-   if (2.5 >= PhotonUtils.getDistanceToPose(m_pose,targetpose)||Constants.PoseProtections){
+   if (2.5 >= PhotonUtils.getDistanceToPose(m_pose,targetpose)||Constants.PoseSoring){
       //System.out.println("CoralMoveScore");
       if(pastscoreheight != m_elevator.getHeightLocation()){
         

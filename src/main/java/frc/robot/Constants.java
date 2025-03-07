@@ -69,7 +69,7 @@ public class Constants {
     public static final double g = 9.81; // m/s/s
     public static final double defaultPeriodSecs = 0.02; // s
     public static boolean isSim =  edu.wpi.first.wpilibj.RobotBase.isSimulation(); // 
-    public static boolean PoseProtections = true; // Only move Scoring Stuff if close to reef
+    public static boolean PoseSoring = !false; // Only move Scoring Stuff if close to reef
     public static boolean ElevatorOff = false; // Shut off Elevator
     public static boolean Lineup = false; // Auto Lineup to Reef to Scrore.
     public static boolean ExtraInfo = true; // Turn on Extra network info
@@ -114,11 +114,6 @@ public class Constants {
 
     }
 
-    public static final class Example {
-    public static final CANDeviceID motorID = new CANDeviceID(99, kSuperStructureCanivoreName);
-    public static final MechanismRatio motorRatio = new MechanismRatio(1, 1);
-    public static final boolean motorInvert = false;
-  }
 
   public static final class Elevator {
     public static final CANDeviceID motorID = new CANDeviceID(20, kSuperStructureCanivoreName);
@@ -165,9 +160,6 @@ public class Constants {
     // For simulation.
     public static final double simCarriageMass = 7.0; // kg
 
-    // TODO: find real values
-    public static final ElevatorFeedforward elevatorFeedforward =
-        new ElevatorFeedforward(0.0, 0.0, 0.0); // new ElevatorFeedforward(0.35, 0.15, 15.8);
   }
 
   
@@ -271,8 +263,6 @@ public class Constants {
     public static final Transform2d robotToArm =
         new Transform2d(Units.inchesToMeters(12.0), 0.0, new Rotation2d());
     public static final double ArmHeight = Units.inchesToMeters(12);
-
-    public static final double rollerBeamBreakOffset = 1.5 * Math.PI; // rads
 
     // For simulation.
     public static final double simArmMOI = 0.379; // kgMetersSquared
