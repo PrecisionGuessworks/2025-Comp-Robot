@@ -1,6 +1,36 @@
 import cv2
 
-# OPEN CV 
+# Function to resize the image
+def image_resize(image, width = None, height = None, inter = cv2.INTER_AREA):
+    # initialize the dimensions of the image to be resized and
+    # grab the image size
+    dim = None
+    (h, w) = image.shape[:2]
+
+    # if both the width and height are None, then return the
+    # original image
+    if width is None and height is None:
+        return image
+
+    # check to see if the width is None
+    if width is None:
+        # calculate the ratio of the height and construct the
+        # dimensions
+        r = height / float(h)
+        dim = (int(w * r), height)
+
+    # otherwise, the height is None
+    else:
+        # calculate the ratio of the width and construct the
+        # dimensions
+        r = width / float(w)
+        dim = (width, int(h * r))
+
+    # resize the image
+    resized = cv2.resize(image, dim, interpolation = inter)
+
+    # return the resized image
+    return resized
 
 # URL of the camera stream
 stream_url = 'http://localhost:1182/stream.mjpg' # Replace this with the URL of the camera stream 10.16.46.11:?????
@@ -28,8 +58,8 @@ while True:
     window_width = cv2.getWindowImageRect('Camera Stream')[2]
     window_height = cv2.getWindowImageRect('Camera Stream')[3]
 
-    # Resize the frame to fit the window
-    frame = cv2.resize(frame, (window_width, window_height))
+    # Resize the frame to fit the window using the image_resize function
+    frame = image_resize(frame, width=window_width, height=800)
 
     # Draw some lines on the frame
     height, width, _ = frame.shape

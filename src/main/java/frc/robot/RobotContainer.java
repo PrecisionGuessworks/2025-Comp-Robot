@@ -227,12 +227,14 @@ ArmWristViz.addLink(
         });
          // SmartDashboard.putNumber("Time",Timer.getMatchTime());
           SmartDashboard.putNumber("Time",DriverStation.getMatchTime());
+          if(Constants.ExtraInfo){
           SmartDashboard.putNumber("Voltage",RobotController.getBatteryVoltage());
           SmartDashboard.putNumber("CAN",RobotController.getCANStatus().percentBusUtilization * 100.0);
           SmartDashboard.putData("Command Scheduler", CommandScheduler.getInstance());
         SmartDashboard.putData("Power Distribution Panel", powerDistribution);
+          }
 
-        PathfindingCommand.warmupCommand().ignoringDisable(true).schedule();;
+        //PathfindingCommand.warmupCommand().ignoringDisable(true).schedule();;
         
     }
 

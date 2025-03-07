@@ -275,6 +275,7 @@ public class QuixTalonFX implements QuixMotorControllerWithEncoder, AutoCloseabl
     SmartDashboard.putBoolean("TalonFX Configuration " + m_canID.toString(), setConfiguration());
 
     // Set up logging.
+    
     m_percentOutputPublisher =
         NetworkTableInstance.getDefault()
             .getDoubleTopic("TalonFX " + m_canID + ": Percent Output")

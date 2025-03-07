@@ -72,7 +72,7 @@ public class Constants {
     public static boolean PoseProtections = true; // Only move Scoring Stuff if close to reef
     public static boolean ElevatorOff = false; // Shut off Elevator
     public static boolean Lineup = false; // Auto Lineup to Reef to Scrore.
-   
+    public static boolean ExtraInfo = true; // Turn on Extra network info
 
 
     public static class Vision {
@@ -95,11 +95,11 @@ public class Constants {
 
         // PID for Rotation and Translation for Auto and Teleop Snap
         public static final double PTranslation = 5;
-        public static final double ITranslation = 0.01;
+        public static final double ITranslation = 0.001;
         public static final double DTranslation = 0.1;
 
         public static final double PRotation = 3;
-        public static final double IRotation = 0.01;
+        public static final double IRotation = 0.001;
         public static final double DRotation = 0.03;
         
         // 0.0-1.0 of the max speed
@@ -160,7 +160,7 @@ public class Constants {
     public static final double L2Algae = Units.inchesToMeters(15); // m
     public static final double L3Algae = Units.inchesToMeters(31.5); // m
 
-    public static final double PreStow = Units.inchesToMeters(12); // m
+    public static final double PreStow = Units.inchesToMeters(10); // m
 
     // For simulation.
     public static final double simCarriageMass = 7.0; // kg
@@ -245,7 +245,7 @@ public class Constants {
 
     public static final double AngleTolerance = Units.degreesToRadians(1);
 
-    public static final double intakeVelocity = -200.0; // rads/s
+    public static final double intakeVelocity = -150.0; // rads/s
     public static final double outtakeVelocity = 1300.0; // rads/s
 
 

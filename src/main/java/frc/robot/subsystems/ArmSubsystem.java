@@ -181,14 +181,15 @@ private final QuixTalonFX m_wristMotor =
   public void periodic() {
 
 
-    if (RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle <= Constants.Arm.armL1Score){
+    if ((RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle <= Constants.Arm.armStowAngle)||
+    (setm_armTargetAngle >= Constants.Arm.armL1Score && RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.inchesToMeters(.75)))){
       m_armTargetAngle = setm_armTargetAngle;
-    } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.inchesToMeters(1)) && setm_armTargetAngle >= Constants.Arm.armStowAngle)
+    } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.inchesToMeters(.75)) && setm_armTargetAngle >= Constants.Arm.armStowAngle)
     || (getArmAngle() > 100 && RobotContainer.elevator.getHeight() <= Constants.Elevator.intakeHeight && setm_armTargetAngle >= Constants.Arm.armStowAngle)){
       m_armTargetAngle = setm_armTargetAngle;
-    } else if (getArmAngle() < 93 && setm_armTargetAngle < 91) { // might need check 
+    }else if (getArmAngle() < 92 && setm_armTargetAngle < 91) { // might need check 
       m_armTargetAngle = Constants.Arm.armStowAngle;
-    } else if (getArmAngle() >= 93 && setm_armTargetAngle < 96) { // might need check 
+    } else if (getArmAngle() >= 92 && setm_armTargetAngle < 91) { // might need check 
        m_armTargetAngle = Constants.Arm.armStowIntakeAngle;
      }
     // if (RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle <= Constants.Arm.armStowAngle){
@@ -237,7 +238,7 @@ private final QuixTalonFX m_wristMotor =
       m_wristMotor.setMotionMagicPositionSetpointExpo(
         Constants.Arm.wristPositionPIDSlot, m_wristTargetAngle);
    // }
-
+  if(Constants.ExtraInfo){
     SmartDashboard.putNumber(
         "Arm: Current Angle (deg)", Units.radiansToDegrees(m_armMotor.getSensorPosition()));
         SmartDashboard.putNumber(
@@ -275,11 +276,17 @@ private final QuixTalonFX m_wristMotor =
         Units.radiansToDegrees(m_wristMotor.getClosedLoopReferenceSlope()));
       SmartDashboard.putNumber(
         "Wrist: Current Roller Velocity (rad per sec)", m_rollerMotor.getSensorVelocity());
+        SmartDashboard.putNumber(
+        "Wrist: Target set Angle (deg)",
+        Units.radiansToDegrees(m_wristTargetAngle));
+  }
 
+  if(Constants.ExtraInfo){
     m_rollerMotor.logMotorState();
     m_wristMotor.logMotorState();
     m_armMotor.logMotorState();
     m_armCoder.logSensorState();
+  }
   }
 
   // --- BEGIN STUFF FOR SIMULATION ---

@@ -118,7 +118,7 @@ public boolean getElevatorOn(){
   public void periodic() {
     armAngle = RobotContainer.arm.getArmAngle();
     wristAngle = RobotContainer.arm.getWristAngle();
-    if (armAngle < 75 && m_setTargetHeight <= Constants.Elevator.armStowHeight){ 
+    if (armAngle <= 50 && m_setTargetHeight <= Constants.Elevator.armStowHeight){ 
       m_targetHeight = Constants.Elevator.armStowHeight;
     } else if (wristAngle < 60 && m_setTargetHeight < Constants.Elevator.wristStowHeight && getHeight() >= Constants.Elevator.armStowHeight){ 
       m_targetHeight = Constants.Elevator.wristStowHeight; 
@@ -173,14 +173,19 @@ public boolean getElevatorOn(){
       Loc3 = false;
       Loc4 = true;
     }
+    
     SmartDashboard.putBoolean(
           "Elevator", !m_ElevatorOff);
-
+          
+          if(Constants.ExtraInfo){
     SmartDashboard.putNumber(
         "Elevator: Current Height (in)", Units.metersToInches(getHeight()));
     SmartDashboard.putNumber(
         "Elevator: Target Height (in)", Units.metersToInches(Constants.Elevator.motorRatio.sensorRadiansToMechanismPosition(m_motor.getClosedLoopReference())));
-
+        SmartDashboard.putNumber(
+          "Elevator: Target set Height (in)",
+          Units.metersToInches(m_targetHeight));      
+      }
     SmartDashboard.putBoolean(
           "L1", Loc1);
     SmartDashboard.putBoolean(
@@ -189,9 +194,10 @@ public boolean getElevatorOn(){
           "L3", Loc3);    
     SmartDashboard.putBoolean(
           "L4", Loc4);
-
+          if(Constants.ExtraInfo){
     m_motor.logMotorState();
     m_follower.logMotorState();
+          }
   }
 
   // --- BEGIN STUFF FOR SIMULATION ---
