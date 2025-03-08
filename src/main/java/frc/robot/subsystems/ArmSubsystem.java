@@ -181,15 +181,14 @@ private final QuixTalonFX m_wristMotor =
   public void periodic() {
 
 
-    if ((RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle <= Constants.Arm.armStowAngle)||
-    (setm_armTargetAngle >= Constants.Arm.armL1Score && RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.inchesToMeters(.75)))){
+    if (RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle <= Constants.Arm.armL1Score){
       m_armTargetAngle = setm_armTargetAngle;
-    } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.inchesToMeters(.75)) && setm_armTargetAngle >= Constants.Arm.armStowAngle)
+    } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.inchesToMeters(1)) && setm_armTargetAngle >= Constants.Arm.armStowAngle)
     || (getArmAngle() > 100 && RobotContainer.elevator.getHeight() <= Constants.Elevator.intakeHeight && setm_armTargetAngle >= Constants.Arm.armStowAngle)){
       m_armTargetAngle = setm_armTargetAngle;
-    }else if (getArmAngle() < 92 && setm_armTargetAngle < 91) { // might need check 
+    } else if (getArmAngle() < 93 && setm_armTargetAngle < 91) { // might need check 
       m_armTargetAngle = Constants.Arm.armStowAngle;
-    } else if (getArmAngle() >= 92 && setm_armTargetAngle < 91) { // might need check 
+    } else if (getArmAngle() >= 93 && setm_armTargetAngle < 96) { // might need check 
        m_armTargetAngle = Constants.Arm.armStowIntakeAngle;
      }
     // if (RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle <= Constants.Arm.armStowAngle){

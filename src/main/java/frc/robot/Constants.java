@@ -145,7 +145,7 @@ public class Constants {
     public static final double wristStowHeight = Units.inchesToMeters(4); // m
     public static final double armStowHeight = Units.inchesToMeters(8); // m
     public static final double stowTolerance = Units.inchesToMeters(0.1); // m
-    public static final double intakeHeight = Units.inchesToMeters(9); // m
+    public static final double intakeHeight = Units.inchesToMeters(9); // m // 11.25
 
     public static final double L1 = Units.inchesToMeters(1); // m
     public static final double L2 = Units.inchesToMeters(14.5); // m
