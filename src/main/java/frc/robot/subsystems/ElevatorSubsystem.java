@@ -124,7 +124,7 @@ public boolean getElevatorOn(){
       m_targetHeight = Constants.Elevator.wristStowHeight; 
     } else if ((armAngle < 90 && wristAngle < 90 && m_setTargetHeight > Constants.Elevator.armStowHeight)||armAngle < 70 && m_setTargetHeight > Constants.Elevator.armStowHeight){
       m_targetHeight = m_setTargetHeight;
-    }else if (armAngle < 100 && armAngle > 91){ // intake
+    }else if (armAngle < 115 && armAngle > 91){ // intake
       m_targetHeight = Constants.Elevator.stowHeight;
     } else if (armAngle > 100 && m_setTargetHeight <= Constants.Elevator.intakeHeight && wristAngle > 85){
       m_targetHeight = m_setTargetHeight;

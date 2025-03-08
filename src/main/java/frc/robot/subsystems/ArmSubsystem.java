@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import java.io.Serial;
+
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
@@ -181,23 +183,29 @@ private final QuixTalonFX m_wristMotor =
   public void periodic() {
 
 
-    if (RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle <= Constants.Arm.armL1Score){
-      m_armTargetAngle = setm_armTargetAngle;
-    } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.inchesToMeters(1)) && setm_armTargetAngle >= Constants.Arm.armStowAngle)
-    || (getArmAngle() > 100 && RobotContainer.elevator.getHeight() <= Constants.Elevator.intakeHeight && setm_armTargetAngle >= Constants.Arm.armStowAngle)){
-      m_armTargetAngle = setm_armTargetAngle;
-    } else if (getArmAngle() < 93 && setm_armTargetAngle < 91) { // might need check 
-      m_armTargetAngle = Constants.Arm.armStowAngle;
-    } else if (getArmAngle() >= 93 && setm_armTargetAngle < 96) { // might need check 
+    if (getArmAngle() <= 115 && getArmAngle() >= 92 && Units.radiansToDegrees(setm_armTargetAngle) < 92 && !RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.inchesToMeters(.75))) { // might need check 
        m_armTargetAngle = Constants.Arm.armStowIntakeAngle;
-     }
+      //System.out.println("1");
+    }else if ((((getArmAngle() > 92)||((RobotContainer.elevator.getHeight() >= Constants.Elevator.armStowHeight))) && setm_armTargetAngle <= Constants.Arm.armStowAngle)||
+    (setm_armTargetAngle >= Constants.Arm.armL1Score && RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.inchesToMeters(.75)))){
+      m_armTargetAngle = setm_armTargetAngle;
+      
+    } else if ((RobotContainer.elevator.isAtHeight(Constants.Elevator.stowHeight, Units.inchesToMeters(0.75)) && Units.radiansToDegrees(setm_armTargetAngle) >= Constants.Arm.armStowAngle)
+    || (getArmAngle() > 92 && setm_armTargetAngle <= Constants.Arm.armMaxAngle && Units.radiansToDegrees(setm_armTargetAngle) >= Constants.Arm.armStowIntakeAngle)){
+      m_armTargetAngle = setm_armTargetAngle;
+      //System.out.println("3");
+    } else if (getArmAngle() < 92 && Units.radiansToDegrees(setm_armTargetAngle) > 91 ) { // might need check 
+      m_armTargetAngle = Constants.Arm.armStowAngle;
+      //System.out.println("4");
+    }
     // if (RobotContainer.elevator.getHeight() > Constants.Elevator.armStowHeight && setm_armTargetAngle <= Constants.Arm.armStowAngle){
     //    m_armTargetAngle = setm_armTargetAngle;
     // } else {
     //   m_armTargetAngle = Constants.Arm.armStowAngle;
     // }
+    
   
-    if (setm_wristTargetAngle < Units.degreesToRadians(85)&&getArmAngle() < 95){ //RobotContainer.elevator.getHeight() >= Constants.Elevator.wristStowHeight && 
+    if (Units.radiansToDegrees(setm_wristTargetAngle) < Units.degreesToRadians(85)&&getArmAngle() < 95){ //RobotContainer.elevator.getHeight() >= Constants.Elevator.wristStowHeight && 
       m_wristTargetAngle = setm_wristTargetAngle;
     } else if (Math.abs(getWristAngle() - Units.radiansToDegrees(Constants.Arm.wristStartingAngle)) <= 2 && setm_wristTargetAngle == Constants.Arm.wristStartingAngle) {
       m_wristTargetAngle = setm_wristTargetAngle;

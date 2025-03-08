@@ -24,10 +24,10 @@ autos
 
 Driver:
 
-A: -                  --------------------------------- NOT CODED
-B: -                  --------------------------------- NOT CODED
+A: -                 Arm Test
+B: -                 Wrist Test
 X: -                  --------------------------------- NOT CODED
-Y: -                  --------------------------------- NOT CODED
+Y: -                 Elevator Test
 
 Left Bumper: Left Score
 Right Bumper: Right Score
@@ -48,20 +48,20 @@ D-Pad: L1 - L4 Set postion
 Operator:
 
 A: Algae Wack
-B: Climb!        - Needs Climb Enabled
-X: Stow Climb    - Needs Climb Enabled
-Y: Prep Climb    - Needs Climb Enabled
+B: -
+X: -
+Y: Set Elevator to Coral Jam Height
 
-Left Bumper: Climb Enable
+Left Bumper: -
 Right Bumper: Stow all
 
 Left Trigger: -
 Right Trigger: -
 
 Back Button: Disable Elevator  
-Start Button: Zero Climber - Needs Climb Enabled
+Start Button: -
 
-Left Stick: X: Climb Adjust - Needs Climb Enabled
+Left Stick: X: -
 Right Stick: Coral Intake Manual - Need to Hold Down stick
 
 D-Pad: L1 - L4 Set postion

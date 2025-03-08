@@ -159,10 +159,10 @@ public class Robot extends TimedRobot {
   // }
 
     if (m_robotContainer.operator.rightStick().getAsBoolean() == true) {
-      double rightyop = m_robotContainer.operator.getRightY();
-      RobotContainer.arm.setArmRollerCurrent(20,20);
+      double rightyop = -m_robotContainer.operator.getRightY();
+      RobotContainer.arm.setArmRollerCurrent(45,25);
       if (Math.abs(rightyop) > 0.1) { // Deadband of 0.1
-      RobotContainer.arm.setRollerVelocity(rightyop*10);
+      RobotContainer.arm.setRollerVelocity(rightyop*20);
     } else {
       RobotContainer.arm.setRollerVelocity(0);
     }

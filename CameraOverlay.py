@@ -33,7 +33,7 @@ def image_resize(image, width = None, height = None, inter = cv2.INTER_AREA):
     return resized
 
 # URL of the camera stream
-stream_url = 'http://10.16.46.11:1182/stream.mjpg' # Replace this with the URL of the camera stream 10.16.46.11:?????
+stream_url = 'http://10.16.46.11:1183/stream.mjpg' # Replace this with the URL of the camera stream 10.16.46.11:?????
 #TEST: http://localhost:1182/stream.mjpg
 #REAL: http://10.16.46.11:1183/stream.mjpg
 

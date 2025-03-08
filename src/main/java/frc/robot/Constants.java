@@ -131,7 +131,7 @@ public class Constants {
     public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
     public static final PIDConfig motorPIDConfig = new PIDConfig(8, 0.01, 0.01, 0.04, 0.08, 0.008, 0.08,GravityTypeValue.Elevator_Static);
-    public static final double maxVelocity = 1.2; // m/s // 1
+    public static final double maxVelocity = 1.2; // m/s // 1.2
     public static final double maxAcceleration = 25.0; // m/s^2
     public static final double maxJerk = 1.0; // m/s^3 (0 disables jerk limit)
     public static final double Expo_kV = 0.09;    
@@ -145,7 +145,7 @@ public class Constants {
     public static final double wristStowHeight = Units.inchesToMeters(4); // m
     public static final double armStowHeight = Units.inchesToMeters(8); // m
     public static final double stowTolerance = Units.inchesToMeters(0.1); // m
-    public static final double intakeHeight = Units.inchesToMeters(9); // m // 11.25
+    public static final double intakeHeight = Units.inchesToMeters(11.25); // m // 
 
     public static final double L1 = Units.inchesToMeters(1); // m
     public static final double L2 = Units.inchesToMeters(14.5); // m
@@ -195,7 +195,7 @@ public class Constants {
 
     //public static final ArmFeedforward armFeedForward = new ArmFeedforward(3.0, 0.3, 0.6);
     public static final Constraints ArmConstraints =
-        new Constraints(2.5, 8.0); // rad/s and rad/s^2  8, 20.0
+        new Constraints(2.8, 8.0); // rad/s and rad/s^2  8, 20.0
     public static final double ArmMaxJerk = 1.0; // rad/s^3
     public static final int armPositionPIDSlot = 0;
     public static final PIDConfig armPositionPIDConfig = new PIDConfig(10, 0.0001, 0.03, 0, 0.45, 0.0008, 0.09, GravityTypeValue.Arm_Cosine);
@@ -246,7 +246,7 @@ public class Constants {
     public static final double armGroundIntakeAngle = Units.degreesToRadians(-5);
     public static final double wristGroundIntakeAngle = Units.degreesToRadians(25);
     public static final double armStowAngle = Units.degreesToRadians(89);
-    public static final double armStowIntakeAngle = Units.degreesToRadians(105);
+    public static final double armStowIntakeAngle = Units.degreesToRadians(110);
     public static final double wristStowAngle = Units.degreesToRadians(70);
     public static final double armScoreAngle = Units.degreesToRadians(89);
     public static final double wristScoreAngle = Units.degreesToRadians(-10);
