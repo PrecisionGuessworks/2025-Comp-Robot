@@ -33,7 +33,7 @@ def image_resize(image, width = None, height = None, inter = cv2.INTER_AREA):
     return resized
 
 # URL of the camera stream
-stream_url = 'http://10.16.46.11:1183/stream.mjpg' # Replace this with the URL of the camera stream 10.16.46.11:?????
+stream_url = 'http://10.16.46.11:1182/stream.mjpg' # Replace this with the URL of the camera stream 10.16.46.11:?????
 #TEST: http://localhost:1182/stream.mjpg
 #REAL: http://10.16.46.11:1183/stream.mjpg
 
@@ -63,8 +63,8 @@ while True:
 
     # Draw some lines on the frame
     height, width, _ = frame.shape
-    cv2.line(frame, (int(width*200/640), 0), (int(width*200/640), height), (0, 255, 0), 2)  # Vertical line in the middle
-    cv2.line(frame, (int(width*175/640), 0), (int(width*175/640), height), (0, 255, 0), 2)
+    cv2.line(frame, (int(width*242/640), 0), (int(width*231/640), height), (0, 255, 0), 2)  # Vertical line in the middle
+    cv2.line(frame, (int(width*196/640), 0), (int(width*187/640), height), (0, 255, 0), 2)
 
     # Display the resulting frame
     cv2.imshow('Camera Stream', frame)

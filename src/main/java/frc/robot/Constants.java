@@ -145,12 +145,12 @@ public class Constants {
     public static final double wristStowHeight = Units.inchesToMeters(4); // m
     public static final double armStowHeight = Units.inchesToMeters(8); // m
     public static final double stowTolerance = Units.inchesToMeters(0.1); // m
-    public static final double intakeHeight = Units.inchesToMeters(11.25); // m // 
+    public static final double intakeHeight = Units.inchesToMeters(11.75); // m // 
 
     public static final double L1 = Units.inchesToMeters(1); // m
-    public static final double L2 = Units.inchesToMeters(14.5); // m
-    public static final double L3 = Units.inchesToMeters(30.5); // m
-    public static final double L4 = Units.inchesToMeters(56.3); // m
+    public static final double L2 = Units.inchesToMeters(13.25); // m
+    public static final double L3 = Units.inchesToMeters(29.5); // m
+    public static final double L4 = Units.inchesToMeters(55.8); // m
 
     public static final double L2Algae = Units.inchesToMeters(15); // m
     public static final double L3Algae = Units.inchesToMeters(31.5); // m
@@ -258,7 +258,7 @@ public class Constants {
     public static final double wristL1Score = Units.degreesToRadians(80);
     public static final double armL1Score = Units.degreesToRadians(65);
     public static final double rollerL1Score = 400;
-    public static final double wristL4Score = Units.degreesToRadians(-15);
+    public static final double wristL4Score = Units.degreesToRadians(-14);
     
     public static final Transform2d robotToArm =
         new Transform2d(Units.inchesToMeters(12.0), 0.0, new Rotation2d());
