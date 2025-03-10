@@ -103,9 +103,12 @@ public class Constants {
         public static final double DRotation = 0.03;
         
         // 0.0-1.0 of the max speed
-        public static final double MaxSpeedPercentage = 0.75; // Default 1.0
+        public static final double MaxSpeedPercentage = 0.95; // Default 1.0
+        public static final double SlowSpeedPercentage = 0.05; // Default 0.15
+        
         // Rotation per second max angular velocity
         public static final double MaxAngularRatePercentage = 0.75; // Default 0.75 
+        public static final double SlowRotPercentage = 0.05; // Default 0.15
 
         // Deadbands for the drive and rotation
         public static final double DriveDeadband = 0.02; // Drive Deadband
@@ -130,7 +133,7 @@ public class Constants {
     public static final boolean motorInvert = true;
     public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
-    public static final PIDConfig motorPIDConfig = new PIDConfig(8, 0.01, 0.01, 0.04, 0.08, 0.008, 0.08,GravityTypeValue.Elevator_Static);
+    public static final PIDConfig motorPIDConfig = new PIDConfig(10, 0.01, 0.01, 0.04, 0.09, 0.008, 0.08,GravityTypeValue.Elevator_Static);
     public static final double maxVelocity = 1.2; // m/s // 1.2
     public static final double maxAcceleration = 25.0; // m/s^2
     public static final double maxJerk = 1.0; // m/s^3 (0 disables jerk limit)
@@ -195,8 +198,8 @@ public class Constants {
 
     //public static final ArmFeedforward armFeedForward = new ArmFeedforward(3.0, 0.3, 0.6);
     public static final Constraints ArmConstraints =
-        new Constraints(2.8, 8.0); // rad/s and rad/s^2  8, 20.0
-    public static final double ArmMaxJerk = 1.0; // rad/s^3
+        new Constraints(3, 10.0); // rad/s and rad/s^2  8, 20.0
+    public static final double ArmMaxJerk = 2.0; // rad/s^3
     public static final int armPositionPIDSlot = 0;
     public static final PIDConfig armPositionPIDConfig = new PIDConfig(10, 0.0001, 0.03, 0, 0.45, 0.0008, 0.09, GravityTypeValue.Arm_Cosine);
     public static final double armExpo_kV = 0.45;    
@@ -206,8 +209,8 @@ public class Constants {
 
     //public static final ArmFeedforward wristFeedForward = new ArmFeedforward(0.0, 0.3, 0.6);
     public static final Constraints WristConstraints =
-        new Constraints(4.0, 14.0); // rad/s and rad/s^2   40.0, 80.0
-        public static final double WristMaxJerk = 1.0; // rad/s^3
+        new Constraints(5.0, 20.0); // rad/s and rad/s^2   40.0, 80.0
+        public static final double WristMaxJerk = 2.0; // rad/s^3
     public static final int wristPositionPIDSlot = 0;
     public static final PIDConfig wristPositionPIDConfig = new PIDConfig(2.0, 0.0001, 0.1, 0, 0.1, 0.0008, 0.02,GravityTypeValue.Arm_Cosine);
     public static final double wristExpo_kV = 0.1;   //                                                      ^ 1.22   

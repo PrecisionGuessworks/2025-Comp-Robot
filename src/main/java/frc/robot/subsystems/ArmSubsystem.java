@@ -56,8 +56,8 @@ public class ArmSubsystem extends SubsystemBase {
           QuixTalonFX.makeDefaultConfig()
               .setInverted(Constants.Arm.armMotorInvert)
               .setBrakeMode()
-              .setSupplyCurrentLimit(20.0)
-              .setStatorCurrentLimit(40.0)
+              .setSupplyCurrentLimit(40.0)
+              .setStatorCurrentLimit(80.0)
               .setMotionMagicConfig(
                   Constants.Arm.ArmConstraints.maxVelocity,
                   Constants.Arm.ArmConstraints.maxAcceleration,
@@ -79,8 +79,8 @@ private final QuixTalonFX m_wristMotor =
       QuixTalonFX.makeDefaultConfig()
           .setInverted(Constants.Arm.wristMotorInvert)
           .setBrakeMode()
-          .setSupplyCurrentLimit(20.0)
-          .setStatorCurrentLimit(40.0)
+          .setSupplyCurrentLimit(40.0)
+          .setStatorCurrentLimit(80.0)
           .setMotionMagicConfig(
               Constants.Arm.WristConstraints.maxVelocity,
               Constants.Arm.WristConstraints.maxAcceleration,

@@ -26,8 +26,8 @@ public class ElevatorSubsystem extends SubsystemBase {
           Constants.Elevator.motorRatio,
           QuixTalonFX.makeDefaultConfig()
               .setBrakeMode()
-              .setSupplyCurrentLimit(30.0)
-              .setStatorCurrentLimit(70.0)
+              .setSupplyCurrentLimit(40.0)
+              .setStatorCurrentLimit(90.0)
               .setInverted(Constants.Elevator.motorInvert)
               .setPIDConfig(Constants.Elevator.motorPositionSlot, Constants.Elevator.motorPIDConfig)
               .setMotionMagicConfig(
@@ -44,8 +44,8 @@ public class ElevatorSubsystem extends SubsystemBase {
       m_motor,
       Constants.Elevator.followerInvert,
       QuixTalonFX.makeDefaultConfig().setBrakeMode()
-      .setSupplyCurrentLimit(30.0)
-      .setStatorCurrentLimit(70.0)
+      .setSupplyCurrentLimit(40.0)
+      .setStatorCurrentLimit(90.0)
       .setInverted(Constants.Elevator.motorInvert)
       .setPIDConfig(Constants.Elevator.motorPositionSlot, Constants.Elevator.motorPIDConfig)
       .setMotionMagicConfig(
