@@ -37,6 +37,7 @@ import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
@@ -129,11 +130,11 @@ public class Constants {
         new MechanismRatio(
             1, (28.0 / 10.0) * (1.0 / 4.0) * (42.0 / 18.0), Math.PI * sprocketPitchDiameter) : // Sim
         new MechanismRatio(
-            1, (16.0 / 1.0), Math.PI * sprocketPitchDiameter); // Real
+            1, (9.0 / 1.0), Math.PI * sprocketPitchDiameter); // Real
     public static final boolean motorInvert = true;
     public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
-    public static final PIDConfig motorPIDConfig = new PIDConfig(10, 0.01, 0.01, 0.04, 0.09, 0.008, 0.08,GravityTypeValue.Elevator_Static);
+    public static final PIDConfig motorPIDConfig = new PIDConfig(10, 0.01, 0.01, 0.04, 0.16, 0.008, 0.08,GravityTypeValue.Elevator_Static);
     public static final double maxVelocity = 1.2; // m/s // 1.2
     public static final double maxAcceleration = 25.0; // m/s^2
     public static final double maxJerk = 1.0; // m/s^3 (0 disables jerk limit)
@@ -369,6 +370,23 @@ public class Constants {
 
     public static final double angularVelocityScalar = 0.01;
   }
+
+//   public static final class Viz3d {
+//     public static final Pose3d intakePivotBase =
+//         new Pose3d(Units.inchesToMeters(-12.5), 0.0, Units.inchesToMeters(11.0), new Rotation3d());
+//     public static final Pose3d elevatorBase =
+//         new Pose3d(
+//             Units.inchesToMeters(3.0),
+//             0,
+//             Units.inchesToMeters(2.75),
+//             new Rotation3d(0, Math.toRadians(15.0), 0));
+//     public static final Transform3d elevatorCarriageToLauncherArmPivot =
+//         new Transform3d(0, 0, Units.inchesToMeters(16.0), new Rotation3d());
+//     public static final Pose3d climberPivot =
+//         elevatorBase.transformBy(
+//             new Transform3d(
+//                 0, 0, Units.inchesToMeters(15.0), new Rotation3d(0, Math.toRadians(-30), 0)));
+//   }
 
 
 

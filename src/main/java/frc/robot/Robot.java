@@ -18,6 +18,7 @@ import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.simulation.BatterySim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
@@ -46,6 +47,8 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.util.sendable.Sendable;
@@ -167,6 +170,32 @@ public class Robot extends TimedRobot {
       RobotContainer.arm.setRollerVelocity(0);
     }
   }
+
+
+
+
+  // 3d viz
+    // final Pose3d intakeArm =
+    //     Constants.Viz3d.intakePivotBase.transformBy(
+    //         new Transform3d(0, 0, 0, new Rotation3d(0, intake.getAngle() - 0.5 * Math.PI, 0)));
+    // final Pose3d elevatorCarriage =
+    //     Constants.Viz3d.elevatorBase.transformBy(
+    //         new Transform3d(0, 0, elevator.getHeight(), new Rotation3d()));
+    // final Pose3d launcherArm =
+    //     elevatorCarriage
+    //         .transformBy(Constants.Viz3d.elevatorCarriageToLauncherArmPivot)
+    //         .transformBy(
+    //             new Transform3d(
+    //                 0,
+    //                 0,
+    //                 0,
+    //                 new Rotation3d(
+    //                     0,
+    //                     -launcher.getArmAngle() - Constants.Viz3d.elevatorBase.getRotation().getY(),
+    //                     0)));
+    // Logger.recordOutput(
+    //     "mechanismPoses",
+    //     new Pose3d[] {intakeArm, elevatorCarriage, launcherArm, Constants.Viz3d.climberPivot});
 
 
 }

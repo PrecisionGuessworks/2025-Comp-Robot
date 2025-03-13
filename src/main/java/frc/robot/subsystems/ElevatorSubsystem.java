@@ -57,7 +57,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   private double m_setTargetHeight = Constants.Elevator.minHeight;
   private double m_targetHeight = Constants.Elevator.minHeight;
-  public int m_HeightLocation = 2;
+  public int m_HeightLocation = 4;
   private boolean Loc1 = false;
   private boolean Loc2 = false;
   private boolean Loc3 = false;
