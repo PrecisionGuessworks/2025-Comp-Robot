@@ -4,63 +4,71 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 
-public class IntakeCoral extends Command {
+
+public class CoralMoveStowAuto extends Command {
+//  private final IntakeSubsystem m_intake;
   private final ElevatorSubsystem m_elevator;
   private final ArmSubsystem m_arm;
+  public int pastscoreheight = 0;
+  public boolean trueendtrigger = false;
+  private Timer m_placeTimer = new Timer();
 
-  public IntakeCoral(
+  public CoralMoveStowAuto(
+ //     IntakeSubsystem intakeSubsystem,
       ElevatorSubsystem elevatorSubsystem,
       ArmSubsystem armSubsystem) {
+ //   m_intake = intakeSubsystem;
     m_elevator = elevatorSubsystem;
     m_arm = armSubsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(elevatorSubsystem, armSubsystem);
+    addRequirements( elevatorSubsystem, armSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_elevator.setHeight(Constants.Elevator.stowHeight);
-    m_arm.setArmAngle(Constants.Arm.armIntakeAngle);
-    m_arm.setWristAngle(Constants.Arm.wristIntakeAngle);
-    m_arm.setArmRollerCurrent(55, 90);  
-    m_arm.setRollerVelocity(Constants.Arm.intakeVelocity);
+    
+    
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //System.out.println(m_arm.getArmAngle());
-    if (RobotContainer.arm.getArmAngle() > 110) {
-      m_elevator.setHeight(Constants.Elevator.intakeHeight);
-    } else {
-      m_elevator.setHeight(Constants.Elevator.stowHeight);
-    }
-    //m_elevator.setHeight(Constants.Elevator.stowHeight);
-    
+    m_placeTimer.restart();
+    if(!m_elevator.isAtScore()){
+    m_placeTimer.restart();
+    }  
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+  
     m_arm.setArmAngle(Constants.Arm.armStowAngle);
-    m_arm.setWristAngle(Constants.Arm.wristStowAngle);
-    m_elevator.setHeight(Constants.Elevator.stowHeight);
-    m_arm.setArmRollerCurrent(10, 10); 
-    m_arm.setRollerVelocity(-20);
+   m_arm.setWristAngle(Constants.Arm.wristStowAngle);
+   m_arm.setArmRollerCurrent(30, 60);
+    m_arm.setRollerVelocity(0);
+    if (m_elevator.getHeightLocation()!=1){
+    m_elevator.setHeight(Constants.Elevator.PreStow);
+    }
+  
+  
+    
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_arm.isrollerStalled();
+    return m_placeTimer.hasElapsed(0.40) ; //|| !m_elevator.isAtScore()
   }
 }

@@ -243,6 +243,9 @@ public class Constants {
     public static final double intakeVelocity = -150.0; // rads/s
     public static final double outtakeVelocity = 1300.0; // rads/s
 
+    public static final double rollerStallVelocity = 40; // rads/s
+    public static final double rollerStallCurrent = 30; // Amps
+
 
     public static final double armIntakeAngle = Units.degreesToRadians(130);
     public static final double wristIntakeAngle = Units.degreesToRadians(90);
@@ -291,9 +294,13 @@ public class Constants {
 
     public static final double SpeedReductionFactor = 0.3;
 
-    public static final double PTranslationSlow = 1;
+    public static final double PTranslationSlow = 3;
     public static final double ITranslationSlow = 0.01;
     public static final double DTranslationSlow = 0.1;
+
+    public static final double PRotationSlow = 2;
+    public static final double IRotationSlow = 0.01;
+    public static final double DRotationSlow = 0.1;
 
     public static final Pose2d Error = new Pose2d(6, 6, Rotation2d.fromDegrees(0));
 

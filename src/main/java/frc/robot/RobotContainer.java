@@ -16,9 +16,12 @@ import org.photonvision.PhotonUtils;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathfindingCommand;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.pathfinding.Pathfinding;
+import com.pathplanner.lib.trajectory.PathPlannerTrajectoryState;
 import com.pathplanner.lib.util.FileVersionException;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -57,6 +60,7 @@ import frc.robot.commands.ClimbZero;
 import frc.robot.commands.CoralEleUp;
 import frc.robot.commands.CoralMoveScore;
 import frc.robot.commands.CoralMoveStow;
+import frc.robot.commands.CoralMoveStowAuto;
 import frc.robot.commands.IntakeCoral;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -203,6 +207,7 @@ ArmWristViz.addLink(
         //robotCommands.put("IntakePiece", new IntakeAlgae(intake,1).withTimeout(2.5));
         robotCommands.put("CoralMoveScore", new CoralMoveScore(elevator, arm));
         robotCommands.put("CoralMoveStow", new CoralMoveStow(elevator, arm));
+        robotCommands.put("CoralMoveStowAuto", new CoralMoveStowAuto(elevator, arm));
         robotCommands.put("IntakeCoral", new IntakeCoral(elevator, arm));
         robotCommands.put("StowArm", new StowArm(elevator, arm));
     
@@ -369,13 +374,13 @@ ArmWristViz.addLink(
     
     private Command pathfindingCommand(boolean left) {
         
-
+    PathPlannerTrajectoryState goalState = new PathPlannerTrajectoryState();
     PIDController xController = new PIDController(Constants.Pose.PTranslationSlow, Constants.Pose.ITranslationSlow, Constants.Pose.DTranslationSlow);
     xController.setIntegratorRange(-1, 1);
     PIDController yController = new PIDController(Constants.Pose.PTranslationSlow, Constants.Pose.ITranslationSlow, Constants.Pose.DTranslationSlow);
     yController.setIntegratorRange(-1, 1);
 
-       
+    PPHolonomicDriveController driveController = new PPHolonomicDriveController(new PIDConstants(Constants.Pose.PTranslationSlow, Constants.Pose.ITranslationSlow, Constants.Pose.DTranslationSlow), new PIDConstants(Constants.Pose.PRotationSlow, Constants.Pose.IRotationSlow, Constants.Pose.DRotationSlow));
 
        return new Command() {
            @Override
@@ -383,8 +388,9 @@ ArmWristViz.addLink(
             m_ally = DriverStation.getAlliance();
               targetPose = getTargetPose(left);
             if (drivetrain.getLineup()){
-               xController.reset();
-               yController.reset();
+               //xController.reset();
+               //yController.reset();
+               driveController.reset( drivetrain.getState().Pose, drivetrain.getState().Speeds);
            }
            }
 
@@ -397,23 +403,30 @@ ArmWristViz.addLink(
             Y = currentPose.getTranslation().getY();
             VX = currentSpeeds.vxMetersPerSecond;
             VY = currentSpeeds.vyMetersPerSecond;
-               double xOutput = Constants.Pose.SpeedReductionFactor * MaxSpeed * xController.calculate(X, targetPose.getX());
-               double yOutput = Constants.Pose.SpeedReductionFactor * MaxSpeed * yController.calculate(Y, targetPose.getY());
+            //   double xOutput = Constants.Pose.SpeedReductionFactor * MaxSpeed * xController.calculate(X, targetPose.getX());
+            //   double yOutput = Constants.Pose.SpeedReductionFactor * MaxSpeed * yController.calculate(Y, targetPose.getY());
             //    System.out.println(xOutput);
             //    System.out.println(yOutput);
-            if (m_ally.get() == Alliance.Blue){
-               drivetrain.applyRequest(() -> 
-                   angle.withVelocityX(xOutput)
-                        .withVelocityY(yOutput)
-                        .withTargetDirection(targetPose.getRotation())
+            goalState.pose = targetPose;
+            ChassisSpeeds driveControlleroutput = driveController.calculateRobotRelativeSpeeds(currentPose, goalState);
+            drivetrain.applyRequest(() -> 
+                   drive.withVelocityX(driveControlleroutput.vxMetersPerSecond*Constants.Pose.SpeedReductionFactor)
+                        .withVelocityY(driveControlleroutput.vyMetersPerSecond*Constants.Pose.SpeedReductionFactor)
+                        .withRotationalRate(driveControlleroutput.omegaRadiansPerSecond)
                ).execute();
-            } else {
-                drivetrain.applyRequest(() -> 
-                   angle.withVelocityX(-xOutput)
-                        .withVelocityY(-yOutput)
-                        .withTargetDirection(targetPose.getRotation())
-               ).execute();
-            }
+            // if (m_ally.get() == Alliance.Blue){
+            //    drivetrain.applyRequest(() -> 
+            //        drive.withVelocityX(driveControlleroutput.vxMetersPerSecond)
+            //             .withVelocityY(driveControlleroutput.vyMetersPerSecond)
+            //             .withRotationalRate(driveControlleroutput.omegaRadiansPerSecond)
+            //    ).execute();
+            // } else {
+            //     drivetrain.applyRequest(() -> 
+            //     drive.withVelocityX(driveControlleroutput.vxMetersPerSecond)
+            //     .withVelocityY(driveControlleroutput.vyMetersPerSecond)
+            //     .withRotationalRate(driveControlleroutput.omegaRadiansPerSecond)
+            //    ).execute();
+            // }
             }
            }
 

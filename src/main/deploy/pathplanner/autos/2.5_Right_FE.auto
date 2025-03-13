@@ -13,7 +13,7 @@
         {
           "type": "named",
           "data": {
-            "name": "CoralMoveStow"
+            "name": "CoralMoveStowAuto"
           }
         },
         {
@@ -63,7 +63,7 @@
         {
           "type": "named",
           "data": {
-            "name": "CoralMoveStow"
+            "name": "CoralMoveStowAuto"
           }
         },
         {

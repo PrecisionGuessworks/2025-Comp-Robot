@@ -158,6 +158,11 @@ private final QuixTalonFX m_wristMotor =
     return Math.abs(angle - m_armMotor.getSensorPosition()) <= tolerance;
   }
 
+  public boolean isrollerStalled() {
+    return Math.abs(m_rollerMotor.getSensorVelocity()) < Constants.Arm.rollerStallVelocity;
+    //return m_rollerMotor.getSupplyCurrent() > Constants.Arm.rollerStallCurrent;
+  }
+
   public void setRollerVelocity(double velocity) {
     if (velocity == 0.0) {
       m_rollerMotor.setPercentOutput(0.0);

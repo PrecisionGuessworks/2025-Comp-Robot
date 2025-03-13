@@ -32,7 +32,7 @@
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.5500481231953803,
+      "minWaypointRelativePos": 0.8195380173243474,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.0,
@@ -59,7 +59,7 @@
     },
     {
       "name": "CoralMoveScore",
-      "waypointRelativePos": 0.45572666025024056,
+      "waypointRelativePos": 0.6847930702598652,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -70,11 +70,11 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 4.0,
+    "maxAcceleration": 4.0,
     "maxAngularVelocity": 300.0,
     "maxAngularAcceleration": 500.0,
-    "nominalVoltage": 12.0,
+    "nominalVoltage": 12.1,
     "unlimited": false
   },
   "goalEndState": {
