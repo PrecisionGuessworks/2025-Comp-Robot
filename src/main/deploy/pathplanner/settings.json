@@ -12,8 +12,8 @@
     "Middle",
     "Right"
   ],
-  "defaultMaxVel": 4.0,
-  "defaultMaxAccel": 4.0,
+  "defaultMaxVel": 3.5,
+  "defaultMaxAccel": 3.5,
   "defaultMaxAngVel": 300.0,
   "defaultMaxAngAccel": 500.0,
   "defaultNominalVoltage": 12.1,

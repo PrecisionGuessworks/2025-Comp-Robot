@@ -134,9 +134,9 @@ public class Constants {
     public static final boolean motorInvert = true;
     public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
-    public static final PIDConfig motorPIDConfig = new PIDConfig(18, 0.01, 0.04, 0.04, 0.13, 0.008, 0.13,GravityTypeValue.Elevator_Static);
+    public static final PIDConfig motorPIDConfig = new PIDConfig(20, 0.01, 0.04, 0.04, 0.13, 0.008, 0.13,GravityTypeValue.Elevator_Static);
     public static final double maxVelocity = 1.8; // m/s // 1.2
-    public static final double maxAcceleration = 25.0; // m/s^2
+    public static final double maxAcceleration = 27.0; // m/s^2
     public static final double maxJerk = 2.0; // m/s^3 (0 disables jerk limit)
     public static final double Expo_kV = 0.08;    
     public static final double Expo_kA = 0.1; // Use a slower kA of 0.1 V/(rps/s)

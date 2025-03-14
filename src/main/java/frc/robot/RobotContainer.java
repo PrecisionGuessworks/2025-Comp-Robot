@@ -210,6 +210,7 @@ ArmWristViz.addLink(
         robotCommands.put("CoralMoveStowAuto", new CoralMoveStowAuto(elevator, arm));
         robotCommands.put("IntakeCoral", new IntakeCoral(elevator, arm));
         robotCommands.put("StowArm", new StowArm(elevator, arm));
+        robotCommands.put("AlgeaWack", new AlgeaWack(elevator, arm));
     
         NamedCommands.registerCommands(robotCommands);
 

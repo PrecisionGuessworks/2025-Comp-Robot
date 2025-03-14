@@ -1,0 +1,49 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Start-G"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralMoveScore"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralMoveStowAuto"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "G-Algae"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Algae-Run"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Middle",
+  "choreoAuto": false
+}

@@ -3,54 +3,50 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.146195652173913,
-        "y": 4.002989130434783
+        "x": 5.7668478260869565,
+        "y": 4.0470108695652165
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.630724340698501,
-        "y": 4.002989130434783
+        "x": 6.9114130434782615,
+        "y": 3.944293478260869
       },
       "isLocked": false,
-      "linkedName": "StartMid"
+      "linkedName": "HG_Algae"
     },
     {
       "anchor": {
-        "x": 5.70375,
-        "y": 4.002989130434783
+        "x": 6.199728260869565,
+        "y": 6.959782608695653
       },
       "prevControl": {
-        "x": 5.953404457333128,
-        "y": 3.9898494221540926
+        "x": 6.647282608695651,
+        "y": 6.240760869565218
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
-  "constraintZones": [
+  "rotationTargets": [
     {
-      "name": "Constraints Zone",
-      "minWaypointRelativePos": 0,
-      "maxWaypointRelativePos": 1.0,
-      "constraints": {
-        "maxVelocity": 2.0,
-        "maxAcceleration": 2.0,
-        "maxAngularVelocity": 400.0,
-        "maxAngularAcceleration": 600.0,
-        "nominalVoltage": 12.0,
-        "unlimited": false
-      }
+      "waypointRelativePos": 0.2542586750788714,
+      "rotationDegrees": -144.42411407384148
     }
   ],
+  "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [
     {
       "name": "StowArm",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.22392051967902588,
       "endWaypointRelativePos": null,
-      "command": null
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "StowArm"
+        }
+      }
     }
   ],
   "globalConstraints": {
@@ -63,13 +59,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -91.08092418666064
   },
   "reversed": false,
   "folder": "Middle",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 179.40319054877082
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }
