@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -14,6 +15,7 @@ import frc.robot.subsystems.ArmSubsystem;
 public class IntakeCoral extends Command {
   private final ElevatorSubsystem m_elevator;
   private final ArmSubsystem m_arm;
+private Timer m_placeTimer = new Timer();
 
   public IntakeCoral(
       ElevatorSubsystem elevatorSubsystem,
@@ -33,6 +35,7 @@ public class IntakeCoral extends Command {
     m_arm.setWristAngle(Constants.Arm.wristIntakeAngle);
     m_arm.setArmRollerCurrent(55, 90);  
     m_arm.setRollerVelocity(Constants.Arm.intakeVelocity);
+    m_placeTimer.restart();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -61,6 +64,6 @@ public class IntakeCoral extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_arm.isrollerStalled();
+    return m_arm.isrollerStalled()&&m_placeTimer.hasElapsed(0.30);
   }
 }
