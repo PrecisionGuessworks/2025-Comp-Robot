@@ -112,8 +112,9 @@ public class Constants {
         public static final double SlowRotPercentage = 0.15; // Default 0.15
 
         // Deadbands for the drive and rotation
-        public static final double DriveDeadband = 0.02; // Drive Deadband
-        public static final double RotationDeadband = 0.02; // Rotation Deadband
+        public static final double DriveDeadband = isSim ? 0.15 : 0.02; // Drive Deadband
+        public static final double RotationDeadband = isSim ? 0.15 : 0.02; // Rotation Deadband
+        public static final double SnapDriveDeadband = 0.001; // Snap Rotation Deadband
         public static final double SnapRotationDeadband = 0.001; // Snap Rotation Deadband
 
     }
@@ -187,7 +188,7 @@ public class Constants {
     public static final MechanismRatio wristMotorRatio =
         isSim ? 
         new MechanismRatio(
-            1, (5.0 / 1.0) * (32.0 / 14.0)) : // Sim
+            1, (4.0 / 1.0) * (32.0 / 14.0)) : // Sim
         new MechanismRatio(
             1, (27.0 / 1.0) * (32.0 / 14.0)); // Real
     public static final boolean wristMotorInvert = true;
@@ -296,12 +297,8 @@ public class Constants {
     public static final double SpeedReductionFactor = 0.3;
 
     public static final double PTranslationSlow = 3;
-    public static final double ITranslationSlow = 0.01;
-    public static final double DTranslationSlow = 0.1;
-
-    public static final double PRotationSlow = 2;
-    public static final double IRotationSlow = 0.01;
-    public static final double DRotationSlow = 0.1;
+    public static final double ITranslationSlow = 0.1;
+    public static final double DTranslationSlow = 0.03;
 
     public static final Pose2d Error = new Pose2d(6, 6, Rotation2d.fromDegrees(0));
 
@@ -323,16 +320,16 @@ public class Constants {
 
     public static final Pose2d Ared = new Pose2d(feildFlip - 3.180, feildFlipy - 4.175, Rotation2d.fromDegrees(180));
     public static final Pose2d Bred = new Pose2d(feildFlip - 3.180, feildFlipy - 3.850, Rotation2d.fromDegrees(180));
-    public static final Pose2d Cred = new Pose2d(feildFlip - 3.685, feildFlipy - 2.975, Rotation2d.fromDegrees(120));
-    public static final Pose2d Dred = new Pose2d(feildFlip - 3.975, feildFlipy - 2.825, Rotation2d.fromDegrees(120));
-    public static final Pose2d Ered = new Pose2d(feildFlip - 5.000, feildFlipy - 2.825, Rotation2d.fromDegrees(60));
-    public static final Pose2d Fred = new Pose2d(feildFlip - 5.285, feildFlipy - 2.975, Rotation2d.fromDegrees(60));
+    public static final Pose2d Cred = new Pose2d(feildFlip - 3.685, feildFlipy - 2.975, Rotation2d.fromDegrees(-120));
+    public static final Pose2d Dred = new Pose2d(feildFlip - 3.975, feildFlipy - 2.825, Rotation2d.fromDegrees(-120));
+    public static final Pose2d Ered = new Pose2d(feildFlip - 5.000, feildFlipy - 2.825, Rotation2d.fromDegrees(-60));
+    public static final Pose2d Fred = new Pose2d(feildFlip - 5.285, feildFlipy - 2.975, Rotation2d.fromDegrees(-60));
     public static final Pose2d Gred = new Pose2d(feildFlip - 5.8, feildFlipy - 3.850, Rotation2d.fromDegrees(0));
     public static final Pose2d Hred = new Pose2d(feildFlip - 5.8, feildFlipy - 4.175, Rotation2d.fromDegrees(0));
-    public static final Pose2d Ired = new Pose2d(feildFlip - 5.285, feildFlipy - 5.075, Rotation2d.fromDegrees(300));
-    public static final Pose2d Jred = new Pose2d(feildFlip - 5.000, feildFlipy - 5.230, Rotation2d.fromDegrees(300));
-    public static final Pose2d Kred = new Pose2d(feildFlip - 3.975, feildFlipy - 5.230, Rotation2d.fromDegrees(240));
-    public static final Pose2d Lred = new Pose2d(feildFlip - 3.685, feildFlipy - 5.075, Rotation2d.fromDegrees(240));
+    public static final Pose2d Ired = new Pose2d(feildFlip - 5.285, feildFlipy - 5.075, Rotation2d.fromDegrees(-300));
+    public static final Pose2d Jred = new Pose2d(feildFlip - 5.000, feildFlipy - 5.230, Rotation2d.fromDegrees(-300));
+    public static final Pose2d Kred = new Pose2d(feildFlip - 3.975, feildFlipy - 5.230, Rotation2d.fromDegrees(-240));
+    public static final Pose2d Lred = new Pose2d(feildFlip - 3.685, feildFlipy - 5.075, Rotation2d.fromDegrees(-240));
 
 
 

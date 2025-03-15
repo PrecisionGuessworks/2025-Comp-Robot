@@ -51,6 +51,7 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -120,6 +121,10 @@ public class Robot extends TimedRobot {
 
                 RobotContainer.drivetrain.addVisionMeasurement(
                         est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                  //System.out.println("Vision Estimation: " + est.estimatedPose.toPose2d());
+        Pose2d pose = est.estimatedPose.toPose2d();
+        double[] poseArray = {pose.getX(), pose.getY(), pose.getRotation().getDegrees()};
+        SmartDashboard.putNumberArray("Camera Curret Pose", poseArray);
             });
     } catch (Exception e) {
       e.printStackTrace();

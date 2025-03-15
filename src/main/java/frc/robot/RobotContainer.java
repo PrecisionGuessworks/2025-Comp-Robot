@@ -93,6 +93,9 @@ public class RobotContainer {
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
             .withDeadband(MaxSpeed * DriveDeadband).withRotationalDeadband(MaxAngularRate * RotationDeadband)
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
+    private final SwerveRequest.FieldCentric driveAuto = new SwerveRequest.FieldCentric()
+            .withDeadband(SnapDriveDeadband).withRotationalDeadband(SnapRotationDeadband)
+            .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
     private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
     private final SwerveRequest.RobotCentric forwardStraight = new SwerveRequest.RobotCentric()
@@ -211,6 +214,10 @@ ArmWristViz.addLink(
         robotCommands.put("IntakeCoral", new IntakeCoral(elevator, arm));
         robotCommands.put("StowArm", new StowArm(elevator, arm));
         robotCommands.put("AlgeaWack", new AlgeaWack(elevator, arm));
+        robotCommands.put("L1", Commands.runOnce(() -> RobotContainer.elevator.setHeightLocation(1)));
+        robotCommands.put("L2", Commands.runOnce(() -> RobotContainer.elevator.setHeightLocation(2)));
+        robotCommands.put("L3", Commands.runOnce(() -> RobotContainer.elevator.setHeightLocation(3)));
+        robotCommands.put("L4", Commands.runOnce(() -> RobotContainer.elevator.setHeightLocation(4)));
     
         NamedCommands.registerCommands(robotCommands);
 
@@ -299,7 +306,7 @@ ArmWristViz.addLink(
         // driver.x().whileTrue(drivetrain.applyRequest(() ->
         //     angle.withVelocityX(-driver.getLeftY() * MaxSpeed)
         //     .withVelocityY(-driver.getLeftX() * MaxSpeed)
-        //     .withTargetDirection(new Rotation2d(Math.toRadians(-270))))
+        //     .withTargetDirection(new Rotation2d(Math.toRadians(0))))
         // );
 
 
@@ -375,77 +382,69 @@ ArmWristViz.addLink(
     
     private Command pathfindingCommand(boolean left) {
         
-    PathPlannerTrajectoryState goalState = new PathPlannerTrajectoryState();
-    PIDController xController = new PIDController(Constants.Pose.PTranslationSlow, Constants.Pose.ITranslationSlow, Constants.Pose.DTranslationSlow);
-    xController.setIntegratorRange(-1, 1);
-    PIDController yController = new PIDController(Constants.Pose.PTranslationSlow, Constants.Pose.ITranslationSlow, Constants.Pose.DTranslationSlow);
-    yController.setIntegratorRange(-1, 1);
-
-    PPHolonomicDriveController driveController = new PPHolonomicDriveController(new PIDConstants(Constants.Pose.PTranslationSlow, Constants.Pose.ITranslationSlow, Constants.Pose.DTranslationSlow), new PIDConstants(Constants.Pose.PRotationSlow, Constants.Pose.IRotationSlow, Constants.Pose.DRotationSlow));
-
-       return new Command() {
-           @Override
-           public void initialize() {
-            m_ally = DriverStation.getAlliance();
-              targetPose = getTargetPose(left);
-            if (drivetrain.getLineup()){
-               //xController.reset();
-               //yController.reset();
-               driveController.reset( drivetrain.getState().Pose, drivetrain.getState().Speeds);
-           }
-           }
-
-           @Override
-           public void execute() {
-            if (drivetrain.getLineup()){
-            Pose2d currentPose = drivetrain.getState().Pose;
-            ChassisSpeeds currentSpeeds = drivetrain.getState().Speeds;
-            X = currentPose.getTranslation().getX();
-            Y = currentPose.getTranslation().getY();
-            VX = currentSpeeds.vxMetersPerSecond;
-            VY = currentSpeeds.vyMetersPerSecond;
-            //   double xOutput = Constants.Pose.SpeedReductionFactor * MaxSpeed * xController.calculate(X, targetPose.getX());
-            //   double yOutput = Constants.Pose.SpeedReductionFactor * MaxSpeed * yController.calculate(Y, targetPose.getY());
-            //    System.out.println(xOutput);
-            //    System.out.println(yOutput);
-            goalState.pose = targetPose;
-            ChassisSpeeds driveControlleroutput = driveController.calculateRobotRelativeSpeeds(currentPose, goalState);
-            drivetrain.applyRequest(() -> 
-                   drive.withVelocityX(driveControlleroutput.vxMetersPerSecond*Constants.Pose.SpeedReductionFactor)
-                        .withVelocityY(driveControlleroutput.vyMetersPerSecond*Constants.Pose.SpeedReductionFactor)
-                        .withRotationalRate(driveControlleroutput.omegaRadiansPerSecond)
-               ).execute();
-            // if (m_ally.get() == Alliance.Blue){
-            //    drivetrain.applyRequest(() -> 
-            //        drive.withVelocityX(driveControlleroutput.vxMetersPerSecond)
-            //             .withVelocityY(driveControlleroutput.vyMetersPerSecond)
-            //             .withRotationalRate(driveControlleroutput.omegaRadiansPerSecond)
-            //    ).execute();
-            // } else {
-            //     drivetrain.applyRequest(() -> 
-            //     drive.withVelocityX(driveControlleroutput.vxMetersPerSecond)
-            //     .withVelocityY(driveControlleroutput.vyMetersPerSecond)
-            //     .withRotationalRate(driveControlleroutput.omegaRadiansPerSecond)
-            //    ).execute();
-            // }
+        PIDController xController = new PIDController(Constants.Pose.PTranslationSlow, Constants.Pose.ITranslationSlow, Constants.Pose.DTranslationSlow);
+        xController.setIntegratorRange(-Constants.Pose.SpeedReductionFactor, Constants.Pose.SpeedReductionFactor);
+        PIDController yController = new PIDController(Constants.Pose.PTranslationSlow, Constants.Pose.ITranslationSlow, Constants.Pose.DTranslationSlow);
+        yController.setIntegratorRange(-Constants.Pose.SpeedReductionFactor, Constants.Pose.SpeedReductionFactor);
+        PIDController thetaController = new PIDController(Constants.Drive.PRotation, Constants.Drive.IRotation,Constants.Drive.DRotation);
+        thetaController.enableContinuousInput(Units.degreesToRadians(-180),Units.degreesToRadians(180));
+    
+        return new Command() {
+            @Override
+            public void initialize() {
+                m_ally = DriverStation.getAlliance();
+                targetPose = getTargetPose(left);
+                if (drivetrain.getLineup()){
+                    xController.reset();
+                    yController.reset();
+                    thetaController.reset();
+                }
             }
-           }
-
-           @Override
-           public void end(boolean interrupted) {
-               xController.close();
+    
+            @Override
+            public void execute() {
+                if (drivetrain.getLineup()){
+                    Pose2d currentPose = drivetrain.getState().Pose;
+                    ChassisSpeeds currentSpeeds = drivetrain.getState().Speeds;
+                    X = currentPose.getTranslation().getX();
+                    Y = currentPose.getTranslation().getY();
+                    VX = currentSpeeds.vxMetersPerSecond;
+                    VY = currentSpeeds.vyMetersPerSecond;
+                    double xOutput = MaxSpeed * xController.calculate(X, targetPose.getX());
+                    double yOutput = MaxSpeed * yController.calculate(Y, targetPose.getY());
+                    double thetaOutput = MaxAngularRate * thetaController.calculate(currentPose.getRotation().getRadians(), targetPose.getRotation().getRadians());
+                    
+                    if (m_ally.get() == Alliance.Blue){
+                        drivetrain.applyRequest(() -> 
+                            drive.withVelocityX(xOutput)
+                                 .withVelocityY(yOutput)
+                                 .withRotationalRate(thetaOutput)
+                        ).execute();
+                    } else {
+                        drivetrain.applyRequest(() -> 
+                        drive.withVelocityX(-xOutput)
+                                 .withVelocityY(-yOutput)
+                                 .withRotationalRate(thetaOutput)   
+                        ).execute();
+                    }
+                }
+            }
+    
+            @Override
+            public void end(boolean interrupted) {
+                xController.close();
                 yController.close();
-           }
-
-           @Override
-           public boolean isFinished() {
-               return !drivetrain.getLineup();
-           }
-       };
+                thetaController.close();
+            }
+    
+            @Override
+            public boolean isFinished() {
+                return !drivetrain.getLineup();
+            }
+        };
     }
 
-
-     private Pose2d getTargetPose(boolean left) {
+    private Pose2d getTargetPose(boolean left) {
         Pose2d currentPose = drivetrain.getState().Pose;
         ChassisSpeeds currentSpeeds = drivetrain.getState().Speeds;
         X = currentPose.getTranslation().getX() + currentSpeeds.vxMetersPerSecond * Constants.Pose.XvelocityFactor;
@@ -485,10 +484,10 @@ ArmWristViz.addLink(
             } else if (Y >= X*slope - intercpet+4 &&  X >= 4.5 && left) {
             System.out.println("Jblue");
             return Constants.Pose.Jblue;
-            } else if (Y >= -X*slope + intercpet+4 && X <= 4.5 && !left) {
+            } else if (Y >= -X*slope + intercpet+4 && X <= 4.5 && left) {
             System.out.println("Kblue");
             return Constants.Pose.Kblue;
-            } else if (Y >= -X*slope + intercpet+4 && X <= 4.5 && left) {
+            } else if (Y >= -X*slope + intercpet+4 && X <= 4.5 && !left) {
             System.out.println("Lblue");
             return Constants.Pose.Lblue;
             } else {
