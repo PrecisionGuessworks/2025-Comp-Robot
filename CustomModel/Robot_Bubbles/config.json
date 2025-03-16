@@ -1,0 +1,120 @@
+{
+    "name": "Bubbles",
+    "sourceUrl": "",
+    "rotations": [
+      {
+        "axis": "x",
+        "degrees": 90
+      },
+      {
+        "axis": "z",
+        "degrees": 90
+      }
+    ],
+    "position": [-0.025, 0.05, 0],
+    "cameras": [
+      {
+        "name": "front",
+        "rotations": [
+          {
+            "axis": "z",
+            "degrees": 20.0
+          }
+        ],
+        "position": [0.3381137256, 0, 0.1862346288],
+        "resolution": [1600, 1200],
+        "fov": 75
+      }
+    ],
+    "components": [
+    {
+      "zeroedRotations": [
+        {
+          "axis": "x",
+          "degrees": 90
+        },
+        {
+          "axis": "z",
+          "degrees": 90
+        },
+        {
+            "axis": "z",
+            "degrees": 180
+          }
+              
+      ],
+      "zeroedPosition": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "zeroedRotations": [
+        {
+          "axis": "x",
+          "degrees": 90
+        },
+        {
+          "axis": "z",
+          "degrees": 90
+        },
+        {
+            "axis": "z",
+            "degrees": 180
+          }
+        
+      ],
+      "zeroedPosition": [
+        0,
+        0.05,
+        0
+      ]
+    },
+    {
+        "zeroedRotations": [
+          {
+            "axis": "x",
+            "degrees": 90
+          },
+          {
+            "axis": "z",
+            "degrees": 90
+          },
+          {
+              "axis": "z",
+              "degrees": 180
+            }
+          
+        ],
+        "zeroedPosition": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "zeroedRotations": [
+          {
+            "axis": "x",
+            "degrees": 90
+          },
+          {
+            "axis": "z",
+            "degrees": 90
+          },
+          {
+              "axis": "z",
+              "degrees": 180
+            }
+          
+        ],
+        "zeroedPosition": [
+          0,
+          0,
+          0
+        ]
+      }
+  ]
+  }
+  

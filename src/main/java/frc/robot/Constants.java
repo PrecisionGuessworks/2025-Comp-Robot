@@ -47,6 +47,7 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.Unit;
 import frc.quixlib.devices.CANDeviceID;
 import frc.quixlib.motorcontrol.MechanismRatio;
 import frc.quixlib.motorcontrol.PIDConfig;
@@ -135,7 +136,9 @@ public class Constants {
     public static final boolean motorInvert = true;
     public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
-    public static final PIDConfig motorPIDConfig = new PIDConfig(20, 0.01, 0.04, 0.04, 0.13, 0.008, 0.13,GravityTypeValue.Elevator_Static);
+    public static final PIDConfig motorPIDConfig = isSim ? 
+        new PIDConfig(5, 0.01, 0.1, 0.04, 0.13, 0.008, 0.13, GravityTypeValue.Elevator_Static) : 
+        new PIDConfig(20, 0.01, 0.04, 0.04, 0.13, 0.008, 0.13, GravityTypeValue.Elevator_Static);
     public static final double maxVelocity = 1.8; // m/s // 1.2
     public static final double maxAcceleration = 27.0; // m/s^2
     public static final double maxJerk = 2.0; // m/s^3 (0 disables jerk limit)
@@ -368,22 +371,19 @@ public class Constants {
     public static final double angularVelocityScalar = 0.01;
   }
 
-//   public static final class Viz3d {
-//     public static final Pose3d intakePivotBase =
-//         new Pose3d(Units.inchesToMeters(-12.5), 0.0, Units.inchesToMeters(11.0), new Rotation3d());
-//     public static final Pose3d elevatorBase =
-//         new Pose3d(
-//             Units.inchesToMeters(3.0),
-//             0,
-//             Units.inchesToMeters(2.75),
-//             new Rotation3d(0, Math.toRadians(15.0), 0));
-//     public static final Transform3d elevatorCarriageToLauncherArmPivot =
-//         new Transform3d(0, 0, Units.inchesToMeters(16.0), new Rotation3d());
-//     public static final Pose3d climberPivot =
-//         elevatorBase.transformBy(
-//             new Transform3d(
-//                 0, 0, Units.inchesToMeters(15.0), new Rotation3d(0, Math.toRadians(-30), 0)));
-//   }
+  public static final class Viz3d {
+    public static double stage1Height = Units.inchesToMeters(26.0);
+    public static final Pose3d intakePivotBase =
+        new Pose3d(Units.inchesToMeters(-12.5), 0.0, Units.inchesToMeters(11.0), new Rotation3d());
+    public static final Pose3d elevatorBase =
+        new Pose3d(
+            Units.inchesToMeters(3.5),
+            0,
+            Units.inchesToMeters(4.0),
+            new Rotation3d(0, 0, 0));
+    public static final Transform3d elevatorCarriageToLauncherArmPivot =
+        new Transform3d(0, 0, Units.inchesToMeters(16.0), new Rotation3d());
+  }
 
 
 

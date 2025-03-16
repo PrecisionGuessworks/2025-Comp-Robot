@@ -29,6 +29,9 @@ import static edu.wpi.first.units.Units.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import org.littletonrobotics.junction.LoggedRobot;
+import org.littletonrobotics.junction.Logger;
+
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.swerve.SwerveDrivetrain;
@@ -52,6 +55,8 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -84,9 +89,25 @@ public class Robot extends TimedRobot {
   Optional<Alliance> newAlly;
   private Vision vision;
 
+  StructPublisher<Pose3d> elevatorCarriagepublisher = NetworkTableInstance.getDefault()
+        .getStructTopic("elevatorCarriage", Pose3d.struct).publish();
+  StructPublisher<Pose3d> Zeropublisher = NetworkTableInstance.getDefault()
+        .getStructTopic("Zeropublisher", Pose3d.struct).publish();
+  StructPublisher<Pose3d> Stage1publisher = NetworkTableInstance.getDefault()
+        .getStructTopic("Stage1", Pose3d.struct).publish();
+  StructPublisher<Pose3d> Armpublisher = NetworkTableInstance.getDefault()
+        .getStructTopic("ArmViz", Pose3d.struct).publish();
+  StructPublisher<Pose3d> Wristpublisher = NetworkTableInstance.getDefault()
+        .getStructTopic("WristViz", Pose3d.struct).publish();
+
+
+
   public Robot() {
     m_robotContainer = new RobotContainer();
     vision = new Vision();
+
+    
+        
   }
 
   // @Override
@@ -181,12 +202,19 @@ public class Robot extends TimedRobot {
 
 
   // 3d viz
-    // final Pose3d intakeArm =
-    //     Constants.Viz3d.intakePivotBase.transformBy(
-    //         new Transform3d(0, 0, 0, new Rotation3d(0, intake.getAngle() - 0.5 * Math.PI, 0)));
-    // final Pose3d elevatorCarriage =
-    //     Constants.Viz3d.elevatorBase.transformBy(
-    //         new Transform3d(0, 0, elevator.getHeight(), new Rotation3d()));
+  final double stage1Height = Constants.Viz3d.stage1Height;
+  final double CarrageHeight = RobotContainer.elevator.getHeight();
+  final Pose3d stageOne =
+      Constants.Viz3d.elevatorBase.transformBy(
+          new Transform3d(0, 0, CarrageHeight >= stage1Height ? CarrageHeight-stage1Height : 0, new Rotation3d()));
+  final Pose3d elevatorCarriage =
+        Constants.Viz3d.elevatorBase.transformBy(
+            new Transform3d(0, 0, CarrageHeight+ Units.inchesToMeters(0.5), new Rotation3d()));
+  final Pose3d armViz = elevatorCarriage.transformBy(
+    new Transform3d(0, 0, Units.inchesToMeters(1), new Rotation3d(0,Units.degreesToRadians( -RobotContainer.arm.getArmAngle()+90),0)));
+    final Pose3d wristViz = armViz.transformBy(
+    new Transform3d(0, 0, Units.inchesToMeters(6), new Rotation3d(0,Units.degreesToRadians( -RobotContainer.arm.getWristAngle()+90),0)));
+
     // final Pose3d launcherArm =
     //     elevatorCarriage
     //         .transformBy(Constants.Viz3d.elevatorCarriageToLauncherArmPivot)
@@ -199,9 +227,12 @@ public class Robot extends TimedRobot {
     //                     0,
     //                     -launcher.getArmAngle() - Constants.Viz3d.elevatorBase.getRotation().getY(),
     //                     0)));
-    // Logger.recordOutput(
-    //     "mechanismPoses",
-    //     new Pose3d[] {intakeArm, elevatorCarriage, launcherArm, Constants.Viz3d.climberPivot});
+        
+        elevatorCarriagepublisher.set(elevatorCarriage);
+        Zeropublisher.set(new Pose3d());
+        Stage1publisher.set(stageOne);
+        Armpublisher.set(armViz);
+        Wristpublisher.set(wristViz);
 
 
 }
