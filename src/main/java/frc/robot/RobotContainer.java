@@ -379,17 +379,21 @@ ArmWristViz.addLink(
     double intercpetRed = Math.tan(Units.degreesToRadians(30))*13;
     double slope = Math.tan(Units.degreesToRadians(30));
     Pose2d targetPose = Constants.Pose.Error; // Example target pose
+    boolean zeroed = false;
     // Create the constraints to use while pathfinding
     
     private Command pathfindingCommand(boolean left) {
         
         PIDController xController = new PIDController(Constants.Pose.PTranslationSlow, Constants.Pose.ITranslationSlow, Constants.Pose.DTranslationSlow);
         xController.setIntegratorRange(-Constants.Pose.SpeedReductionFactor, Constants.Pose.SpeedReductionFactor);
+        xController.setTolerance(Constants.Pose.Tolerance);
         PIDController yController = new PIDController(Constants.Pose.PTranslationSlow, Constants.Pose.ITranslationSlow, Constants.Pose.DTranslationSlow);
         yController.setIntegratorRange(-Constants.Pose.SpeedReductionFactor, Constants.Pose.SpeedReductionFactor);
-        PIDController thetaController = new PIDController(Constants.Drive.PRotation, Constants.Drive.IRotation,Constants.Drive.DRotation);
+        yController.setTolerance(Constants.Pose.Tolerance);
+        PIDController thetaController = new PIDController(Constants.Pose.PRotationSlow, Constants.Pose.IRotationSlow, Constants.Pose.DRotationSlow);
         thetaController.enableContinuousInput(Units.degreesToRadians(-180),Units.degreesToRadians(180));
-    
+        thetaController.setTolerance(Constants.Pose.Tolerance);
+
         return new Command() {
             @Override
             public void initialize() {
@@ -404,6 +408,9 @@ ArmWristViz.addLink(
     
             @Override
             public void execute() {
+                if (driver.axisLessThan(0, Constants.Drive.DriveDeadband).getAsBoolean()&&driver.axisLessThan(1, Constants.Drive.DriveDeadband).getAsBoolean()&&driver.axisLessThan(4, Constants.Drive.RotationDeadband).getAsBoolean()&&driver.axisLessThan(5, Constants.Drive.RotationDeadband).getAsBoolean()) {
+                    zeroed = true;
+                }
                 if (drivetrain.getLineup()){
                     Pose2d currentPose = drivetrain.getState().Pose;
                     ChassisSpeeds currentSpeeds = drivetrain.getState().Speeds;
@@ -411,9 +418,9 @@ ArmWristViz.addLink(
                     Y = currentPose.getTranslation().getY();
                     VX = currentSpeeds.vxMetersPerSecond;
                     VY = currentSpeeds.vyMetersPerSecond;
-                    double xOutput = MaxSpeed * xController.calculate(X, targetPose.getX());
-                    double yOutput = MaxSpeed * yController.calculate(Y, targetPose.getY());
-                    double thetaOutput = MaxAngularRate * thetaController.calculate(currentPose.getRotation().getRadians(), targetPose.getRotation().getRadians());
+                    double xOutput =Constants.Pose.SpeedReductionFactor* MaxSpeed * xController.calculate(X, targetPose.getX());
+                    double yOutput =Constants.Pose.SpeedReductionFactor* MaxSpeed * yController.calculate(Y, targetPose.getY());
+                    double thetaOutput =Constants.Pose.SpeedReductionFactor* MaxAngularRate * thetaController.calculate(currentPose.getRotation().getRadians(), targetPose.getRotation().getRadians());
                     
                     if (m_ally.get() == Alliance.Blue){
                         drivetrain.applyRequest(() -> 
@@ -440,7 +447,9 @@ ArmWristViz.addLink(
     
             @Override
             public boolean isFinished() {
-                return !drivetrain.getLineup();
+                return !drivetrain.getLineup()||
+                (xController.atSetpoint() && yController.atSetpoint() && thetaController.atSetpoint()||
+                (zeroed&&driver.axisMagnitudeGreaterThan(0, Constants.Drive.DriveDeadband).getAsBoolean()||driver.axisMagnitudeGreaterThan(1, Constants.Drive.DriveDeadband).getAsBoolean()||driver.axisMagnitudeGreaterThan(4, Constants.Drive.RotationDeadband).getAsBoolean()||driver.axisMagnitudeGreaterThan(5, Constants.Drive.RotationDeadband).getAsBoolean()));
             }
         };
     }

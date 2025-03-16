@@ -297,11 +297,17 @@ public class Constants {
      public static final double XvelocityFactor = 0.1;
      public static final double YvelocityFactor = 0.1;
 
-    public static final double SpeedReductionFactor = 0.3;
+    public static final double SpeedReductionFactor = 0.15;
 
     public static final double PTranslationSlow = 3;
-    public static final double ITranslationSlow = 0.1;
+    public static final double ITranslationSlow = 10;
     public static final double DTranslationSlow = 0.03;
+
+    public static final double PRotationSlow = 3;
+    public static final double IRotationSlow = 10;
+    public static final double DRotationSlow = 0.03;
+
+    public static final double Tolerance = 0.01;
 
     public static final Pose2d Error = new Pose2d(6, 6, Rotation2d.fromDegrees(0));
 

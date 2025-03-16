@@ -7,13 +7,13 @@
       "height": 836,
       "state": {
         "sidebar": {
-          "width": 284,
+          "width": 238,
           "expanded": [
             "/SmartDashboard/Wrist",
-            "/SmartDashboard/Elevator",
-            "/SmartDashboard/Field",
             "/Shuffleboard/.recording",
-            "/SmartDashboard/Field/Robot"
+            "/SmartDashboard/Field/Robot",
+            "/SmartDashboard/VisionSystemSim-main/Sim Field",
+            "/SmartDashboard"
           ]
         },
         "tabs": {
@@ -175,12 +175,46 @@
                     "options": {}
                   },
                   {
+                    "type": "visionLegacy",
+                    "logKey": "NT:/SmartDashboard/VisionSystemSim-main/Sim Field/visibleTargetPoses",
+                    "logType": "NumberArray",
+                    "visible": false,
+                    "options": {
+                      "color": "#00ff00",
+                      "size": "normal",
+                      "format": "Pose2d"
+                    }
+                  },
+                  {
                     "type": "gamePiece",
                     "logKey": "NT:CoralViz",
                     "logType": "Pose3d",
                     "visible": true,
                     "options": {
                       "variant": "Coral"
+                    }
+                  },
+                  {
+                    "type": "trajectoryLegacy",
+                    "logKey": "NT:/SmartDashboard/Field/path",
+                    "logType": "NumberArray",
+                    "visible": false,
+                    "options": {
+                      "color": "#ff8c00",
+                      "size": "normal",
+                      "format": "Pose2d"
+                    }
+                  },
+                  {
+                    "type": "ghostLegacy",
+                    "logKey": "NT:/SmartDashboard/VisionSystemSim-main/Sim Field/EstimatedRobot",
+                    "logType": "NumberArray",
+                    "visible": false,
+                    "options": {
+                      "model": "KitBot",
+                      "color": "#00ff00",
+                      "format": "Pose2d",
+                      "units": "degrees"
                     }
                   }
                 ],
@@ -192,17 +226,17 @@
                 "cameraIndex": -1,
                 "orbitFov": 50,
                 "cameraPosition": [
-                  9.999781551590406,
-                  1.3031276350800085,
-                  -4.6902443249040635
+                  12.455061274112214,
+                  4.148450296863652,
+                  -2.41044790224259
                 ],
                 "cameraTarget": [
-                  3.9124927210291807,
-                  -0.9616278674527496,
-                  -1.0180643644557315
+                  0,
+                  0.5,
+                  0
                 ]
               },
-              "controlsHeight": 163
+              "controlsHeight": 242
             }
           ]
         }

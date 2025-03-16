@@ -308,6 +308,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
 
     public void setLineup(boolean lineup){
         m_Lineup = lineup;
+        Constants.PoseSoring = !lineup;
     }
     public boolean getLineup(){
         return m_Lineup;
