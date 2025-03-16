@@ -1,0 +1,214 @@
+{
+  "hubs": [
+    {
+      "x": -1546,
+      "y": 100,
+      "width": 1556,
+      "height": 836,
+      "state": {
+        "sidebar": {
+          "width": 284,
+          "expanded": [
+            "/SmartDashboard/Wrist",
+            "/SmartDashboard/Elevator",
+            "/SmartDashboard/Field",
+            "/Shuffleboard/.recording",
+            "/SmartDashboard/Field/Robot"
+          ]
+        },
+        "tabs": {
+          "selected": 2,
+          "tabs": [
+            {
+              "type": 0,
+              "title": "",
+              "controller": null,
+              "controllerUUID": "hpdrnzolag2qf7yl61gb2h6jquvt6w4d",
+              "renderer": "#/",
+              "controlsHeight": 0
+            },
+            {
+              "type": 1,
+              "title": "Line Graph",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/SmartDashboard/Arm: Real Current Angle (deg)",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#2b66a2",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/SmartDashboard/Arm: Target set Angle (deg)",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/SmartDashboard/Wrist: Real Current Angle (deg)",
+                    "logType": "Number",
+                    "visible": false,
+                    "options": {
+                      "color": "#e5b31b",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/SmartDashboard/Wrist: Target set Angle (deg)",
+                    "logType": "Number",
+                    "visible": false,
+                    "options": {
+                      "color": "#3b875a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/SmartDashboard/Elevator: Current Height (in)",
+                    "logType": "Number",
+                    "visible": false,
+                    "options": {
+                      "color": "#af2437",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/SmartDashboard/Elevator: Target set Height (in)",
+                    "logType": "Number",
+                    "visible": false,
+                    "options": {
+                      "color": "#80588e",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/SmartDashboard/Arm: Current Roller Velocity (rad per sec)",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0b487",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "rightUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "ee5mhh9pj68v37tw9i5wwpvwu1nhbg1w",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
+              "type": 3,
+              "title": "3D Field",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robotLegacy",
+                    "logKey": "NT:/SmartDashboard/Field/Robot",
+                    "logType": "NumberArray",
+                    "visible": true,
+                    "options": {
+                      "model": "Bubbles",
+                      "format": "Pose2d",
+                      "units": "degrees"
+                    }
+                  },
+                  {
+                    "type": "mechanism",
+                    "logKey": "NT:/SmartDashboard/Robot Viz",
+                    "logType": "Mechanism2d",
+                    "visible": false,
+                    "options": {}
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "NT:Stage1",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "NT:elevatorCarriage",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "NT:ArmViz",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "NT:WristViz",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "gamePiece",
+                    "logKey": "NT:CoralViz",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {
+                      "variant": "Coral"
+                    }
+                  }
+                ],
+                "game": "2025 Field (AndyMark)",
+                "origin": "blue"
+              },
+              "controllerUUID": "c9bqusrphodc9eosvgo8akxpderjqsys",
+              "renderer": {
+                "cameraIndex": -1,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  9.999781551590406,
+                  1.3031276350800085,
+                  -4.6902443249040635
+                ],
+                "cameraTarget": [
+                  3.9124927210291807,
+                  -0.9616278674527496,
+                  -1.0180643644557315
+                ]
+              },
+              "controlsHeight": 163
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "satellites": [],
+  "version": "4.1.1"
+}

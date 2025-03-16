@@ -59,6 +59,7 @@ private Timer m_placeTimer = new Timer();
     m_elevator.setHeight(Constants.Elevator.stowHeight);
     m_arm.setArmRollerCurrent(10, 10); 
     m_arm.setRollerVelocity(-20);
+    RobotContainer.arm.setHasPiece(true);
   }
 
   // Returns true when the command should end.

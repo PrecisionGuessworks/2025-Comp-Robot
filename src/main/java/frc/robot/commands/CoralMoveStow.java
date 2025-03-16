@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
@@ -43,6 +44,7 @@ public class CoralMoveStow extends Command {
     } else {
       m_arm.setRollerVelocity(Constants.Arm.outtakeVelocity);
     }
+    
   }
     
   }
@@ -63,6 +65,7 @@ public class CoralMoveStow extends Command {
    m_arm.setWristAngle(Constants.Arm.wristStowAngle);
    m_arm.setArmRollerCurrent(30, 60);
     m_arm.setRollerVelocity(0);
+    RobotContainer.arm.setHasPiece(false);
     if (m_elevator.getHeightLocation()!=1){
     m_elevator.setHeight(Constants.Elevator.PreStow);
     }

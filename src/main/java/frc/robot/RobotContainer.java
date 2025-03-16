@@ -315,6 +315,7 @@ ArmWristViz.addLink(
        driver.a().whileTrue(new MoveupArm(1,elevator,arm)); 
        driver.b().whileTrue(new MoveupArm(2,elevator,arm)); 
        driver.y().whileTrue(new Moveup(elevator));
+       driver.x().whileTrue(new AlgeaWack(elevator, arm));
 
        operator.y().whileTrue(new CoralEleUp(elevator));
        operator.a().whileTrue(new AlgeaWack(elevator, arm));

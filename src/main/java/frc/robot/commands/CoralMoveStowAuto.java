@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
@@ -19,6 +20,7 @@ public class CoralMoveStowAuto extends Command {
   public int pastscoreheight = 0;
   public boolean trueendtrigger = false;
   private Timer m_placeTimer = new Timer();
+  private Timer m_OveridTimer = new Timer();
 
   public CoralMoveStowAuto(
  //     IntakeSubsystem intakeSubsystem,
@@ -35,6 +37,8 @@ public class CoralMoveStowAuto extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_OveridTimer.restart();
+    m_placeTimer.reset();
     
     
     
@@ -43,10 +47,13 @@ public class CoralMoveStowAuto extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_placeTimer.restart();
-    if(!m_elevator.isAtScore()){
-    m_placeTimer.restart();
-    }  
+
+    if(m_elevator.isAtScore()||m_OveridTimer.hasElapsed(1.5)){
+      m_arm.setArmRollerCurrent(120, 65);
+      m_arm.setRollerVelocity(Constants.Arm.outtakeVelocity);
+      m_placeTimer.start();
+
+    }
 
   }
 
@@ -58,6 +65,7 @@ public class CoralMoveStowAuto extends Command {
    m_arm.setWristAngle(Constants.Arm.wristStowAngle);
    m_arm.setArmRollerCurrent(30, 60);
     m_arm.setRollerVelocity(0);
+    RobotContainer.arm.setHasPiece(false);
     if (m_elevator.getHeightLocation()!=1){
     m_elevator.setHeight(Constants.Elevator.PreStow);
     }
