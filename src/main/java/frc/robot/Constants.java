@@ -164,6 +164,7 @@ public class Constants {
     public static final double L3Algae = Units.inchesToMeters(31.5); // m
 
     public static final double PreStow = Units.inchesToMeters(10); // m
+    public static final double SlowmodeHeight = Units.inchesToMeters(25); // m
 
     // For simulation.
     public static final double simCarriageMass = 7.0; // kg

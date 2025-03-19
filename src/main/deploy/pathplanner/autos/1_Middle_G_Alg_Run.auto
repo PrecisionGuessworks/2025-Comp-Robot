@@ -13,13 +13,13 @@
         {
           "type": "named",
           "data": {
-            "name": "CoralMoveScore"
+            "name": "CoralMoveStowAuto"
           }
         },
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "CoralMoveStowAuto"
+            "waitTime": 0.5
           }
         },
         {
