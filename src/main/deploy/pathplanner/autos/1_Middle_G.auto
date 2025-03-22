@@ -7,19 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Start-Mid"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "CoralMoveStowAuto"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 3.0
+            "pathName": "Start-G"
           }
         },
         {
