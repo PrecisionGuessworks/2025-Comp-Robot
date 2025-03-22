@@ -156,7 +156,7 @@ public class Constants {
     public static final double intakeHeight = Units.inchesToMeters(11.75); // m // 
 
     public static final double L1 = Units.inchesToMeters(1); // m
-    public static final double L2 = Units.inchesToMeters(13.5); // m
+    public static final double L2 = Units.inchesToMeters(13.75); // m
     public static final double L3 = Units.inchesToMeters(29.5); // m
     public static final double L4 = Units.inchesToMeters(56); // m 56.3 max, 55.8 was a lil too low
 
