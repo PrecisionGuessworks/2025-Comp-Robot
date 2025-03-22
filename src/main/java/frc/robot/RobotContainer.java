@@ -315,7 +315,7 @@ ArmWristViz.addLink(
        driver.a().whileTrue(new MoveupArm(1,elevator,arm)); 
        driver.b().whileTrue(new MoveupArm(2,elevator,arm)); 
        driver.y().whileTrue(new Moveup(elevator));
-       driver.x().whileTrue(new AlgeaWack(elevator, arm));
+      driver.x().whileTrue(new AlgeaWack(elevator, arm));
 
        operator.y().whileTrue(new CoralEleUp(elevator));
        operator.a().whileTrue(new AlgeaWack(elevator, arm));
@@ -329,6 +329,12 @@ ArmWristViz.addLink(
      //   operator.leftTrigger().whileTrue(new IntakeAlgae(intake, 2));
      //   operator.rightTrigger().whileTrue(new IntakeAlgae(intake, 1));
         operator.rightBumper().whileTrue(new StowArm(elevator, arm));
+        operator.start().whileTrue(drivetrain.applyRequest(() ->
+        drive.withVelocityX(-driver.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
+            .withVelocityY(-driver.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+            .withRotationalRate(-driver.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+    ));
+    
         // operator.leftBumper().and(operator.x()).onTrue(new ClimbSet(1, climber, elevator, arm));
         // operator.leftBumper().and(operator.y()).onTrue(new ClimbSet(2, climber, elevator, arm));
         // operator.leftBumper().and(operator.b()).onTrue(new ClimbSet(3, climber, elevator, arm));
