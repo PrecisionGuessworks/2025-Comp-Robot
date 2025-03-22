@@ -59,7 +59,7 @@
     },
     {
       "name": "CoralMoveScore",
-      "waypointRelativePos": 0.9025601834161252,
+      "waypointRelativePos": 0.8099133782483157,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",

@@ -75,13 +75,13 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public boolean isAtScore(){
     if (m_HeightLocation == 4){
-      return isAtHeight(Constants.Elevator.L4, Units.inchesToMeters(3));
+      return isAtHeight(Constants.Elevator.L4, Units.inchesToMeters(6));
     } else if (m_HeightLocation == 3){
-      return isAtHeight(Constants.Elevator.L3, Units.inchesToMeters(3));
+      return isAtHeight(Constants.Elevator.L3, Units.inchesToMeters(6));
     } else if (m_HeightLocation == 2){
-      return isAtHeight(Constants.Elevator.L2, Units.inchesToMeters(3));
+      return isAtHeight(Constants.Elevator.L2, Units.inchesToMeters(6));
     } else if (m_HeightLocation == 1){
-      return isAtHeight(Constants.Elevator.L1, Units.inchesToMeters(3));
+      return isAtHeight(Constants.Elevator.L1, Units.inchesToMeters(6));
     } else {
       return false;
     }
