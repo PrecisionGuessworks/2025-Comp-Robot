@@ -277,7 +277,7 @@ ArmWristViz.addLink(
 
         //driver.y().whileTrue(new ClimbSet(climber));
         //driver.x().whileTrue(pathfindingtofollowCommand());
-        driver.leftTrigger().or(() -> RobotContainer.elevator.getHeight() >= Constants.Elevator.SlowmodeHeight).whileTrue(drivetrain.applyRequest(() ->
+        driver.leftTrigger().or(() -> (RobotContainer.elevator.getHeight() >= Constants.Elevator.SlowmodeHeight) && !DriverStation.isAutonomous()).whileTrue(drivetrain.applyRequest(() ->
         drive.withVelocityX(-driver.getLeftY() * MaxSpeed * Constants.Drive.SlowSpeedPercentage) // Drive forward with negative Y (forward)
             .withVelocityY(-driver.getLeftX() * MaxSpeed * Constants.Drive.SlowSpeedPercentage) // Drive left with negative X (left)
             .withRotationalRate(-driver.getRightX() * MaxAngularRate * Constants.Drive.SlowRotPercentage) // Drive counterclockwise with negative X (left)
