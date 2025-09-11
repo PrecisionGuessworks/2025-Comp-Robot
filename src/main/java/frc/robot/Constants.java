@@ -48,6 +48,7 @@ import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.Unit;
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.quixlib.devices.CANDeviceID;
 import frc.quixlib.motorcontrol.MechanismRatio;
 import frc.quixlib.motorcontrol.PIDConfig;
@@ -68,13 +69,14 @@ public class Constants {
     public static final String kSuperStructureCanivoreName = "superStructure";
 
 
-    public static final double g = 9.81; // m/s/s
+    public static final double g = 9.80148; // m/s/s
     public static final double defaultPeriodSecs = 0.02; // s
     public static boolean isSim =  edu.wpi.first.wpilibj.RobotBase.isSimulation(); // 
     public static boolean PoseSoring = !false; // Only move Scoring Stuff if close to reef
     public static boolean ElevatorOff = false; // Shut off Elevator
     public static boolean Lineup = false; // Auto Lineup to Reef to Scrore.
     public static boolean ExtraInfo = true; // Turn on Extra network info
+    public static boolean Logging = false; // Turn off Logging
 
 
     public static class Vision {
@@ -88,9 +90,25 @@ public class Constants {
                 AprilTagFields.kDefaultField.loadAprilTagLayoutField();
 
         // The standard deviations of our vision estimated poses, which affect correction rate
-        // (Fake values. Experiment and determine estimation noise on an actual robot.)
-        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
-        public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
+        // 7028 values
+
+        // public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
+        // public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
+
+        // 461 values
+        // public static final Matrix<N3, N1> ODOM_STD_DEV = VecBuilder.fill(0.03, 0.03, Units.degreesToRadians(0.01));
+        // public static final Function<Double, Matrix<N3, N1>> VISION_STD_DEV_MULTITAG_FUNCTION =
+        //         dist -> dist < 3.0
+        //                 ? VecBuilder.fill(Math.min(0.03, 0.03 * dist), Math.min(0.03, 0.03 * dist), DriverStation.isEnabled() ? Units.degreesToRadians(5.0) : Units.degreesToRadians(0.05))
+        //                 : VecBuilder.fill(0.05 * dist, 0.05 * dist, Units.degreesToRadians(180.0) * dist);
+        // public static final Function<Double, Matrix<N3, N1>> VISION_STD_DEV_FUNCTION =
+        //         dist -> dist < 3.0
+        //                 ? VecBuilder.fill(0.075 * dist, 0.075 * dist, Units.degreesToRadians(180.0) * dist)
+        //                 : VecBuilder.fill(0.1 * dist, 0.1 * dist, Units.degreesToRadians(180.0) * dist);
+
+        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(8, 8, 16);
+        public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(3, 3, 6);
+    
     }
 
     public static class Drive { //Drive Constants that are not in TunerConstants / Gnenerated

@@ -210,10 +210,13 @@ ArmWristViz.addLink(
 
 
     public RobotContainer() {
+        if (Constants.Logging){
         // Starts recording to data log
         DataLogManager.start();
         // Record both DS control and joystick data
         DriverStation.startDataLog(DataLogManager.getLog());
+        }
+
 
         //robotCommands.put("IntakePiece", new IntakeAlgae(intake,1).withTimeout(2.5));
         robotCommands.put("CoralMoveScore", new CoralMoveScore(elevator, arm));
