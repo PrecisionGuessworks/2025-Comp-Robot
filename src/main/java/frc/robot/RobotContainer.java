@@ -97,6 +97,8 @@ public class RobotContainer {
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
             .withDeadband(MaxSpeed * DriveDeadband).withRotationalDeadband(MaxAngularRate * RotationDeadband)
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
+    // private final SwerveRequest.FieldCentric drivelineup = new SwerveRequest.FieldCentric()
+    //         .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
     private final SwerveRequest.FieldCentric driveAuto = new SwerveRequest.FieldCentric()
             .withDeadband(SnapDriveDeadband).withRotationalDeadband(SnapRotationDeadband)
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
@@ -288,11 +290,21 @@ ArmWristViz.addLink(
 
         //driver.y().whileTrue(new ClimbSet(climber));
         //driver.x().whileTrue(pathfindingtofollowCommand());
-        driver.leftTrigger().or(() -> (RobotContainer.elevator.getHeight() >= Constants.Elevator.SlowmodeHeight) && !DriverStation.isAutonomous()).whileTrue(drivetrain.applyRequest(() ->
+
+        // Old
+        driver.leftTrigger().or(() -> (RobotContainer.elevator.getHeight() >= Constants.Elevator.SlowmodeHeight) && !DriverStation.isAutonomous() && Constants.PoseSoring).whileTrue(drivetrain.applyRequest(() ->
         drive.withVelocityX(-driver.getLeftY() * MaxSpeed * Constants.Drive.SlowSpeedPercentage) // Drive forward with negative Y (forward)
             .withVelocityY(-driver.getLeftX() * MaxSpeed * Constants.Drive.SlowSpeedPercentage) // Drive left with negative X (left)
             .withRotationalRate(-driver.getRightX() * MaxAngularRate * Constants.Drive.SlowRotPercentage) // Drive counterclockwise with negative X (left)
         ));
+
+        // Test not work
+        // driver.leftBumper().or(driver.rightBumper().or(driver.leftTrigger().or(() -> (RobotContainer.elevator.getHeight() >= Constants.Elevator.SlowmodeHeight) && !DriverStation.isAutonomous()).whileTrue(drivetrain.applyRequest(() ->
+        // drive.withVelocityX(-driver.getLeftY() * MaxSpeed * Constants.Drive.SlowSpeedPercentage) // Drive forward with negative Y (forward)
+        //     .withVelocityY(-driver.getLeftX() * MaxSpeed * Constants.Drive.SlowSpeedPercentage) // Drive left with negative X (left)
+        //     .withRotationalRate(-driver.getRightX() * MaxAngularRate * Constants.Drive.SlowRotPercentage) // Drive counterclockwise with negative X (left)
+        // ))));
+
         driver.rightTrigger().whileTrue(new IntakeCoral(elevator, arm));
        // driver.leftTrigger().whileTrue(new IntakeAlgae(intake, 0));
         driver.start().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
@@ -403,13 +415,13 @@ ArmWristViz.addLink(
         
         PIDController xController = new PIDController(Constants.Pose.PTranslationSlow, Constants.Pose.ITranslationSlow, Constants.Pose.DTranslationSlow);
         xController.setIntegratorRange(-Constants.Pose.SpeedReductionFactor, Constants.Pose.SpeedReductionFactor);
-        xController.setTolerance(Constants.Pose.Tolerance);
+        // xController.setTolerance(Constants.Pose.Tolerance);
         PIDController yController = new PIDController(Constants.Pose.PTranslationSlow, Constants.Pose.ITranslationSlow, Constants.Pose.DTranslationSlow);
         yController.setIntegratorRange(-Constants.Pose.SpeedReductionFactor, Constants.Pose.SpeedReductionFactor);
-        yController.setTolerance(Constants.Pose.Tolerance);
+        // yController.setTolerance(Constants.Pose.Tolerance);
         PIDController thetaController = new PIDController(Constants.Pose.PRotationSlow, Constants.Pose.IRotationSlow, Constants.Pose.DRotationSlow);
         thetaController.enableContinuousInput(Units.degreesToRadians(-180),Units.degreesToRadians(180));
-        thetaController.setTolerance(Constants.Pose.Tolerance);
+        // thetaController.setTolerance(Constants.Pose.Tolerance);
 
         return new Command() {
             @Override
@@ -441,13 +453,13 @@ ArmWristViz.addLink(
                     
                     if (m_ally.get() == Alliance.Blue){
                         drivetrain.applyRequest(() -> 
-                            drive.withVelocityX(xOutput)
+                        driveAuto.withVelocityX(xOutput)
                                  .withVelocityY(yOutput)
                                  .withRotationalRate(thetaOutput)
                         ).execute();
                     } else {
                         drivetrain.applyRequest(() -> 
-                        drive.withVelocityX(-xOutput)
+                        driveAuto.withVelocityX(-xOutput)
                                  .withVelocityY(-yOutput)
                                  .withRotationalRate(thetaOutput)   
                         ).execute();

@@ -326,7 +326,7 @@ public class Constants {
     public static final double IRotationSlow = 10;
     public static final double DRotationSlow = 0.03;
 
-    public static final double Tolerance = 0.01;
+    public static final double Tolerance = 0.001;
 
     public static final Pose2d Error = new Pose2d(6, 6, Rotation2d.fromDegrees(0));
 
