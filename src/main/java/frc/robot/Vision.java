@@ -149,15 +149,35 @@ public class Vision {
                 // No tags visible. Default to single-tag std devs
                 curStdDevs = kSingleTagStdDevs;
             } else {
+                // ----- Original code 
+
                 // One or more tags visible, run the full heuristic.
+                // avgDist /= numTags;
+                // // Decrease std devs if multiple targets are visible
+                // if (numTags > 1) estStdDevs = kMultiTagStdDevs;
+                // // Increase std devs based on (average) distance
+                // if (numTags == 1 && avgDist > 4)
+                //     estStdDevs = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+                // else estStdDevs = estStdDevs.times(1 + (avgDist * avgDist / 30));
+                // curStdDevs = estStdDevs;
+
+
+                // not accounting for dist
+                // avgDist /= numTags;
+                // // Decrease std devs if multiple targets are visible
+                // if (numTags > 1) 
+                // estStdDevs = kMultiTagStdDevs;
+                // else
+                // estStdDevs = kSingleTagStdDevs;
+
+                // using dist
                 avgDist /= numTags;
                 // Decrease std devs if multiple targets are visible
-                if (numTags > 1) estStdDevs = kMultiTagStdDevs;
-                // Increase std devs based on (average) distance
-                if (numTags == 1 && avgDist > 4)
-                    estStdDevs = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
-                else estStdDevs = estStdDevs.times(1 + (avgDist * avgDist / 30));
-                curStdDevs = estStdDevs;
+                if (numTags > 1) 
+                estStdDevs = kMultiTagStdDevs.times(avgDist/3);
+                else
+                estStdDevs = kSingleTagStdDevs.times(avgDist/3);
+
             }
         }
     }

@@ -25,6 +25,7 @@ import com.pathplanner.lib.trajectory.PathPlannerTrajectoryState;
 import com.pathplanner.lib.util.FileVersionException;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -218,6 +219,8 @@ ArmWristViz.addLink(
         // Record both DS control and joystick data
         DriverStation.startDataLog(DataLogManager.getLog());
         }
+        drivetrain.setStateStdDevs(Constants.Vision.ODOM_STD_DEV);
+        
 
 
         //robotCommands.put("IntakePiece", new IntakeAlgae(intake,1).withTimeout(2.5));

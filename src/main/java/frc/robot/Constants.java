@@ -106,8 +106,9 @@ public class Constants {
         //                 ? VecBuilder.fill(0.075 * dist, 0.075 * dist, Units.degreesToRadians(180.0) * dist)
         //                 : VecBuilder.fill(0.1 * dist, 0.1 * dist, Units.degreesToRadians(180.0) * dist);
 
-        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(8, 8, 16);
-        public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(3, 3, 6);
+        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(0.5, 0.5, 2); // m, m, rad
+        public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.1, 0.1, 0.4);
+        public static final Matrix<N3, N1> ODOM_STD_DEV = VecBuilder.fill(0.03, 0.03, Units.degreesToRadians(0.01));
     
     }
 
