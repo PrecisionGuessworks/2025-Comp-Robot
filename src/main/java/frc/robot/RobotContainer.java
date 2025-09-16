@@ -475,6 +475,7 @@ ArmWristViz.addLink(
                 xController.close();
                 yController.close();
                 thetaController.close();
+                zeroed = false;
             }
     
             @Override
