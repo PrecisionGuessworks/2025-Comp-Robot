@@ -80,7 +80,8 @@ public class Constants {
 
 
     public static class Vision {
-        public static final String kCameraName = "Front";
+        public static final String kCameraName = "FrontCamera"; // Front
+        
         // Cam mounted facing forward, half a meter forward of center, half a meter up from center, up 15 degs.
         public static final Transform3d kRobotToCam =
                 new Transform3d(new Translation3d(Units.inchesToMeters(13.311564), 0.0, Units.inchesToMeters(7.332072)), new Rotation3d(0, Math.toRadians(-20), 0));

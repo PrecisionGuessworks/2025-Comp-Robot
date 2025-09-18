@@ -1,22 +1,10 @@
 TODO:
 
--fix edge cases (Just redo it all) probs should split wrist and arm checks
--fix red line up code and anything red pose
--wrist and climb sometimes act weird with each other
-
--BUG: L1 Stow not score issue
-
--tune all to real world
--copy sim constants to new file
+-tune vision to real world
 
 autos
 -close and far 4 piece + subs
--middle clear
 -maybe middle hug sides 2 piece
-
-
-
--maybe coral ground later
 
 
 
@@ -26,7 +14,7 @@ Driver:
 
 A: -                 Arm Test
 B: -                 Wrist Test
-X: -                  --------------------------------- NOT CODED
+X: -                 Algae Wack
 Y: -                 Elevator Test
 
 Left Bumper: Left Score

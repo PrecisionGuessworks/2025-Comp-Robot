@@ -194,7 +194,7 @@
               "topic": "/SmartDashboard/Swerve Drive",
               "period": 0.06,
               "show_robot_rotation": true,
-              "rotation_unit": "Radians"
+              "rotation_unit": "Degrees"
             }
           }
         ]
@@ -392,7 +392,7 @@
               "topic": "/SmartDashboard/Swerve Drive",
               "period": 0.06,
               "show_robot_rotation": true,
-              "rotation_unit": "Radians"
+              "rotation_unit": "Degrees"
             }
           }
         ]
@@ -417,9 +417,9 @@
           },
           {
             "title": "CAN",
-            "x": 448.0,
-            "y": 192.0,
-            "width": 576.0,
+            "x": 0.0,
+            "y": 448.0,
+            "width": 256.0,
             "height": 128.0,
             "type": "Number Bar",
             "properties": {
@@ -435,8 +435,8 @@
           },
           {
             "title": "Time",
-            "x": 448.0,
-            "y": 640.0,
+            "x": 512.0,
+            "y": 576.0,
             "width": 256.0,
             "height": 128.0,
             "type": "Match Time",
@@ -452,7 +452,7 @@
           {
             "title": "Time2",
             "x": 768.0,
-            "y": 640.0,
+            "y": 576.0,
             "width": 256.0,
             "height": 128.0,
             "type": "Match Time",
@@ -485,8 +485,8 @@
           },
           {
             "title": "Gyro",
-            "x": 0.0,
-            "y": 384.0,
+            "x": 256.0,
+            "y": 448.0,
             "width": 256.0,
             "height": 256.0,
             "type": "Gyro",
@@ -498,8 +498,8 @@
           },
           {
             "title": "Command Scheduler",
-            "x": 448.0,
-            "y": 320.0,
+            "x": 512.0,
+            "y": 256.0,
             "width": 256.0,
             "height": 320.0,
             "type": "Scheduler",
@@ -511,7 +511,7 @@
           {
             "title": "Command",
             "x": 768.0,
-            "y": 320.0,
+            "y": 256.0,
             "width": 256.0,
             "height": 128.0,
             "type": "Command",
@@ -524,7 +524,7 @@
           {
             "title": "Reset Gyro",
             "x": 768.0,
-            "y": 448.0,
+            "y": 384.0,
             "width": 256.0,
             "height": 128.0,
             "type": "Command",
@@ -532,6 +532,48 @@
               "topic": "/SmartDashboard/Reset Gyro",
               "period": 0.06,
               "show_type": false
+            }
+          },
+          {
+            "title": "Camera Curret Pose",
+            "x": 512.0,
+            "y": 0.0,
+            "width": 512.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/SmartDashboard/Camera Curret Pose",
+              "period": 0.06,
+              "data_type": "double[]",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Robot",
+            "x": 512.0,
+            "y": 128.0,
+            "width": 512.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/SmartDashboard/Field/Robot",
+              "period": 0.06,
+              "data_type": "double[]",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Camera Curret Pose Average",
+            "x": 0.0,
+            "y": 576.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/SmartDashboard/Camera Curret Pose Average",
+              "period": 0.06,
+              "data_type": "double[]",
+              "show_submit_button": false
             }
           }
         ]

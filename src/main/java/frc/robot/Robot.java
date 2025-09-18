@@ -88,6 +88,9 @@ public class Robot extends TimedRobot {
   Optional<Alliance> newAlly;
   private Vision vision;
 
+  private Pose2d[] AveragePose = new Pose2d[25];
+  private int AveragePoseCount = 0;
+
   StructPublisher<Pose3d> elevatorCarriagepublisher = NetworkTableInstance.getDefault()
         .getStructTopic("elevatorCarriage", Pose3d.struct).publish();
   StructPublisher<Pose3d> Zeropublisher = NetworkTableInstance.getDefault()
@@ -146,10 +149,35 @@ public class Robot extends TimedRobot {
         Pose2d pose = est.estimatedPose.toPose2d();
         double[] poseArray = {pose.getX(), pose.getY(), pose.getRotation().getDegrees()};
         SmartDashboard.putNumberArray("Camera Curret Pose", poseArray);
+        AveragePose[AveragePoseCount] = pose;
+        AveragePoseCount++;
+        if (AveragePoseCount > 24)  AveragePoseCount = 0;
             });
     } catch (Exception e) {
       e.printStackTrace();
     }
+
+    double avgX = 0, avgY = 0, avgRotation = 0;
+    int validPoseCount = 0;
+
+    for (Pose2d pose : AveragePose) {
+      if (pose != null) { // Ensure the pose is not null
+        avgX += pose.getX();
+        avgY += pose.getY();
+        avgRotation += pose.getRotation().getDegrees();
+        validPoseCount++;
+      }
+    }
+
+    if (validPoseCount > 0) {
+      avgX /= validPoseCount;
+      avgY /= validPoseCount;
+      avgRotation /= validPoseCount;
+    }
+
+    double[] poseArray = {Math.round(avgX * 1000.0) / 1000.0, Math.round(avgY * 1000.0) / 1000.0, Math.round(avgRotation * 1000.0) / 1000.0};
+    SmartDashboard.putNumberArray("Camera Curret Pose Average", poseArray);
+
 
   if (m_robotContainer.driver.pov(0).getAsBoolean() == true || m_robotContainer.operator.pov(0).getAsBoolean() == true){
     RobotContainer.elevator.setHeightLocation(4);

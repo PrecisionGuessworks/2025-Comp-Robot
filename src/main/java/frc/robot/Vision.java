@@ -176,8 +176,12 @@ public class Vision {
                 if (numTags > 1) 
                 estStdDevs = kMultiTagStdDevs.times(avgDist/3);
                 else
-                estStdDevs = kSingleTagStdDevs.times(avgDist/3);
-
+                    if (avgDist < 2)
+                        estStdDevs = kSingleTagStdDevs.times(avgDist/9);
+                    else
+                        estStdDevs = kSingleTagStdDevs.times(avgDist/2);
+                        
+                curStdDevs = estStdDevs;
             }
         }
     }
