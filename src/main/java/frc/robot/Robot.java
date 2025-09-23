@@ -148,7 +148,7 @@ public class Robot extends TimedRobot {
                   //System.out.println("Vision Estimation: " + est.estimatedPose.toPose2d());
         Pose2d pose = est.estimatedPose.toPose2d();
         double[] poseArray = {pose.getX(), pose.getY(), pose.getRotation().getDegrees()};
-        SmartDashboard.putNumberArray("Camera Curret Pose", poseArray);
+        SmartDashboard.putNumberArray("Camera Current Pose", poseArray);
         AveragePose[AveragePoseCount] = pose;
         AveragePoseCount++;
         if (AveragePoseCount > 24)  AveragePoseCount = 0;
@@ -176,7 +176,7 @@ public class Robot extends TimedRobot {
     }
 
     double[] poseArray = {Math.round(avgX * 1000.0) / 1000.0, Math.round(avgY * 1000.0) / 1000.0, Math.round(avgRotation * 1000.0) / 1000.0};
-    SmartDashboard.putNumberArray("Camera Curret Pose Average", poseArray);
+    SmartDashboard.putNumberArray("Camera Current Pose Average", poseArray);
 
 
   if (m_robotContainer.driver.pov(0).getAsBoolean() == true || m_robotContainer.operator.pov(0).getAsBoolean() == true){

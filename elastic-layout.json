@@ -535,14 +535,14 @@
             }
           },
           {
-            "title": "Camera Curret Pose",
+            "title": "Camera Current Pose",
             "x": 512.0,
             "y": 0.0,
             "width": 512.0,
             "height": 128.0,
             "type": "Text Display",
             "properties": {
-              "topic": "/SmartDashboard/Camera Curret Pose",
+              "topic": "/SmartDashboard/Camera Current Pose",
               "period": 0.06,
               "data_type": "double[]",
               "show_submit_button": false
@@ -563,14 +563,14 @@
             }
           },
           {
-            "title": "Camera Curret Pose Average",
+            "title": "Camera Current Pose Average",
             "x": 0.0,
             "y": 576.0,
             "width": 256.0,
             "height": 128.0,
             "type": "Text Display",
             "properties": {
-              "topic": "/SmartDashboard/Camera Curret Pose Average",
+              "topic": "/SmartDashboard/Camera Current Pose Average",
               "period": 0.06,
               "data_type": "double[]",
               "show_submit_button": false
