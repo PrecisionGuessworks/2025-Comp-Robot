@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "StowArm"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Start_Move_Left"
