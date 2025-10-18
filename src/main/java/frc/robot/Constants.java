@@ -1,27 +1,3 @@
-/*
- * MIT License
- *
- * Copyright (c) PhotonVision
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
 package frc.robot;
 
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
@@ -76,7 +52,7 @@ public class Constants {
     public static boolean ElevatorOff = false; // Shut off Elevator
     public static boolean Lineup = false; // Auto Lineup to Reef to Scrore.
     public static boolean ExtraInfo = true; // Turn on Extra network info
-    public static boolean Logging = false; // Turn off Logging
+    public static boolean Logging = false; // Turn on Logging
 
 
     public static class Vision {
@@ -91,6 +67,7 @@ public class Constants {
                 AprilTagFields.kDefaultField.loadAprilTagLayoutField();
 
         // The standard deviations of our vision estimated poses, which affect correction rate
+        // Increase these numbers to trust your state estimate less.
         // 7028 values
 
         // public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
@@ -107,10 +84,10 @@ public class Constants {
         //                 ? VecBuilder.fill(0.075 * dist, 0.075 * dist, Units.degreesToRadians(180.0) * dist)
         //                 : VecBuilder.fill(0.1 * dist, 0.1 * dist, Units.degreesToRadians(180.0) * dist);
 
-        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(0.5, 0.5, 2); // m, m, rad
-        public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.1, 0.1, 0.4);
+        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8); // m, m, rad
+        public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
         public static final Matrix<N3, N1> ODOM_STD_DEV = VecBuilder.fill(0.03, 0.03, Units.degreesToRadians(0.01));
-    
+        
     }
 
     public static class Drive { //Drive Constants that are not in TunerConstants / Gnenerated
@@ -184,7 +161,7 @@ public class Constants {
     public static final double L3Algae = Units.inchesToMeters(31.5); // m
 
     public static final double PreStow = Units.inchesToMeters(10); // m
-    public static final double SlowmodeHeight = Units.inchesToMeters(25); // m
+    public static final double SlowmodeHeight = Units.inchesToMeters(32); // m 25
 
     // For simulation.
     public static final double simCarriageMass = 7.0; // kg
@@ -320,15 +297,15 @@ public class Constants {
 
     public static final double SpeedReductionFactor = 0.15;
 
-    public static final double PTranslationSlow = 3;
-    public static final double ITranslationSlow = 10;
+    public static final double PTranslationSlow = 4;
+    public static final double ITranslationSlow = 1;
     public static final double DTranslationSlow = 0.03;
 
-    public static final double PRotationSlow = 3;
-    public static final double IRotationSlow = 10;
+    public static final double PRotationSlow = 4;
+    public static final double IRotationSlow = 1;
     public static final double DRotationSlow = 0.03;
 
-    public static final double Tolerance = 0.001;
+    public static final double Tolerance = 0.0001;
 
     public static final Pose2d Error = new Pose2d(6, 6, Rotation2d.fromDegrees(0));
 

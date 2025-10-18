@@ -90,7 +90,8 @@ public class RobotContainer {
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
-    public static final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+    // public static final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+    public static final CommandSwerveDrivetrain drivetrain = new CommandSwerveDrivetrain(TunerConstants.DrivetrainConstants,250, Constants.Vision.ODOM_STD_DEV, Constants.Vision.kSingleTagStdDevs, TunerConstants.FrontLeft, TunerConstants.FrontRight, TunerConstants.BackLeft, TunerConstants.BackRight);
 
     private Optional<Alliance> m_ally = DriverStation.getAlliance();
 
@@ -219,7 +220,7 @@ ArmWristViz.addLink(
         // Record both DS control and joystick data
         DriverStation.startDataLog(DataLogManager.getLog());
         }
-        drivetrain.setStateStdDevs(Constants.Vision.ODOM_STD_DEV);
+        // drivetrain.setStateStdDevs(Constants.Vision.ODOM_STD_DEV);
         
 
 
@@ -295,7 +296,7 @@ ArmWristViz.addLink(
         //driver.x().whileTrue(pathfindingtofollowCommand());
 
         // Old
-        driver.leftTrigger().or(() -> (RobotContainer.elevator.getHeight() >= Constants.Elevator.SlowmodeHeight) && !DriverStation.isAutonomous() && Constants.PoseSoring).whileTrue(drivetrain.applyRequest(() ->
+        driver.leftTrigger().or(() -> (RobotContainer.elevator.getHeight() >= Constants.Elevator.SlowmodeHeight) && !DriverStation.isAutonomous() && !LineupCommand).whileTrue(drivetrain.applyRequest(() ->
         drive.withVelocityX(-driver.getLeftY() * MaxSpeed * Constants.Drive.SlowSpeedPercentage) // Drive forward with negative Y (forward)
             .withVelocityY(-driver.getLeftX() * MaxSpeed * Constants.Drive.SlowSpeedPercentage) // Drive left with negative X (left)
             .withRotationalRate(-driver.getRightX() * MaxAngularRate * Constants.Drive.SlowRotPercentage) // Drive counterclockwise with negative X (left)
@@ -413,6 +414,7 @@ ArmWristViz.addLink(
     double slope = Math.tan(Units.degreesToRadians(30));
     Pose2d targetPose = Constants.Pose.Error; // Example target pose
     boolean zeroed = false;
+    boolean LineupCommand = false;
     // Create the constraints to use while pathfinding
     
     private Command pathfindingCommand(boolean left) {
@@ -436,6 +438,7 @@ ArmWristViz.addLink(
                     xController.reset();
                     yController.reset();
                     thetaController.reset();
+                    LineupCommand = true;
                 }
             }
     
@@ -477,6 +480,7 @@ ArmWristViz.addLink(
                 yController.close();
                 thetaController.close();
                 zeroed = false;
+                LineupCommand = false;
             }
     
             @Override

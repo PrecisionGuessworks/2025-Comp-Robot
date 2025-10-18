@@ -144,7 +144,9 @@ public class Robot extends TimedRobot {
                 var estStdDevs = vision.getEstimationStdDevs();
 
                 RobotContainer.drivetrain.addVisionMeasurement(
-                        est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                        // est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
+                        est.estimatedPose.toPose2d(), Utils.fpgaToCurrentTime(est.timestampSeconds), estStdDevs);
+                  // System.out.println(Utils.fpgaToCurrentTime(est.timestampSeconds)+"||"+est.timestampSeconds);
                   //System.out.println("Vision Estimation: " + est.estimatedPose.toPose2d());
         Pose2d pose = est.estimatedPose.toPose2d();
         double[] poseArray = {pose.getX(), pose.getY(), pose.getRotation().getDegrees()};

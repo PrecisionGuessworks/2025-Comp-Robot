@@ -7,7 +7,6 @@ autos
 -maybe middle hug sides 2 piece
 
 
-
 ------------------------------- Controller Layouts --------------------------------------
 
 Driver:
@@ -29,7 +28,7 @@ Start Button: Zero heading
 Left Stick: X,Y Drive
 Right Stick: Rotation Drive
 
-D-Pad: L1 - L4 Set postion
+D-Pad: L1 - L4 Set position
 
 ---------------------------------------
 
@@ -52,4 +51,4 @@ Start Button: -
 Left Stick: X: -
 Right Stick: Coral Intake Manual - Need to Hold Down stick
 
-D-Pad: L1 - L4 Set postion
+D-Pad: L1 - L4 Set position
