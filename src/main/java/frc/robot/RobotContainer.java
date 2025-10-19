@@ -434,7 +434,7 @@ ArmWristViz.addLink(
             public void initialize() {
                 m_ally = DriverStation.getAlliance();
                 targetPose = getTargetPose(left);
-                if (drivetrain.getLineup()){
+                if (drivetrain.getLineup()||(elevator.m_HeightLocation == 1)){
                     xController.reset();
                     yController.reset();
                     thetaController.reset();
@@ -485,7 +485,7 @@ ArmWristViz.addLink(
     
             @Override
             public boolean isFinished() {
-                return !drivetrain.getLineup()||
+                return !drivetrain.getLineup()||(elevator.m_HeightLocation == 1)||
                 (xController.atSetpoint() && yController.atSetpoint() && thetaController.atSetpoint()||
                 (zeroed&&driver.axisMagnitudeGreaterThan(0, Constants.Drive.DriveDeadband).getAsBoolean()||driver.axisMagnitudeGreaterThan(1, Constants.Drive.DriveDeadband).getAsBoolean()||driver.axisMagnitudeGreaterThan(4, Constants.Drive.RotationDeadband).getAsBoolean()||driver.axisMagnitudeGreaterThan(5, Constants.Drive.RotationDeadband).getAsBoolean()));
             }

@@ -55,7 +55,7 @@ public class CoralMoveStowAuto extends Command {
 
     if(m_elevator.isAtScore()||m_OveridTimer.hasElapsed(1.5)){
       m_moveSlow.start();
-     if(m_atscore||m_moveSlow.hasElapsed(0.5)||m_OveridTimer.hasElapsed(1.5)){
+     if(m_atscore||m_moveSlow.hasElapsed(0.2)||m_OveridTimer.hasElapsed(1.5)){
       m_arm.setArmRollerCurrent(120, 65);
       m_arm.setRollerVelocity(Constants.Arm.outtakeVelocity);
       m_placeTimer.start();

@@ -15,6 +15,8 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.Telemetry;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
 
 public class CoralMoveScore extends Command {
@@ -49,10 +51,15 @@ public class CoralMoveScore extends Command {
     m_arm.setRollerVelocity(-20);
     
     Pose2d m_pose = RobotContainer.drivetrain.getState().Pose;
-    Pose2d targetpose = new Pose2d(4.5,4,new Rotation2d(0));
+    Pose2d targetpose;
+    if (DriverStation.getAlliance().get() == DriverStation.Alliance.Red) {
+      targetpose = new Pose2d(13, 4, new Rotation2d(0));
+    } else {
+      targetpose = new Pose2d(4.5, 4, new Rotation2d(0));
+    }
     //    && m_arm.getWristAngle() < 91 && m_arm.getArmAngle() < 91
     // 4 >= PhotonUtils.getDistanceToPose(m_pose,targetpose)
-   if (2.25 >= PhotonUtils.getDistanceToPose(m_pose,targetpose)||Constants.PoseSoring){
+   if (2.75 >= PhotonUtils.getDistanceToPose(m_pose,targetpose)||Constants.PoseSoring){
       //System.out.println("CoralMoveScore");
       if(pastscoreheight != m_elevator.getHeightLocation()){
         

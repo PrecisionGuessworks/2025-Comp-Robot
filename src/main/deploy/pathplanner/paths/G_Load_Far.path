@@ -3,39 +3,55 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.5464139344262293,
-        "y": 7.351588114754097
+        "x": 5.715489130434783,
+        "y": 3.863586956521739
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.2801095866001426,
-        "y": 6.661914201710619
+        "x": 6.235212053571428,
+        "y": 3.692020089285714
       },
       "isLocked": false,
-      "linkedName": "LoadTopRight"
+      "linkedName": "G"
     },
     {
       "anchor": {
-        "x": 3.695424107142857,
-        "y": 5.063113839285714
+        "x": 5.425613839285714,
+        "y": 2.040178571428571
       },
       "prevControl": {
-        "x": 3.0350980201863353,
-        "y": 5.892189926242236
+        "x": 6.180777186044255,
+        "y": 2.3967128966906026
+      },
+      "nextControl": {
+        "x": 4.6704504925271735,
+        "y": 1.683644246166537
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.3841517857142855,
+        "y": 0.7931361607142855
+      },
+      "prevControl": {
+        "x": 3.8129464285714283,
+        "y": 1.0412388392857144
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "M"
+      "linkedName": "LoadBottomRight"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.8233878729547639,
-      "maxWaypointRelativePos": 1.0,
+      "minWaypointRelativePos": 0.0,
+      "maxWaypointRelativePos": 0.4389763779527557,
       "constraints": {
-        "maxVelocity": 1.5,
+        "maxVelocity": 3.0,
         "maxAcceleration": 2.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -45,19 +61,7 @@
     }
   ],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "CoralMoveScore",
-      "waypointRelativePos": 0.8002887391722808,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "CoralMoveScore"
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.5,
     "maxAcceleration": 3.5,
@@ -68,13 +72,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -59.99999999999999
+    "rotation": 54.36019080191324
   },
   "reversed": false,
-  "folder": "Left",
+  "folder": "Middle",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -55.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }
