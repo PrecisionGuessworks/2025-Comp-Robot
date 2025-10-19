@@ -63,13 +63,13 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.0
+            "waitTime": 0.3
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "CoralMoveStowAuto"
+            "name": "CoralMoveStowAutoa"
           }
         },
         {
@@ -113,13 +113,13 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.0
+            "waitTime": 0.3
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "CoralMoveStowAuto"
+            "name": "CoralMoveStowAutob"
           }
         },
         {
