@@ -175,6 +175,18 @@ private final QuixTalonFX m_wristMotor =
     }
   }
 
+  public void setRollerVelocityandCurrent(double velocity,double StatorCurrentLimit, double SupplyCurrentLimit) {
+    m_rollerMotor.setStatorCurrentLimit(StatorCurrentLimit,SupplyCurrentLimit);
+    if (velocity == 0.0) {
+      m_rollerMotor.setPercentOutput(0.0);
+    } else {
+      m_rollerMotor.setVelocitySetpoint(
+          Constants.Arm.rollerVelocityPIDSlot,
+          velocity,
+          Constants.Arm.rollerFeedforward.calculate(velocity));
+    }
+  }
+
   // public void disabledInit() {
   //   m_armMotor.setBrakeMode(true);
   // }

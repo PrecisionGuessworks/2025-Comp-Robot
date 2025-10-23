@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.095836568322981,
-        "y": 1.5121578998447203
+        "x": 2.598549107142857,
+        "y": 2.314397321428571
       },
       "isLocked": false,
       "linkedName": "LoadBottomRight"
@@ -20,8 +20,8 @@
         "y": 2.999944196428571
       },
       "prevControl": {
-        "x": 3.094754464285714,
-        "y": 2.3209263392857142
+        "x": 3.1273995535714283,
+        "y": 2.5494419642857142
       },
       "nextControl": null,
       "isLocked": false,
@@ -46,6 +46,17 @@
   ],
   "pointTowardsZones": [],
   "eventMarkers": [
+    {
+      "name": "IntakeCoralRollerSlow",
+      "waypointRelativePos": 0.28740157480314965,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "IntakeCoralRollerSlow"
+        }
+      }
+    },
     {
       "name": "CoralMoveScore",
       "waypointRelativePos": 0.6992739778372148,

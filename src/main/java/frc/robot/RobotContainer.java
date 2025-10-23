@@ -66,6 +66,7 @@ import frc.robot.commands.CoralMoveStowAuto;
 import frc.robot.commands.CoralMoveStowAutoa;
 import frc.robot.commands.CoralMoveStowAutob;
 import frc.robot.commands.IntakeCoral;
+import frc.robot.commands.IntakeCoralAuto;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -233,6 +234,9 @@ ArmWristViz.addLink(
         robotCommands.put("CoralMoveStowAutoa",new CoralMoveStowAutoa(elevator, arm));
         robotCommands.put("CoralMoveStowAutob",new CoralMoveStowAutob(elevator, arm));
         robotCommands.put("IntakeCoral", new IntakeCoral(elevator, arm));
+        robotCommands.put("IntakeCoralAuto", new IntakeCoralAuto(elevator, arm));
+        robotCommands.put("IntakeCoralRollerFast",Commands.runOnce(() -> RobotContainer.arm.setRollerVelocityandCurrent(Constants.Arm.intakeVelocity,55,90)));
+        robotCommands.put("IntakeCoralRollerSlow",Commands.runOnce(() -> RobotContainer.arm.setRollerVelocityandCurrent(-20,10,10)));
         robotCommands.put("StowArm", new StowArm(elevator, arm));
         robotCommands.put("AlgeaWack", new AlgeaWack(elevator, arm));
         robotCommands.put("L1", Commands.runOnce(() -> RobotContainer.elevator.setHeightLocation(1)));

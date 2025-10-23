@@ -73,7 +73,7 @@ public class CoralMoveStowAuto extends Command {
       m_moveSlow.restart();
       t1 = false;
      }
-     if((m_atscore||m_moveSlow.hasElapsed(0.4)||m_OveridTimer.hasElapsed(1.5))&&t2){
+     if((m_atscore||m_moveSlow.hasElapsed(0.3)||m_OveridTimer.hasElapsed(1.5))&&t2){
       m_arm.setArmRollerCurrent(120, 65);
       m_arm.setRollerVelocity(Constants.Arm.outtakeVelocity);
       m_placeTimer.restart();
@@ -111,6 +111,6 @@ public class CoralMoveStowAuto extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_placeTimer.hasElapsed(0.40) ; //|| !m_elevator.isAtScore()
+    return m_placeTimer.hasElapsed(0.30) ; //|| !m_elevator.isAtScore()
   }
 }

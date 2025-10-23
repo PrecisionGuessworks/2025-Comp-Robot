@@ -9,7 +9,7 @@
       "prevControl": null,
       "nextControl": {
         "x": 2.7095424107142856,
-        "y": 1.9487723214285713
+        "y": 1.9487723214285717
       },
       "isLocked": false,
       "linkedName": "D"
@@ -20,8 +20,8 @@
         "y": 0.7931361607142855
       },
       "prevControl": {
-        "x": 2.374244295855143,
-        "y": 1.8426952333395874
+        "x": 3.205747767857143,
+        "y": 3.254575892857143
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,19 @@
     }
   ],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "IntakeCoralRollerFast",
+      "waypointRelativePos": 0.8651574803149599,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "IntakeCoralRollerFast"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.5,
     "maxAcceleration": 3.5,
