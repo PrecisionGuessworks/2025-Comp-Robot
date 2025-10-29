@@ -121,8 +121,8 @@ public class Constants {
   public static final class Elevator {
     public static final CANDeviceID motorID = new CANDeviceID(20, kSuperStructureCanivoreName);
     public static final CANDeviceID followerID = new CANDeviceID(21, kSuperStructureCanivoreName);
-    public static final double StatorLimit = 80.0;
-    public static final double SupplyLimit = 40.0;
+    public static final double StatorLimit = 120.0;
+    public static final double SupplyLimit = 45.0;
     public static final double sprocketPitchDiameter = Units.inchesToMeters(2.273); // 16T #25
     public static final MechanismRatio motorRatio =
         isSim ? 
@@ -134,12 +134,12 @@ public class Constants {
     public static final boolean followerInvert = true;
     public static final int motorPositionSlot = 0;
     public static final PIDConfig motorPIDConfig = isSim ? 
-        new PIDConfig(5, 0.001, 0.1, 0.04, 0.02, 0.008, 0.13, GravityTypeValue.Elevator_Static) : 
-        new PIDConfig(20, 0.01, 0.04, 0.04, 0.16, 0.008, 0.13, GravityTypeValue.Elevator_Static);
-    public static final double maxVelocity = 1.8; // m/s // 1.2
-    public static final double maxAcceleration = 31.0; // m/s^2
+        new PIDConfig(5, 0.001, 0.1, 0.04, 0.04, 0.01, 0.13, GravityTypeValue.Elevator_Static) : 
+        new PIDConfig(20, 0.01, 0.04, 0.04, 0.16, 0.01, 0.13, GravityTypeValue.Elevator_Static); // Kv calc says ~6.16
+    public static final double maxVelocity = 1.9; // m/s // 1.2
+    public static final double maxAcceleration = 30.0; // m/s^2
     public static final double maxJerk = 2.0; // m/s^3 (0 disables jerk limit)
-    public static final double Expo_kV = 0.1;    
+    public static final double Expo_kV = 0.15;    
     public static final double Expo_kA = 0.1; // Use a slower kA of 0.1 V/(rps/s)
 
     // TODO: use real numbers
