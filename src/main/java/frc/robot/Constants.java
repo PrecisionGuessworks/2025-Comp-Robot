@@ -141,7 +141,7 @@ public class Constants {
     public static final double maxJerk = 2.0; // m/s^3 (0 disables jerk limit)
     public static final double Expo_kV = 0.15;    
     public static final double Expo_kA = 0.1; // Use a slower kA of 0.1 V/(rps/s)
-
+//do thing!!!
     // TODO: use real numbers
     public static final double minHeight = 0.0; // m
     //public static final double powerCutoffHeight = Units.inchesToMeters(0.1); // m

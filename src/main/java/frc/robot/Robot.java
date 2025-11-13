@@ -233,7 +233,7 @@ public class Robot extends TimedRobot {
 if (!isReal()){
   // 3d viz
   final double stage1Height = Constants.Viz3d.stage1Height;
-  final double CarrageHeight = RobotContainer.elevator.getHeight();
+  final double CarrageHeight = RobotContainer.elevator.getHeight()-Units.inchesToMeters(5);
   final Pose3d stageOne =
       Constants.Viz3d.elevatorBase.transformBy(
           new Transform3d(0, 0, CarrageHeight >= stage1Height ? CarrageHeight-stage1Height : 0, new Rotation3d()));
